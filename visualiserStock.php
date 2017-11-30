@@ -17,7 +17,7 @@ Contenu du stock
 	foreach ($stock->tLigneStock as $ligneStock) {
 		$article=$ligneStock->article;
 		$idArticle=$article->idArticle;
-		echo "<tr><td>$idArticle</td><td>$article->nom</td><td>$article->prix</td><td>$ligneStock->quantiteReelle</td><td>$ligneStock->quantiteVirtuelle</td></tr>";
+		echo "<tr><td>$idArticle</td><td>$article->nom</td><td>$article->prixCourant</td><td>$ligneStock->quantiteReelle</td><td>$ligneStock->quantiteVirtuelle</td></tr>";
 	}
 ?>
 </table>

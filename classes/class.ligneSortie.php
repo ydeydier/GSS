@@ -1,47 +1,37 @@
 <?php
-class ligneSortie
-{
-	var $articleDeStock;
+class ligneSortie {
 	var $sortie;
-	var $prix;
+	var $article;
+	var $prixSortie;
 	var $quantite;
-	var $typeUpdate;			// variable technique : "U" ou "I" : type d'update : UPDATE ou INSERT
 	
-	static function lireSqlRow($row, $sortie) {
+	static function instanceDepuisSqlRow($row, $sortie, $stock) {
+		// Chargement de l'article
+		$article=article::instanceDepuisSqlRow($row, $stock);
+		// Création et enrichissement de l'instance ligneSortie
 		$ligneSortie = new ligneSortie();
-		$idArticleDeStock=$row['idArticleDeStock'];
-		$ligneSortie->articleDeStock=articleDeStock::charger($idArticleDeStock); // TODO : optimiser...
 		$ligneSortie->sortie=$sortie;
-		$ligneSortie->prix=$row['prix'];
+		$ligneSortie->article=$article;
+		$ligneSortie->prixSortie=$row['prixSortie'];
 		$ligneSortie->quantite=$row['quantite'];
-		$ligneSortie->typeUpdate="U";
 		return $ligneSortie;
 	}
 
-	function insert() {
-		$idArticleDeStock=$this->articleDeStock->idArticleDeStock;
-		$idEvenement=$this->sortie->idEvenement;
-		$prix=nullSiVide($this->prix);
-		$quantite=nullSiVide($this->quantite);
-		$sql="insert into ligneSortie (idArticleDeStock, idEvenement, prix, quantite) values ($idArticleDeStock, $idEvenement, $prix, $quantite)";
-		executeSql($sql);
-		$ligneSortie->typeUpdate="U";
-	}
-	
 	function update() {
-		$idArticleDeStock=$this->articleDeStock->idArticleDeStock;
-		$idEvenement=$this->sortie->idEvenement;
-		$prix=nullSiVide($this->prix);
-		$quantite=nullSiVide($this->quantite);
-		$sql="update ligneSortie set prix=$prix, quantite=$quantite where idArticleDeStock=$idArticleDeStock and idEvenement=$idEvenement";
+		$idArticle=$this->article->idArticle;
+		$idSortie=$this->sortie->idSortie;
+		$prixSortie=nullSiVide($this->prixSortie);
+		$quantite=$this->quantite;
+		$sql="update ligneSortie set prixSortie=$prixSortie, quantite=$quantite where idArticle=$idArticle and idSortie=$idSortie";
 		executeSql($sql);
 	}
-
-	function nom() {
-		return $this->articleDeStock->nom;
-	}
-	function idArticleDeStock() {
-		return $this->articleDeStock->idArticleDeStock;
+	function insert() {
+		$idArticle=$this->article->idArticle;
+		$idSortie=$this->sortie->idSortie;
+		$prixSortie=nullSiVide($this->prixSortie);
+		$quantite=$this->quantite;
+		$sql="insert into ligneSortie (idArticle, idSortie, prixSortie, quantite) values ($idArticle, $idSortie, $prixSortie, $quantite)";
+		executeSql($sql);
 	}
 }
 ?>

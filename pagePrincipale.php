@@ -10,8 +10,8 @@
 <a class="menu" href="visualiserStock.php">Consulter le stock (réel et virtuel)</a><br>
 <a class="menu" href="editerStock.php">Modifier le contenu du stock</a><br>
 <br><br>
-<a class="menu" href="visualiserEvenements.php">Consulter les événements</a><br>
-<a class="menu" href="ajouterEvenement.php">Ajouter un nouvel événement</a><br>
+<a class="menu" href="consulterSorties.php">Consulter les sorties</a><br>
+<a class="menu" href="ajouterSortie.php">Ajouter une nouvelle sortie</a><br>
 <br><br>
 
 </CENTER>

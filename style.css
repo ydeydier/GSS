@@ -47,11 +47,11 @@ button {
 	cursor:pointer;
 	border-radius:2px;
 	border:none;
+	width:100px;
 }
 
 .boutonValider {
 	background:#298A08;
-	width:100px;
 }
 
 .boutonValider:hover {
@@ -60,7 +60,6 @@ button {
 
 .boutonAnnuler {
 	background:#d34836;
-	width:100px;
 }
 
 .boutonAnnuler:hover {

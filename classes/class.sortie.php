@@ -3,7 +3,9 @@ class sortie {
 	var $idSortie;
 	var $stock;
 	var $nom;
-	var $etat;					// "VIRTUEL" ou "REEL"
+	var $coutTotal;
+	var $nbreArticles;
+	var $etat;					// "VIRTUELLE" ou "REELLE"
 	var $tLigneSortie;			// Tableau de 'ligneSortie'
 	
 	static $VIRTUELLE="VIRTUELLE";
@@ -11,109 +13,101 @@ class sortie {
 	
 	function __construct() {
 		$tLigneSortie=array();
-		$this->etat=self::$VIRTUELLE;		// Une nouvelle sortie est toujours VIRTUELLE
 	}
 
-	//
-	// Fonction uniquement utilisée en lecture : retourne tous les événement liés au stock $idStock
-	//
-	static function instanceDepuisSqlRow($stock) {
+	static function chargerPourStockSansLigne($stock) {
 		$idStock=$stock->idStock;
-		$result = executeSqlSelect("SELECT * FROM evenement where idStock=".$idStock);
-		$evenements = array();
+		$result = executeSqlSelect("SELECT * FROM sortie where idStock=".$idStock);
+		$sorties = array();
 		while($row = mysqli_fetch_array($result)) {
-			$evenement = self::lireSqlRow($row);
-			$evenements[$evenement->idSortie]=$evenement;
+			$sortie = self::instanceDepuisSqlRow($row, $stock);
+			$sorties[$sortie->idSortie]=$sortie;
 		}
-		return $evenements;
+		return $sorties;
 	}
 
-	static function charger($idSortie) {
-		$result = executeSqlSelect("SELECT * FROM evenement where idSortie=".$idSortie);
+	static function instanceDepuisSqlRow($row, $stock) {
+		$sortie = new sortie();
+		$sortie->idSortie=$row['idSortie'];
+		$sortie->stock=$stock;
+		$sortie->nom=$row['nom'];
+		$sortie->coutTotal=$row['coutTotal'];
+		$sortie->nbreArticles=$row['nbreArticles'];
+		$sortie->etat=$row['etat'];
+		return $sortie;
+	}
+
+	static function charger($idSortie, $stock) {
+		// Chargement des données principales
+		$result = executeSqlSelect("SELECT * FROM sortie where idSortie=".$idSortie);
 		$row = mysqli_fetch_array($result);
-		$evenement = self::lireSqlRow($row);
-		return $evenement;
-	}
-
-	function chargerArticles() {
-		$result = executeSqlSelect("SELECT * FROM articleEvenement where idSortie=".$this->idSortie);
-		$this->tLigneSortie = array();
+		$sortie = self::instanceDepuisSqlRow($row, $stock);
+		// Chargement des lignes
+		$result = executeSqlSelect("SELECT * FROM ligneSortie, article where ligneSortie.idArticle=article.idArticle and idSortie=".$idSortie);
+		$sortie->tLigneSortie = array();
 		while($row = mysqli_fetch_array($result)) {
-			$articleEvenement = articleEvenement::lireSqlRow($row, $this);
-			$this->tLigneSortie[]=$articleEvenement;
+			$ligneSortie = ligneSortie::instanceDepuisSqlRow($row, $sortie, $stock);
+			$sortie->tLigneSortie[]=$ligneSortie;
 		}
+		// Return
+		return $sortie;
 	}
 
-	function getTotalPrix() {
-		$totalPrix=0;
-		foreach ($this->tLigneSortie as $articleEvenement) {
-			$totalPrix = $totalPrix+ $articleEvenement->prix * $articleEvenement->quantite;
-		}
-		return $totalPrix;
-	}
-	
-	function insert() {
-		$sql="insert into evenement (idStock, nom, etat) values ($this->idStock, '$this->nom', '$this->etat')";
-		executeSql($sql);
-		$this->idSortie=dernierIdAttribue();
-		foreach ($this->tLigneSortie as $articleEvenement) {
-			$articleEvenement->insert();
-		}
-	}
-
-	function update() {
-		$sql="update evenement set nom='$this->nom', etat='$this->etat' where idSortie=$this->idSortie";
-		executeSql($sql);
-		foreach ($this->tLigneSortie as $articleEvenement) {
-			if ($articleEvenement->typeUpdate=="U") {
-				$articleEvenement->update();
-			}
-			if ($articleEvenement->typeUpdate=="I") {
-				$articleEvenement->insert();
-			}
-		}
-	}
-	
-	static function lireSqlRow($row) {
-		$evenement = new evenement();
-		$evenement->idSortie=$row['idSortie'];
-		$evenement->idStock=$row['idStock'];
-		$evenement->nom=$row['nom'];
-		$evenement->etat=$row['etat'];
-		return $evenement;
-	}
-
-	function ajouteNouvelArticleEvenement($articleEvenement) {
-		$articleEvenement->typeUpdate="I";
-		$this->tLigneSortie[]=$articleEvenement;
-	}
-	
-	function contientArticle($idArticleDeStock) {
+	function contientArticle($article) {
 		$contientArticle=false;
-		foreach ($this->tLigneSortie as $articleEvenement) {
-			if ($articleEvenement->idArticleDeStock()==$idArticleDeStock) {
+		foreach ($this->tLigneSortie as $ligneSortie) {
+			if ($ligneSortie->article->idArticle==$article->idArticle) {
 				$contientArticle=true;
 				break;
 			}
 		}
 		return $contientArticle;
 	}
+
+	function update() {
+		$this->calculeCoutTotal();
+		$this->calculeNbreArticles();
+		$sql="update sortie set nom='$this->nom', coutTotal=$this->coutTotal, nbreArticles=$this->nbreArticles, etat='$this->etat' where idSortie=$this->idSortie";
+		executeSql($sql);
+	}
 	
-	function rendreReel($stock) {
+	function insert() {
+		$idStock=$this->stock->idStock;
+		$this->calculeCoutTotal();
+		$this->calculeNbreArticles();
+		$sql="insert into sortie (idStock, nom, coutTotal, nbreArticles, etat) values ($idStock, '$this->nom', $this->coutTotal, $this->nbreArticles, '$this->etat')";
+		executeSql($sql);
+		$this->idSortie=dernierIdAttribue();
+		// Insertion des ligneSortie
+		foreach ($this->tLigneSortie as $ligneSortie) {
+			$ligneSortie->insert();
+		}
+	}
+	
+	function calculeCoutTotal() {
+		$this->coutTotal=0;
+		foreach ($this->tLigneSortie as $ligneSortie) {
+			$this->coutTotal = $this->coutTotal + $ligneSortie->prixSortie * $ligneSortie->quantite;
+		}
+	}
+
+	function calculeNbreArticles() {
+		$this->nbreArticles=sizeof($this->tLigneSortie);
+	}
+
+	/*
+	function rendreReelle($stock) {
+		// TODO : finir
 		foreach ($this->tLigneSortie as $articleEvenement) {
 			
 		}
 	}
 	
-	function rendreVirtuel($stock) {
+	function rendreVirtuelle($stock) {
 		// TODO : finir
 	}
-	
-	function coutTotal() {
-		return "50 EUR";	// TODO : finir
-	}
-	function nbreArticles() {
-		return 15;			// TODO : finir
-	}
+	// TODO : supprimer une sortie (corbeille)
+	// TODO : voir la corbeille
+*/
 }
 ?>

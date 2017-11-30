@@ -5,10 +5,20 @@
 	foreach ($stock->tLigneStock as $ligneStock) {
 		$article=$ligneStock->article;
 		$idArticle=$article->idArticle;
-		$ligneStock->quantiteReelle=$_POST["QUANTITEREELLE_$idArticle"];
+		$quantiteReelle=$_POST["QUANTITEREELLE_$idArticle"];
+		$prixCourant=$_POST["PRIX_$idArticle"];
+		if (!is_numeric($quantiteReelle)) {
+			$quantiteReelle=0;
+		} else {
+			$quantiteReelle=intval($quantiteReelle);
+		}
+		if (!is_numeric($prixCourant)) {
+			$prixCourant=null;
+		}
+		$ligneStock->quantiteReelle=$quantiteReelle;
 		$ligneStock->update();
 		$article->nom=$_POST["NOM_$idArticle"];
-		$article->prix=$_POST["PRIX_$idArticle"];
+		$article->prixCourant=$prixCourant;
 		$article->update();
 	}
 		
@@ -17,7 +27,7 @@
 		if (substr($index, 0, 11)=="INSERT_NOM_") {			// Ex: INSERT_NOM_3
 			$idLigne=substr($index, 11);					// Ex: 3
 			$nom=$_POST["INSERT_NOM_$idLigne"];
-			$prix=$_POST["INSERT_PRIX_$idLigne"];
+			$prixCourant=$_POST["INSERT_PRIX_$idLigne"];
 			$quantiteReelle=$_POST["INSERT_QUANTITEREELLE_$idLigne"];
 			if (trim($nom)!="") {
 				if (!is_numeric($quantiteReelle)) {
@@ -25,14 +35,14 @@
 				} else {
 					$quantiteReelle=intval($quantiteReelle);
 				}
-				if (!is_numeric($prix)) {
-					$prix=null;
+				if (!is_numeric($prixCourant)) {
+					$prixCourant=null;
 				}
 				// Insertion de l'article en base (qui a pour effet de lui attribuer un idArticle, utile pour l'insertion de la ligneStock)
 				$article = new article();
 				$article->stock=$stock;
 				$article->nom=$nom;
-				$article->prix=$prix;
+				$article->prixCourant=$prixCourant;
 				$article->insert();
 				// Insertion de la ligneStock en base
 				$ligneStock = new ligneStock();
