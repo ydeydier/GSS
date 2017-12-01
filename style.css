@@ -38,7 +38,23 @@ a.black:hover {
 }
 
 .tableCommune tr td {
-	padding:4px;BACKGROUND:#f4e4d0;
+	padding:4px;
+	BACKGROUND:#f4e4d0;
+}
+
+.tableStockADroite tr th {
+	padding:4px;
+	FONT-SIZE: 10px;
+}
+
+.tableStockADroite tr {
+	BACKGROUND:#f4d4ad;
+}
+
+.tableStockADroite tr td {
+	padding:4px;
+	BACKGROUND:#f4e4d0;
+	FONT-SIZE: 10px;
 }
 
 button {

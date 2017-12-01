@@ -21,5 +21,41 @@ class stock {
 		}
 		return $stock;
 	}
+	
+	function retirerArticle($article, $quantite) {
+		$ligneStock=$this->getLigneArticle($article);
+		if ($ligneStock!=null) {
+			echo $quantite;
+			$ligneStock->quantiteReelle=$ligneStock->quantiteReelle-$quantite;
+			$ligneStock->update();
+		} else {
+			// TODO : gérer !
+		}
+	}
+	
+	function ajouterArticle($article, $quantite) {
+		$ligneStock=$this->getLigneArticle($article);
+		if ($ligneStock!=null) {
+			$ligneStock->quantiteReelle=$ligneStock->quantiteReelle+$quantite;
+			$ligneStock->update();
+		} else {
+			// TODO : gérer !
+		}
+	}
+
+	function getLigneArticle($article) {
+		$ligne=null;
+		foreach ($this->tLigneStock as $ligneStock) {
+			if ($ligneStock->article->idArticle==$article->idArticle) {
+				$ligne=$ligneStock;
+				break;
+			}
+		}
+		return $ligne;
+	}
+	
+	function calculerQuantitesVirtuelles() {
+		// TODO : A faire !
+	}
 }
 ?>

@@ -16,5 +16,5 @@
 	if ($action=="Supprimer") {
 		$sortie->supprimer();
 	}
-	header('Location: consulterSorties.php');
+	header("Location: consulterSortie.php?id=$idSortie");
 ?>

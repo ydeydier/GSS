@@ -6,6 +6,7 @@ class sortie {
 	var $coutTotal;
 	var $nbreArticles;
 	var $etat;					// "VIRTUELLE" ou "REELLE"
+	var $corbeille;				// 'O' ou 'N'
 	var $tLigneSortie;			// Tableau de 'ligneSortie'
 	
 	static $VIRTUELLE="VIRTUELLE";
@@ -15,9 +16,9 @@ class sortie {
 		$tLigneSortie=array();
 	}
 
-	static function chargerPourStockSansLigne($stock) {
+	static function chargerPourStockSansLigne($stock, $corbeille) {
 		$idStock=$stock->idStock;
-		$result = executeSqlSelect("SELECT * FROM sortie where idStock=".$idStock);
+		$result = executeSqlSelect("SELECT * FROM sortie where idStock=$idStock and corbeille='$corbeille'");
 		$sorties = array();
 		while($row = mysqli_fetch_array($result)) {
 			$sortie = self::instanceDepuisSqlRow($row, $stock);
@@ -33,17 +34,18 @@ class sortie {
 		$sortie->nom=$row['nom'];
 		$sortie->coutTotal=$row['coutTotal'];
 		$sortie->nbreArticles=$row['nbreArticles'];
+		$sortie->corbeille=$row['corbeille'];
 		$sortie->etat=$row['etat'];
 		return $sortie;
 	}
 
 	static function charger($idSortie, $stock) {
-		// Chargement des donn�es principales
+		// Chargement des données principales
 		$result = executeSqlSelect("SELECT * FROM sortie where idSortie=".$idSortie);
 		$row = mysqli_fetch_array($result);
 		$sortie = self::instanceDepuisSqlRow($row, $stock);
 		// Chargement des lignes
-		$result = executeSqlSelect("SELECT * FROM ligneSortie, article where ligneSortie.idArticle=article.idArticle and idSortie=".$idSortie);
+		$result = executeSqlSelect("SELECT * FROM ligneSortie, article where ligneSortie.idArticle=article.idArticle and idSortie=$idSortie");
 		$sortie->tLigneSortie = array();
 		while($row = mysqli_fetch_array($result)) {
 			$ligneSortie = ligneSortie::instanceDepuisSqlRow($row, $sortie, $stock);
@@ -75,7 +77,7 @@ class sortie {
 		$idStock=$this->stock->idStock;
 		$this->calculeCoutTotal();
 		$this->calculeNbreArticles();
-		$sql="insert into sortie (idStock, nom, coutTotal, nbreArticles, etat) values ($idStock, '$this->nom', $this->coutTotal, $this->nbreArticles, '$this->etat')";
+		$sql="insert into sortie (idStock, nom, coutTotal, nbreArticles, corbeille, etat) values ($idStock, '$this->nom', $this->coutTotal, $this->nbreArticles, 'N', '$this->etat')";
 		executeSql($sql);
 		$this->idSortie=dernierIdAttribue();
 		// Insertion des ligneSortie
@@ -95,19 +97,49 @@ class sortie {
 		$this->nbreArticles=sizeof($this->tLigneSortie);
 	}
 
-	/*
+	function supprimer() {
+		$sql="update sortie set corbeille='O' where idSortie=$this->idSortie";
+		executeSql($sql);
+	}
+
+	function restaurer() {
+		$sql="update sortie set corbeille='N' where idSortie=$this->idSortie";
+		executeSql($sql);
+	}
+
 	function rendreReelle($stock) {
-		// TODO : finir
-		foreach ($this->tLigneSortie as $articleEvenement) {
-			
+		// TODO: gérer un COMMIT pour cet ensemble ?
+		$this->etat=$this::$REELLE;
+		$this->update();
+		foreach ($this->tLigneSortie as $ligneSortie) {
+			$article=$ligneSortie->article;
+			$quantite=$ligneSortie->quantite;
+			$stock->retirerArticle($article, $quantite);
 		}
+		$stock->calculerQuantitesVirtuelles();
 	}
 	
 	function rendreVirtuelle($stock) {
-		// TODO : finir
+		// TODO: gérer un COMMIT pour cet ensemble ?
+		$this->etat=$this::$VIRTUELLE;
+		$this->update();
+		foreach ($this->tLigneSortie as $ligneSortie) {
+			$article=$ligneSortie->article;
+			$quantite=$ligneSortie->quantite;
+			$stock->ajouterArticle($article, $quantite);
+		}
+		$stock->calculerQuantitesVirtuelles();
 	}
-	// TODO : supprimer une sortie (corbeille)
-	// TODO : voir la corbeille
-*/
+	
+	function libeleEtat() {
+		if ($this->etat==$this::$REELLE) {
+			$libelle="Réelle";
+		} else {
+			$libelle="Virtuelle";
+		}
+		return $libelle;
+	}
+	// TODO : vérifier les fonctions "rendre virtuelle" et "rendre réelle"
+	// TODO : afficher le stock en permanence à droite ?
 }
 ?>

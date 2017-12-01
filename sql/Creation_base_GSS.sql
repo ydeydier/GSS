@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  jeu. 30 nov. 2017 à 16:46
+-- Généré le :  sam. 02 déc. 2017 à 00:18
 -- Version du serveur :  10.1.28-MariaDB
 -- Version de PHP :  7.1.11
 
@@ -30,6 +30,7 @@ USE `gss`;
 -- Structure de la table `article`
 --
 
+DROP TABLE IF EXISTS `article`;
 CREATE TABLE `article` (
   `idArticle` int(11) NOT NULL,
   `idStock` int(11) NOT NULL,
@@ -43,12 +44,12 @@ CREATE TABLE `article` (
 
 INSERT INTO `article` (`idArticle`, `idStock`, `nom`, `prixCourant`) VALUES
 (1, 1, 'Crayon bleu', '5.00'),
-(2, 1, 'Chapeau rouge 999', '9999.00'),
-(4, 1, 'dddd', '996.00'),
-(5, 1, 'voiture rouge', '10.00'),
-(6, 1, 'casquette bleue', '20.00'),
-(7, 1, 'azerty\'tt9933', NULL),
-(8, 1, 'tutu', '1000000.00');
+(2, 1, 'Chapeau rouge 999', '6.00'),
+(4, 1, 'chapeau vert', '7.00'),
+(5, 1, 'voiture rouge', '8.00'),
+(6, 1, 'casquette bleue', '9.00'),
+(7, 1, 'clavier', '10.00'),
+(8, 1, 'avion', '11.00');
 
 -- --------------------------------------------------------
 
@@ -56,6 +57,7 @@ INSERT INTO `article` (`idArticle`, `idStock`, `nom`, `prixCourant`) VALUES
 -- Structure de la table `lignesortie`
 --
 
+DROP TABLE IF EXISTS `lignesortie`;
 CREATE TABLE `lignesortie` (
   `idSortie` int(11) NOT NULL,
   `idArticle` int(11) NOT NULL,
@@ -68,6 +70,7 @@ CREATE TABLE `lignesortie` (
 --
 
 INSERT INTO `lignesortie` (`idSortie`, `idArticle`, `prixSortie`, `quantite`) VALUES
+(2, 1, '5.00', 5),
 (8, 1, '2.00', 1),
 (9, 1, '5.00', 12),
 (10, 1, '5.20', 100),
@@ -95,6 +98,7 @@ INSERT INTO `lignesortie` (`idSortie`, `idArticle`, `prixSortie`, `quantite`) VA
 (7, 3, NULL, 44),
 (9, 3, '2.10', 21),
 (10, 3, '9.30', 0),
+(2, 4, '996.00', 6),
 (8, 4, '996.00', 55),
 (11, 4, '5.25', 99),
 (13, 4, '30.00', 3),
@@ -118,7 +122,7 @@ INSERT INTO `lignesortie` (`idSortie`, `idArticle`, `prixSortie`, `quantite`) VA
 (13, 7, NULL, 6),
 (20, 7, NULL, 7),
 (13, 8, NULL, 7),
-(20, 8, '1000000.00', 6),
+(20, 8, NULL, 6),
 (11, 10, '9.00', 3);
 
 -- --------------------------------------------------------
@@ -127,6 +131,7 @@ INSERT INTO `lignesortie` (`idSortie`, `idArticle`, `prixSortie`, `quantite`) VA
 -- Structure de la table `lignestock`
 --
 
+DROP TABLE IF EXISTS `lignestock`;
 CREATE TABLE `lignestock` (
   `idStock` int(11) NOT NULL,
   `idArticle` int(11) NOT NULL,
@@ -139,13 +144,13 @@ CREATE TABLE `lignestock` (
 --
 
 INSERT INTO `lignestock` (`idStock`, `idArticle`, `quantiteReelle`, `quantiteVirtuelle`) VALUES
-(1, 1, 5, 55),
-(1, 2, 999, 999),
-(1, 4, 99, NULL),
-(1, 5, 100, NULL),
-(1, 6, 0, NULL),
-(1, 7, 0, NULL),
-(1, 8, 10, NULL);
+(1, 1, 50, 55),
+(1, 2, 60, 999),
+(1, 4, 70, NULL),
+(1, 5, 80, NULL),
+(1, 6, 90, NULL),
+(1, 7, 100, NULL),
+(1, 8, 110, NULL);
 
 -- --------------------------------------------------------
 
@@ -153,36 +158,38 @@ INSERT INTO `lignestock` (`idStock`, `idArticle`, `quantiteReelle`, `quantiteVir
 -- Structure de la table `sortie`
 --
 
+DROP TABLE IF EXISTS `sortie`;
 CREATE TABLE `sortie` (
   `idSortie` int(11) NOT NULL,
   `idStock` int(11) NOT NULL,
   `nom` varchar(255) NOT NULL,
   `coutTotal` decimal(10,2) NOT NULL,
   `nbreArticles` int(11) NOT NULL,
-  `etat` enum('VIRTUELLE','REELLE') NOT NULL
+  `etat` enum('VIRTUELLE','REELLE') NOT NULL,
+  `corbeille` enum('O','N') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `sortie`
 --
 
-INSERT INTO `sortie` (`idSortie`, `idStock`, `nom`, `coutTotal`, `nbreArticles`, `etat`) VALUES
-(1, 1, 'Conseil municipal n°22', '0.00', 0, 'VIRTUELLE'),
-(2, 1, 'Fête des mères', '19.00', 5, 'VIRTUELLE'),
-(7, 1, '', '0.00', 0, 'REELLE'),
-(8, 1, 'coucou', '0.00', 0, 'REELLE'),
-(9, 1, 'aaaaaaaaa 299', '0.00', 0, 'VIRTUELLE'),
-(10, 1, 'Conseil Municipal du 20 aout 2017', '0.00', 0, 'REELLE'),
-(11, 1, 'wwwwwww9', '0.00', 0, 'VIRTUELLE'),
-(12, 1, 'trtre', '0.00', 0, 'VIRTUELLE'),
-(13, 1, 'qqq111', '0.00', 0, 'VIRTUELLE'),
-(14, 1, 'WWWWWW11', '0.00', 0, 'VIRTUELLE'),
-(15, 1, 'qqq', '30007.00', 0, 'VIRTUELLE'),
-(16, 1, 'tryytyryry', '2998.00', 0, 'VIRTUELLE'),
-(17, 1, 'aazaze', '22991.00', 0, 'VIRTUELLE'),
-(18, 1, 'dqsdsqdsqds', '22991.00', 0, 'VIRTUELLE'),
-(19, 1, 'dqsdsqdsqds', '22991.00', 4, 'VIRTUELLE'),
-(20, 1, 'sss', '6543210.00', 7, 'VIRTUELLE');
+INSERT INTO `sortie` (`idSortie`, `idStock`, `nom`, `coutTotal`, `nbreArticles`, `etat`, `corbeille`) VALUES
+(1, 1, 'Conseil municipal n°22', '0.00', 0, 'VIRTUELLE', 'O'),
+(2, 1, 'Fï¿½te des mï¿½res', '6001.00', 2, 'VIRTUELLE', 'N'),
+(7, 1, '', '0.00', 0, 'REELLE', 'O'),
+(8, 1, 'coucou', '0.00', 0, 'REELLE', 'O'),
+(9, 1, 'aaaaaaaaa 299', '0.00', 0, 'VIRTUELLE', 'O'),
+(10, 1, 'Conseil Municipal du 20 aout 2017', '1085.00', 3, 'VIRTUELLE', 'N'),
+(11, 1, 'wwwwwww9', '0.00', 0, 'VIRTUELLE', 'O'),
+(12, 1, 'trtre', '15.00', 1, 'VIRTUELLE', 'N'),
+(13, 1, 'qqq111', '140.00', 7, 'VIRTUELLE', 'N'),
+(14, 1, 'WWWWWW11', '87009.00', 4, 'VIRTUELLE', 'N'),
+(15, 1, 'qqq', '30007.00', 0, 'VIRTUELLE', 'O'),
+(16, 1, 'tryytyryry', '2998.00', 0, 'VIRTUELLE', 'O'),
+(17, 1, 'aazaze', '22991.00', 0, 'VIRTUELLE', 'O'),
+(18, 1, 'dqsdsqdsqds', '22991.00', 0, 'VIRTUELLE', 'O'),
+(19, 1, 'dqsdsqdsqds', '22991.00', 4, 'VIRTUELLE', 'O'),
+(20, 1, 'sss', '543210.00', 7, 'VIRTUELLE', 'N');
 
 -- --------------------------------------------------------
 
@@ -190,6 +197,7 @@ INSERT INTO `sortie` (`idSortie`, `idStock`, `nom`, `coutTotal`, `nbreArticles`,
 -- Structure de la table `stock`
 --
 
+DROP TABLE IF EXISTS `stock`;
 CREATE TABLE `stock` (
   `idStock` int(11) NOT NULL,
   `nom` varchar(255) NOT NULL
@@ -209,6 +217,7 @@ INSERT INTO `stock` (`idStock`, `nom`) VALUES
 -- Structure de la table `utilisateur`
 --
 
+DROP TABLE IF EXISTS `utilisateur`;
 CREATE TABLE `utilisateur` (
   `idUtilisateur` int(11) NOT NULL,
   `login` varchar(15) NOT NULL,

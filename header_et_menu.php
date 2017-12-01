@@ -20,3 +20,7 @@ echo "Stock actuel : $stock->nom";
 </td>
 </tr>
 </table>
+
+<table>
+<tr>
+<td width="90%">

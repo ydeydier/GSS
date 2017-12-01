@@ -13,6 +13,20 @@ function rendreReelle(idSortie) {
 		window.location="consulterSorties_trt.php?action=RendreReelle&idSortie=" + idSortie;
 	}
 }
+
+function modifier(idSortie, etat) {
+	if (etat=="<?php echo sortie::$REELLE;?>") {
+		alert('ATTENTION : avant de pouvoir modifier une sortie, vous devez la rendre virtuelle.');
+	} else {
+		window.location="modifierSortie.php?id=" + idSortie;
+	}
+}
+
+function supprimer(idSortie) {
+	if (confirm('Etes vous sur(e) de vouloir supprimer (mettre à la corbeille) cette sortie ?')) {
+		window.location="consulterSorties_trt.php?action=Supprimer&idSortie=" + idSortie;
+	}
+}
 </script>
 
 
@@ -26,7 +40,7 @@ Liste des sorties
 <table class="tableCommune">
 <tr><th>ID</th><th>Nom</th><th>Etat</th><th>Coût total</th><th>Nbre articles</th><th>Consulter</th><th>Modifier</th><th>Supprimer<br>(corbeille)</th><th>Changer état</th></tr>
 <?php
-	$sorties = sortie::chargerPourStockSansLigne($stock);
+	$sorties = sortie::chargerPourStockSansLigne($stock, 'N');
 	foreach ($sorties as $sortie) {
 		if ($sortie->etat==sortie::$VIRTUELLE) {
 			$changerEtat="Rendre REELLE";
@@ -35,14 +49,15 @@ Liste des sorties
 			$changerEtat="Rendre VIRTUELLE";
 			$fctChangeEtat="rendreVirtuelle($sortie->idSortie)";	// Fonction javascript à appeler
 		}
-		echo "<tr><td>$sortie->idSortie</td><td>$sortie->nom</td><td>$sortie->etat</td><td>$sortie->coutTotal</td><td>$sortie->nbreArticles</td>";
-		echo "<td><a href=\"consulterSortie.php?id=$sortie->idSortie\">Consulter</a></td><td><a href=\"modifierSortie.php?id=$sortie->idSortie\">Modifier</a></td><td><a href=\"\">Supprimer</a></td><td><a href=\"javascript:$fctChangeEtat;\">$changerEtat</a></td></tr>";
+		$libelleEtat=$sortie->libeleEtat();
+		echo "<tr><td>$sortie->idSortie</td><td>$sortie->nom</td><td>$libelleEtat</td><td>$sortie->coutTotal</td><td>$sortie->nbreArticles</td>";
+		echo "<td><a href=\"consulterSortie.php?id=$sortie->idSortie\">Consulter</a></td><td><a href=\"javascript:modifier($sortie->idSortie, '$sortie->etat');\">Modifier</a></td><td><a href=\"javascript:supprimer($sortie->idSortie);\">Supprimer</a></td><td><a href=\"javascript:$fctChangeEtat;\">$changerEtat</a></td></tr>";
 	}
 ?>
 </table>
 <br><br>
 <a class="menu" href="ajouterSortie.php">Ajouter une sortie</a><br>
-<a class="menu" href="">Voir la corbeille</a><br>
+<a class="menu" href="consulterSortiesCorbeille.php">Voir la corbeille</a><br>
 <a class="menu" href="pagePrincipale.php">Retour Page Accueil</a>
 
 </CENTER>
