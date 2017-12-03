@@ -31,19 +31,20 @@ function modifier(idSortie, etat) {
 
 Sortie <b>"<?php echo $sortie->nom;?>"</b>
 <br><br>
-Etat : <b><?php echo $sortie->libeleEtat();?></b>
-<br><br>
+Etat <b><?php echo $sortie->libeleEtat();?></b>
+<br><br><br>
 <table class="tableCommune">
-<tr><th>Nom</th><th>Quantité</th><th>Prix unitaire</th><th>Prix total</th></tr>
+<tr><th>Nom</th><th>Quantité</th><th>Prix<br>unitaire</th><th>Prix<br>total</th></tr>
 <?php
 	foreach ($sortie->tLigneSortie as $ligneSortie) {
 		$nom=$ligneSortie->article->nom;
 		$prixSortie=$ligneSortie->prixSortie;
 		$quantite=$ligneSortie->quantite;
 		$prixTotal=$prixSortie * $quantite;
-		echo "<tr><td>$nom</td><td>$quantite</td><td>$prixSortie</td><td>$prixTotal</td></tr>";
+		$prixTotal=number_format($prixTotal, 2, '.', ' ');
+		echo "<tr><td>$nom</td><td class=\"tdQuantite\">$quantite</td><td class=\"tdPrix\">$prixSortie</td><td class=\"tdPrix\">$prixTotal</td></tr>";
 	}
-	echo "<tr><td>Total</td><td></td><td></td><td>$sortie->coutTotal</td></tr>";
+	echo "<tr><td>Total</td><td></td><td></td><td class=\"tdPrix\">$sortie->coutTotal</td></tr>";
 ?>
 </table>
 <br><br>

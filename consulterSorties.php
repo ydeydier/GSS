@@ -38,7 +38,7 @@ Liste des sorties
 
 
 <table class="tableCommune">
-<tr><th>ID</th><th>Nom</th><th>Etat</th><th>Coût total</th><th>Nbre articles</th><th>Consulter</th><th>Modifier</th><th>Supprimer<br>(corbeille)</th><th>Changer état</th></tr>
+<tr><th>ID</th><th>Nom</th><th>Etat</th><th>Coût total</th><th>Nbre<br>articles</th><th>Consulter</th><th>Modifier</th><th>Supprimer<br>(corbeille)</th><th>Changer état</th></tr>
 <?php
 	$sorties = sortie::chargerPourStockSansLigne($stock, 'N');
 	foreach ($sorties as $sortie) {
@@ -50,7 +50,7 @@ Liste des sorties
 			$fctChangeEtat="rendreVirtuelle($sortie->idSortie)";	// Fonction javascript à appeler
 		}
 		$libelleEtat=$sortie->libeleEtat();
-		echo "<tr><td>$sortie->idSortie</td><td>$sortie->nom</td><td>$libelleEtat</td><td>$sortie->coutTotal</td><td>$sortie->nbreArticles</td>";
+		echo "<tr><td>$sortie->idSortie</td><td>$sortie->nom</td><td>$libelleEtat</td><td class=\"tdPrix\">$sortie->coutTotal</td><td class=\"tdQuantite\">$sortie->nbreArticles</td>";
 		echo "<td><a href=\"consulterSortie.php?id=$sortie->idSortie\">Consulter</a></td><td><a href=\"javascript:modifier($sortie->idSortie, '$sortie->etat');\">Modifier</a></td><td><a href=\"javascript:supprimer($sortie->idSortie);\">Supprimer</a></td><td><a href=\"javascript:$fctChangeEtat;\">$changerEtat</a></td></tr>";
 	}
 ?>
