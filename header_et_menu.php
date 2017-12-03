@@ -12,7 +12,7 @@
 
 <table style="height:100%;border-collapse:collapse;">
 <tr height="5%">
-<td colspan="2" style="padding-top:0px;padding-left:0px;padding-right:0px;padding-bottom:4px;">
+<td colspan="2" style="padding-top:0px;padding-left:0px;padding-right:0px;padding-bottom:0px;">
 	<table class="tableBandeauHaut">
 	<tr>
 	<td><img src="img/GSS.png"></td>

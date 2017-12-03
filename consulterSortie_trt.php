@@ -1,4 +1,5 @@
 <?php
+	// TODO : factoriser avec consulterSorties_trt.php (avec le 's' à Sorties)
 	require "inc_commun.php";
 	$action=$_GET["action"];
 	$idSortie=$_GET["idSortie"];
@@ -16,5 +17,6 @@
 	if ($action=="Supprimer") {
 		$sortie->supprimer();
 	}
+	// Redirection
 	header("Location: consulterSortie.php?id=$idSortie");
 ?>

@@ -3,11 +3,22 @@
 		global $link;
 		//echo $sql."<br><br>"; die();  // décommenter pour débugguer
 		if (!mysqli_query($link, $sql)) {
-			mysqli_query($link, "ROLLBACK");
+			mysqli_rollback($link);
 			die('Erreur SQL !'.$sql.'<br>'.mysqli_error());
 		}
 	}
 
+	function beginTransaction() {
+		global $link;
+		mysqli_autocommit($link, FALSE);
+	}
+	
+	function commit() {
+		global $link;
+		mysqli_commit($link);
+		mysqli_autocommit($link, TRUE);
+	}
+	
 	function executeSqlSelect($sql) {
 		global $link;
 		return mysqli_query($link, $sql);

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  sam. 02 déc. 2017 à 00:18
+-- Généré le :  lun. 04 déc. 2017 à 00:11
 -- Version du serveur :  10.1.28-MariaDB
 -- Version de PHP :  7.1.11
 
@@ -43,13 +43,21 @@ CREATE TABLE `article` (
 --
 
 INSERT INTO `article` (`idArticle`, `idStock`, `nom`, `prixCourant`) VALUES
-(1, 1, 'Crayon bleu', '5.00'),
-(2, 1, 'Chapeau rouge 999', '6.00'),
+(1, 1, 'Crayon bleu', '6.00'),
+(2, 1, 'Chapeau rouge 999', '9.00'),
 (4, 1, 'chapeau vert', '7.00'),
 (5, 1, 'voiture rouge', '8.00'),
 (6, 1, 'casquette bleue', '9.00'),
-(7, 1, 'clavier', '10.00'),
-(8, 1, 'avion', '11.00');
+(7, 1, 'clavier', '12.00'),
+(8, 1, 'avion', '11.00'),
+(9, 1, 'voiture', '15.00'),
+(10, 1, 'casquette rouge', '10.00'),
+(11, 1, 'stylo vert', '6.00'),
+(12, 1, 'stylo bleu', '6.00'),
+(13, 1, 'stylo violet', '9.00'),
+(14, 1, 'stylo jaune', '7.00'),
+(15, 1, 'stylo noir', '8.00'),
+(16, 1, 'stylo blanc', '3.00');
 
 -- --------------------------------------------------------
 
@@ -83,7 +91,9 @@ INSERT INTO `lignesortie` (`idSortie`, `idArticle`, `prixSortie`, `quantite`) VA
 (17, 1, '5.00', 1),
 (18, 1, '5.00', 1),
 (19, 1, '5.00', 1),
-(20, 1, '10.00', 1),
+(20, 1, '10.00', 10),
+(21, 1, '5.00', 10),
+(22, 1, '5.00', 20),
 (7, 2, NULL, 44),
 (8, 2, '4.00', 3),
 (10, 2, '2.33', 200),
@@ -95,10 +105,12 @@ INSERT INTO `lignesortie` (`idSortie`, `idArticle`, `prixSortie`, `quantite`) VA
 (18, 2, '9999.00', 2),
 (19, 2, '9999.00', 2),
 (20, 2, '100.00', 2),
+(21, 2, '9.00', 15),
+(22, 2, '9.00', 25),
 (7, 3, NULL, 44),
 (9, 3, '2.10', 21),
 (10, 3, '9.30', 0),
-(2, 4, '996.00', 6),
+(2, 4, '996.00', 7),
 (8, 4, '996.00', 55),
 (11, 4, '5.25', 99),
 (13, 4, '30.00', 3),
@@ -144,13 +156,21 @@ CREATE TABLE `lignestock` (
 --
 
 INSERT INTO `lignestock` (`idStock`, `idArticle`, `quantiteReelle`, `quantiteVirtuelle`) VALUES
-(1, 1, 50, 55),
-(1, 2, 60, 999),
-(1, 4, 70, NULL),
-(1, 5, 80, NULL),
-(1, 6, 90, NULL),
-(1, 7, 100, NULL),
-(1, 8, 110, NULL);
+(1, 1, 117, 107),
+(1, 2, 107, 92),
+(1, 4, 117, 117),
+(1, 5, 130, 130),
+(1, 6, 140, 140),
+(1, 7, 150, 150),
+(1, 8, 160, 160),
+(1, 9, 170, 170),
+(1, 10, 180, 180),
+(1, 11, 190, 190),
+(1, 12, 200, 200),
+(1, 13, 210, 210),
+(1, 14, 220, 220),
+(1, 15, 230, 230),
+(1, 16, 240, 240);
 
 -- --------------------------------------------------------
 
@@ -175,21 +195,23 @@ CREATE TABLE `sortie` (
 
 INSERT INTO `sortie` (`idSortie`, `idStock`, `nom`, `coutTotal`, `nbreArticles`, `etat`, `corbeille`) VALUES
 (1, 1, 'Conseil municipal n°22', '0.00', 0, 'VIRTUELLE', 'O'),
-(2, 1, 'Fï¿½te des mï¿½res', '6001.00', 2, 'VIRTUELLE', 'N'),
+(2, 1, 'FÃªte des mÃ¨res', '6997.00', 2, 'REELLE', 'N'),
 (7, 1, '', '0.00', 0, 'REELLE', 'O'),
 (8, 1, 'coucou', '0.00', 0, 'REELLE', 'O'),
 (9, 1, 'aaaaaaaaa 299', '0.00', 0, 'VIRTUELLE', 'O'),
-(10, 1, 'Conseil Municipal du 20 aout 2017', '1085.00', 3, 'VIRTUELLE', 'N'),
+(10, 1, 'Conseil Municipal du 20 aout 2017', '1085.00', 3, 'REELLE', 'N'),
 (11, 1, 'wwwwwww9', '0.00', 0, 'VIRTUELLE', 'O'),
-(12, 1, 'trtre', '15.00', 1, 'VIRTUELLE', 'N'),
-(13, 1, 'qqq111', '140.00', 7, 'VIRTUELLE', 'N'),
-(14, 1, 'WWWWWW11', '87009.00', 4, 'VIRTUELLE', 'N'),
-(15, 1, 'qqq', '30007.00', 0, 'VIRTUELLE', 'O'),
-(16, 1, 'tryytyryry', '2998.00', 0, 'VIRTUELLE', 'O'),
+(12, 1, 'trtre', '15.00', 1, 'REELLE', 'N'),
+(13, 1, 'qqq111', '140.00', 7, 'REELLE', 'N'),
+(14, 1, 'WWWWWW11', '87009.00', 4, 'REELLE', 'N'),
+(15, 1, 'qqq', '30007.00', 2, 'REELLE', 'N'),
+(16, 1, 'tryytyryry', '2998.00', 2, 'REELLE', 'N'),
 (17, 1, 'aazaze', '22991.00', 0, 'VIRTUELLE', 'O'),
-(18, 1, 'dqsdsqdsqds', '22991.00', 0, 'VIRTUELLE', 'O'),
+(18, 1, 'dqsdsqdsqds', '22991.00', 4, 'REELLE', 'N'),
 (19, 1, 'dqsdsqdsqds', '22991.00', 4, 'VIRTUELLE', 'O'),
-(20, 1, 'sss', '543210.00', 7, 'VIRTUELLE', 'N');
+(20, 1, 'sss', '543300.00', 7, 'REELLE', 'N'),
+(21, 1, 'Test SUPPR', '185.00', 2, 'VIRTUELLE', 'N'),
+(22, 1, 'test 99', '325.00', 2, 'VIRTUELLE', 'O');
 
 -- --------------------------------------------------------
 
@@ -281,13 +303,13 @@ ALTER TABLE `utilisateur`
 -- AUTO_INCREMENT pour la table `article`
 --
 ALTER TABLE `article`
-  MODIFY `idArticle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idArticle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT pour la table `sortie`
 --
 ALTER TABLE `sortie`
-  MODIFY `idSortie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `idSortie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT pour la table `stock`

@@ -49,7 +49,11 @@
 	// Update en base de la sortie
 	$sortie->update();
 	
-	// Fin du traitement
+	// Recalcule des quantités virtuelles dans le stock
+	chargerStock();		// Force le rechargement du stock (stocké en session) pour s'assurer de travailler sur les dernières valeurs en BDD
+	$stock->calculerQuantitesVirtuelles();
+	// Suppression de la variable de session 'sortie'
 	unset($_SESSION["sortie"]);
+	// Redirection
 	header("Location: consulterSortie.php?id=$sortie->idSortie");
 ?>

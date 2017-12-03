@@ -7,7 +7,7 @@
 
 <br><br>
 Contenu du stock
-<br><br>
+<br><br><br>
 
 <form method="POST" name="leForm" action="editerStock_trt.php">
 <table class="tableCommune">
@@ -25,6 +25,11 @@ Contenu du stock
 	}
 ?>
 </table>
+
+<br><br>
+<span class="attention"><b>Attention :</b> les modifications de noms d'article seront répercutés sur les sorties.
+<br>En revanche les prix peuvent être modifiés ici sans affecter les sorties.</span>
+<br>
 
 <br><br>
 <button type="submit" class="boutonValider">Valider</button>

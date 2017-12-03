@@ -39,6 +39,18 @@ class sortie {
 		return $sortie;
 	}
 
+	static function chargerSortiesVirtuelles($stock) {
+		$idStock=$stock->idStock;
+		$result = executeSqlSelect("SELECT idSortie FROM sortie where idStock=$idStock and corbeille='N' and etat='VIRTUELLE'");
+		$sorties = array();
+		while($row = mysqli_fetch_array($result)) {
+			$idSortie=$row['idSortie'];
+			$sortie=self::charger($idSortie, $stock);
+			$sorties[$idSortie]=$sortie;
+		}
+		return $sorties;
+	}
+
 	static function charger($idSortie, $stock) {
 		// Chargement des données principales
 		$result = executeSqlSelect("SELECT * FROM sortie where idSortie=".$idSortie);
@@ -64,6 +76,17 @@ class sortie {
 			}
 		}
 		return $contientArticle;
+	}
+	
+	function quantiteArticle($article) {
+		$quantite=0;
+		foreach ($this->tLigneSortie as $ligneSortie) {
+			if ($ligneSortie->article->idArticle==$article->idArticle) {
+				$quantite=$ligneSortie->quantite;
+				break;
+			}
+		}
+		return $quantite;
 	}
 
 	function update() {
@@ -108,7 +131,7 @@ class sortie {
 	}
 
 	function rendreReelle($stock) {
-		// TODO: gérer un COMMIT pour cet ensemble ?
+		beginTransaction();		// TODO : tester le commit / rollback
 		$this->etat=$this::$REELLE;
 		$this->update();
 		foreach ($this->tLigneSortie as $ligneSortie) {
@@ -117,10 +140,11 @@ class sortie {
 			$stock->retirerArticle($article, $quantite);
 		}
 		$stock->calculerQuantitesVirtuelles();
+		commit();
 	}
 	
 	function rendreVirtuelle($stock) {
-		// TODO: gérer un COMMIT pour cet ensemble ?
+		beginTransaction();		// TODO : tester le commit / rollback
 		$this->etat=$this::$VIRTUELLE;
 		$this->update();
 		foreach ($this->tLigneSortie as $ligneSortie) {
@@ -129,6 +153,7 @@ class sortie {
 			$stock->ajouterArticle($article, $quantite);
 		}
 		$stock->calculerQuantitesVirtuelles();
+		commit();
 	}
 	
 	function libeleEtat() {
@@ -140,6 +165,5 @@ class sortie {
 		return $libelle;
 	}
 	// TODO : vérifier les fonctions "rendre virtuelle" et "rendre réelle"
-	// TODO : afficher le stock en permanence à droite ?
 }
 ?>

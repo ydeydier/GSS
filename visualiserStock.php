@@ -22,9 +22,9 @@ Contenu du stock
 ?>
 </table>
 <br><br>
-<button class="boutonValider" onclick="javascript:window.location='editerStock.php'">Editer</button>
-<br><br>
-<a href="pagePrincipale.php">Retour au menu</a>
+
+<a class="menu" href="editerStock.php">Modifier</a><br>
+<a class="menu" href="pagePrincipale.php">Retour au menu</a>
 
 </CENTER>
 <br><br><br><br>

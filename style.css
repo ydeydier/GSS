@@ -108,6 +108,7 @@ button {
 	border-left: 2px solid #006573;
 	FONT-SIZE: 10px;
 	font-weight:bold;
+	BACKGROUND:#eafeff;
 }
 
 .tableStockADroite tr th {
@@ -132,4 +133,12 @@ button {
 	padding:4px;
 	BACKGROUND:#f4e4d0;
 	FONT-SIZE: 9px;
+}
+
+.attention {
+	color:#EE0000;
+}
+
+.attention b {
+	color:#EE0000;
 }

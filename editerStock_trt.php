@@ -22,7 +22,7 @@
 		$article->update();
 	}
 		
-	// Insert TODO
+	// Insert
 	foreach($_POST as $index=>$valeur) {
 		if (substr($index, 0, 11)=="INSERT_NOM_") {			// Ex: INSERT_NOM_3
 			$idLigne=substr($index, 11);					// Ex: 3
@@ -53,5 +53,8 @@
 			}
 		}
 	}
+	// Recalcule des quantités virtuelles dans le stock
+	$stock->calculerQuantitesVirtuelles();
+	// Redirection
 	header('Location: visualiserStock.php');
 ?>

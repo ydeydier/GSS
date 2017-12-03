@@ -25,7 +25,6 @@ class stock {
 	function retirerArticle($article, $quantite) {
 		$ligneStock=$this->getLigneArticle($article);
 		if ($ligneStock!=null) {
-			echo $quantite;
 			$ligneStock->quantiteReelle=$ligneStock->quantiteReelle-$quantite;
 			$ligneStock->update();
 		} else {
@@ -55,7 +54,20 @@ class stock {
 	}
 	
 	function calculerQuantitesVirtuelles() {
-		// TODO : A faire !
+		// Initialisation des quantité virtuelle
+		foreach ($this->tLigneStock as $ligneStock) {
+			$ligneStock->quantiteVirtuelle=$ligneStock->quantiteReelle;
+		}
+		// Soustraction avec toutes les sorties virtuelles
+		$tSortiesVirtuelles=sortie::chargerSortiesVirtuelles($this);
+		foreach ($this->tLigneStock as $ligneStock) {
+			$article=$ligneStock->article;
+			foreach ($tSortiesVirtuelles as $sortieVirtuelle) {
+				$qte = $sortieVirtuelle->quantiteArticle($article);
+				$ligneStock->quantiteVirtuelle-=$qte;
+			}
+			$ligneStock->update();
+		}
 	}
 }
 ?>
