@@ -11,20 +11,17 @@
 	session_start();
 	require_once "connexion.php";
 
-	if (!isset($_SESSION["idStock"])) {
-		$_SESSION["idStock"]=1;
+	if (!isset($_SESSION["estConnecte"])) {
+		header('Location: login.php');
 	}
+
 	$idStock=$_SESSION["idStock"];
+	$utilisateur=$_SESSION["utilisateur"];
 
 	if (!isset($_SESSION['stock'])) {
 		chargerStock();
 	}
 	$stock=$_SESSION["stock"];
-	
-	if (!isset($_SESSION['utilisateur'])) {
-		$_SESSION["utilisateur"]=Utilisateur::charger(1);
-	}
-	$utilisateur=$_SESSION["utilisateur"];
 	
 	function chargerStock() {
 		global $stock;

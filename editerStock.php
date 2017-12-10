@@ -27,7 +27,7 @@ Contenu du stock
 </table>
 
 <br><br>
-<span class="attention"><b>Attention :</b> les modifications de noms d'article seront répercutés sur les sorties.
+<span class="attention"><b>Attention :</b> les modifications de noms d'article seront répercutées sur les sorties.
 <br>En revanche les prix peuvent être modifiés ici sans affecter les sorties.</span>
 <br>
 

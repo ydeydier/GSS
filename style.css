@@ -10,6 +10,38 @@ BODY {
 	FONT-SIZE: 11px; FONT-FAMILY: Verdana, 'Lucida Grande', Arial, sans-serif; color: #000000;
 }
 
+.lienFondVert {
+	color:#EEEEEE;
+	text-decoration: underline;
+}
+
+.lienFondVert:hover {
+	color:#006573;
+	text-decoration: underline;
+	BACKGROUND:#EEEEEE;
+}
+
+.lienFondBlanc {
+	color:#006573;
+	text-decoration: underline;
+}
+
+.lienFondBlanc:hover {
+	color:#EEEEEE;
+	text-decoration: underline;
+	BACKGROUND:#006573;
+}
+
+.tableLoginGSS {
+	width:100%;
+	height:100%;
+	BACKGROUND:#006573;
+}
+
+.tableLoginGSS tr td {
+	text-align: center;
+}
+
 .tableBandeauHaut {
 	width:100%;
 	height:5%;
@@ -18,17 +50,6 @@ BODY {
 
 .tableBandeauHaut tr td {
 	color:#EEEEEE;
-}
-
-.tableBandeauHaut tr td a {
-	color:#EEEEEE;
-	text-decoration: underline;
-}
-
-.tableBandeauHaut tr td a:hover {
-	color:#006573;
-	text-decoration: underline;
-	BACKGROUND:#EEEEEE;
 }
 
 .spanNomStock {
@@ -44,16 +65,11 @@ a:hover {
 	COLOR: #1C6FBD;
 }
 
-a.black {
-	TEXT-DECORATION:none;COLOR: #000000;
-}
-
-a.black:hover {
-	COLOR: #1C6FBD;
-}
-
 .tableCommune tr th {
 	padding:4px;
+	FONT-SIZE: 10px;
+	padding-left:10px;
+	padding-right:10px;
 }
 
 .tableCommune tr {
@@ -61,7 +77,10 @@ a.black:hover {
 }
 
 .tableCommune tr td {
-	padding:4px;
+	padding-top:4px;
+	padding-bottom:4px;
+	padding-left:10px;
+	padding-right:10px;
 	BACKGROUND:#f4e4d0;
 }
 
@@ -72,6 +91,14 @@ button {
 	border-radius:2px;
 	border:none;
 	width:100px;
+}
+
+.bouton {
+	background:#56abac;
+}
+
+.bouton:hover {
+	background:#f4d4ad;
 }
 
 .boutonValider {
@@ -108,7 +135,6 @@ button {
 	border-left: 2px solid #006573;
 	FONT-SIZE: 10px;
 	font-weight:bold;
-	BACKGROUND:#eafeff;
 }
 
 .tableStockADroite tr th {
