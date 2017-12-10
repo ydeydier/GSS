@@ -12,6 +12,8 @@
 	if (isset($_GET['loginIncorrect'])) {
 		$messageLoginIncorrect='<span style="color:red;font-weight:bold;">Login ou mot de passe incorrect !</span>';
 	}
+	// TODO: Changer le stock à gérer
+	// TODO: Administration des utilisateurs et des stocks
 ?>
 <table class="tableLoginGSS">
 <tr height="200px">
