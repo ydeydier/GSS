@@ -1,5 +1,5 @@
 # Présentation
-Gestion de stock TRES simple, EN COURS DE DEVELOPPEMENT (30/11/2017)
+Gestion de stock TRES simple, EN COURS DE DEVELOPPEMENT (10/12/2017)
 
 # Technologies
 PHP/MySQL
