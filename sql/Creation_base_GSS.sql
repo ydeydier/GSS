@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  lun. 04 déc. 2017 à 00:11
+-- Généré le :  mar. 12 déc. 2017 à 00:22
 -- Version du serveur :  10.1.28-MariaDB
 -- Version de PHP :  7.1.11
 
@@ -57,7 +57,8 @@ INSERT INTO `article` (`idArticle`, `idStock`, `nom`, `prixCourant`) VALUES
 (13, 1, 'stylo violet', '9.00'),
 (14, 1, 'stylo jaune', '7.00'),
 (15, 1, 'stylo noir', '8.00'),
-(16, 1, 'stylo blanc', '3.00');
+(16, 1, 'stylo blanc', '3.00'),
+(17, 1, 'feutre rouge', '1.00');
 
 -- --------------------------------------------------------
 
@@ -170,7 +171,8 @@ INSERT INTO `lignestock` (`idStock`, `idArticle`, `quantiteReelle`, `quantiteVir
 (1, 13, 210, 210),
 (1, 14, 220, 220),
 (1, 15, 230, 230),
-(1, 16, 240, 240);
+(1, 16, 240, 240),
+(1, 17, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -243,17 +245,17 @@ DROP TABLE IF EXISTS `utilisateur`;
 CREATE TABLE `utilisateur` (
   `idUtilisateur` int(11) NOT NULL,
   `login` varchar(15) NOT NULL,
+  `password` varchar(30) NOT NULL,
   `nom` varchar(30) NOT NULL,
-  `prenom` varchar(30) NOT NULL,
-  `stocks` varchar(255) NOT NULL COMMENT 'idStock séparés par des virgules. Ex: 1,5'
+  `prenom` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `utilisateur`
 --
 
-INSERT INTO `utilisateur` (`idUtilisateur`, `login`, `nom`, `prenom`, `stocks`) VALUES
-(1, 'ydeydier', 'DEYDIER', 'Yann', '1');
+INSERT INTO `utilisateur` (`idUtilisateur`, `login`, `password`, `nom`, `prenom`) VALUES
+(1, 'ydeydier', 'test', 'DEYDIER', 'Yann');
 
 --
 -- Index pour les tables déchargées
@@ -303,7 +305,7 @@ ALTER TABLE `utilisateur`
 -- AUTO_INCREMENT pour la table `article`
 --
 ALTER TABLE `article`
-  MODIFY `idArticle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `idArticle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT pour la table `sortie`
