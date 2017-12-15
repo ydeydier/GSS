@@ -50,6 +50,7 @@
 				$ligneStock->article=$article;
 				$ligneStock->quantiteReelle=$quantiteReelle;
 				$ligneStock->insert();
+				$stock->tLigneStock[$article->idArticle]=$ligneStock;
 			}
 		}
 	}

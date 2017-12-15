@@ -10,7 +10,6 @@
 	$utilisateur=utilisateur::verifierLoginPasswordBase($login, $password);
 	if ($utilisateur!=FALSE) {
 		$utilisateur->chargerStocksAutorise();
-		echo "<pre>";print_r($utilisateur);echo "</pre>";
 		$redirigeVers="pagePrincipale.php";
 		$_SESSION["estConnecte"]="OUI";
 		$_SESSION["idStock"]=$utilisateur->idStockDefaut;

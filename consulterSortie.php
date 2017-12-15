@@ -27,11 +27,10 @@ function modifier(idSortie, etat) {
 
 <CENTER>
 
-<br><br>
-
-Sortie <b>"<?php echo $sortie->nom;?>"</b>
-<br><br>
-Etat <b><?php echo $sortie->libeleEtat();?></b>
+<br>
+<h1>Sortie : <?php echo $sortie->nom;?></h1>
+<br>
+Etat : <b><?php echo $sortie->libeleEtat();?></b>
 <br><br><br>
 <table class="tableCommune">
 <tr><th>Nom</th><th>Quantité</th><th>Prix<br>unitaire</th><th>Prix<br>total</th></tr>

@@ -13,9 +13,9 @@ function restaurer(idSortie) {
 
 <CENTER>
 
-<br><br>
-Liste des sorties en corbeille (supprimées)
-<br><br>
+<br>
+<h1>Liste des sorties en corbeille (supprimées)</h1>
+<br>
 
 
 <table class="tableCommune">

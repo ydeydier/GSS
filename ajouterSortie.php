@@ -15,9 +15,9 @@ function validerForm() {
 
 <CENTER>
 
-<br><br>
+<br>
 <h1>Ajout d'une sortie</h1>
-<br><br>
+<br>
 
 <form method="POST" name="formulaire" onsubmit="return validerForm();" action="ajouterSortie_trt.php">
 Nom de la sortie <input type="text" value="" name="txtNomSortie">

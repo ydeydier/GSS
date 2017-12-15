@@ -11,7 +11,7 @@
 <a class="menu" href="consulterSorties.php">Consulter les sorties</a><br>
 <a class="menu" href="ajouterSortie.php">Ajouter une nouvelle sortie</a><br>
 <br><br>
-<a class="menu" href="">Changer le stock à gérer</a><br>
+<a class="menu" href="changerStockAGerer.php">Changer le stock à gérer</a><br>
 
 </CENTER>
 <?php

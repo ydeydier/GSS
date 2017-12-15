@@ -69,5 +69,11 @@ class stock {
 			$ligneStock->update();
 		}
 	}
+	static function chargerNom($idStock) {
+		// Charger les données principales
+		$result = executeSqlSelect("SELECT nom FROM stock where idStock=".$idStock);
+		$row = mysqli_fetch_array($result);
+		return $row['nom'];
+	}
 }
 ?>

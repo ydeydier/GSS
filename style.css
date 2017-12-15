@@ -122,10 +122,11 @@ button {
 }
 
 .menu {
-	color:#EEEEEE;
+	color:#FFFFFF;
 	display:block;
 	width:300px;
 	height:30px;
+	font-weight:bold;
 	BACKGROUND:#56abac;
 	text-align: center;
 	line-height: 30px;
@@ -171,4 +172,10 @@ button {
 
 .attention b {
 	color:#EE0000;
+}
+
+h1 {
+	color:#006573;
+	FONT-SIZE: 15px;
+	text-shadow : 2px 2px 5px #aaa;
 }

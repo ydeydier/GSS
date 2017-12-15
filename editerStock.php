@@ -5,9 +5,9 @@
 
 <CENTER>
 
-<br><br>
-Contenu du stock
-<br><br><br>
+<br>
+<h1>Modifier le stock</h1>
+<br>
 
 <form method="POST" name="leForm" action="editerStock_trt.php">
 <table class="tableCommune">

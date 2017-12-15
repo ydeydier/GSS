@@ -32,10 +32,9 @@ function supprimer(idSortie) {
 
 <CENTER>
 
-<br><br>
-Liste des sorties
-<br><br>
-
+<br>
+<h1>Liste des sorties</h1>
+<br>
 
 <table class="tableCommune">
 <tr><th>ID</th><th>Nom</th><th>Etat</th><th>Coût total</th><th>Nbre<br>articles</th><th>Consulter</th><th>Modifier</th><th>Supprimer<br>(corbeille)</th><th>Changer état</th></tr>

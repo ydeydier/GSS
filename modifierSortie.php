@@ -18,9 +18,9 @@ function montrerTableAjouterArticle() {
 
 <CENTER>
 
-<br><br>
+<br>
 <h1>Modification d'une sortie</h1>
-<br><br>
+<br>
 
 <form method="POST" action="modifierSortie_trt.php">
 Nom de la sortie <input type="text" name="txtNomSortie" value="<?php echo $sortie->nom;?>" name="txtNomSortie">
