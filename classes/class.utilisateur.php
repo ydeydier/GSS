@@ -1,19 +1,36 @@
 <?php
+require_once "classes/class.ldap.php";
 class utilisateur {
 	var $idUtilisateur;
+	var $login;
+	var $password;
 	var $nom;
 	var $prenom;
 	var $tStocks;	// Tableau des idStock auquel l'utilisateur est autorisé d'accéder
 	var $idStockDefaut;
 	
-	static function verifierLoginPasswordBase($login, $password) {
+	static function verifierLoginPassword($loginSaisi, $passwordSaisi, $bAuthLDAP, $tConnexionLDAP) {
+		$utilisateur=self::charger($loginSaisi);
+		if ($utilisateur!=FALSE) {
+			if ($bAuthLDAP) {
+				$bAuth=$utilisateur->verifierLoginPasswordLDAP($passwordSaisi, $tConnexionLDAP);
+			} else {
+				$bAuth=$utilisateur->verifierLoginPasswordBase($passwordSaisi);
+			}
+			if (!$bAuth) $utilisateur=FALSE;
+		}
+		return $utilisateur;
+	}
+
+	static function charger($login) {
 		$login=strtolower(trim($login));
-		$password=strtolower(trim($password));
-		$result = executeSqlSelect("SELECT * FROM utilisateur where lower(trim(login))='$login' and lower(trim(password))='$password'");
+		$result = executeSqlSelect("SELECT * FROM utilisateur where lower(trim(login))='$login'");
 		$row = mysqli_fetch_array($result);
 		if ($row) {
 			$utilisateur = new utilisateur();
 			$utilisateur->idUtilisateur=$row['idUtilisateur'];
+			$utilisateur->login=$row['login'];
+			$utilisateur->password=$row['password'];
 			$utilisateur->nom=$row['nom'];
 			$utilisateur->prenom=$row['prenom'];
 			return $utilisateur;
@@ -22,6 +39,14 @@ class utilisateur {
 		}
 	}
 	
+	function verifierLoginPasswordBase($passwordSaisi) {
+		return strtolower(trim($passwordSaisi))==strtolower(trim($this->password));
+	}
+
+	function verifierLoginPasswordLDAP($passwordSaisi, $tConnexionLDAP) {
+		return ldap::verifierLoginPassword($this->login, $passwordSaisi, $tConnexionLDAP);
+	}
+
 	function chargerStocksAutorise() {
 		$result = executeSqlSelect("SELECT * FROM stock_autorise where idUtilisateur=$this->idUtilisateur");
 		$this->tStocks=array();

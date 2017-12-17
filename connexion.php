@@ -4,7 +4,7 @@
 		$_SESSION["fichierConfiguration"]=parse_ini_file("configuration.ini", true);
 	}
 	$tConfiguration = $_SESSION["fichierConfiguration"];
-	$tConnexion = $tConfiguration["connexion"];
+	$tConnexion = $tConfiguration["connexionBDD"];
 	$base=$tConnexion["base"];
 	$host=$tConnexion["host"];
 	$login=$tConnexion["login"];

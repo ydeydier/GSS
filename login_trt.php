@@ -4,10 +4,14 @@
 	require_once "classes/class.utilisateur.php";
 	session_start();
 	require_once "connexion.php";
-
+	
+	$sLdap = $tConfiguration["authentification"]["ldap"];
+	$bAuthLDAP = (trim(strtolower($sLdap))=="oui");
+	
 	$login=$_POST["txtLogin"];
 	$password=$_POST["txtPassword"];
-	$utilisateur=utilisateur::verifierLoginPasswordBase($login, $password);
+	$tConnexionLDAP = $tConfiguration["connexionLDAP"];
+	$utilisateur=utilisateur::verifierLoginPassword($login, $password, $bAuthLDAP, $tConnexionLDAP);
 	if ($utilisateur!=FALSE) {
 		$utilisateur->chargerStocksAutorise();
 		$redirigeVers="pagePrincipale.php";
