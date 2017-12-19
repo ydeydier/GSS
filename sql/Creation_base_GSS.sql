@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  mar. 12 déc. 2017 à 00:22
+-- Généré le :  mar. 19 déc. 2017 à 22:34
 -- Version du serveur :  10.1.28-MariaDB
 -- Version de PHP :  7.1.11
 
@@ -58,7 +58,13 @@ INSERT INTO `article` (`idArticle`, `idStock`, `nom`, `prixCourant`) VALUES
 (14, 1, 'stylo jaune', '7.00'),
 (15, 1, 'stylo noir', '8.00'),
 (16, 1, 'stylo blanc', '3.00'),
-(17, 1, 'feutre rouge', '1.00');
+(17, 1, 'feutre rouge', '1.00'),
+(18, 2, 'Truc 1', '20.00'),
+(19, 2, 'Truc 2', '30.00'),
+(20, 2, 'Truc 3', '40.00'),
+(21, 2, 'Truc 4', '50.00'),
+(22, 2, 'Truc 5', '90.00'),
+(23, 2, 'Truc 6', '100.00');
 
 -- --------------------------------------------------------
 
@@ -95,6 +101,7 @@ INSERT INTO `lignesortie` (`idSortie`, `idArticle`, `prixSortie`, `quantite`) VA
 (20, 1, '10.00', 10),
 (21, 1, '5.00', 10),
 (22, 1, '5.00', 20),
+(24, 1, '6.00', 5),
 (7, 2, NULL, 44),
 (8, 2, '4.00', 3),
 (10, 2, '2.33', 200),
@@ -108,9 +115,7 @@ INSERT INTO `lignesortie` (`idSortie`, `idArticle`, `prixSortie`, `quantite`) VA
 (20, 2, '100.00', 2),
 (21, 2, '9.00', 15),
 (22, 2, '9.00', 25),
-(7, 3, NULL, 44),
-(9, 3, '2.10', 21),
-(10, 3, '9.30', 0),
+(24, 2, '9.00', 90),
 (2, 4, '996.00', 7),
 (8, 4, '996.00', 55),
 (11, 4, '5.25', 99),
@@ -121,6 +126,7 @@ INSERT INTO `lignesortie` (`idSortie`, `idArticle`, `prixSortie`, `quantite`) VA
 (18, 4, '996.00', 3),
 (19, 4, '996.00', 3),
 (20, 4, '1000.00', 3),
+(24, 4, '7.00', 10),
 (8, 5, '99.00', 66),
 (9, 5, '3.10', 30),
 (10, 5, '99.00', 1),
@@ -130,13 +136,16 @@ INSERT INTO `lignesortie` (`idSortie`, `idArticle`, `prixSortie`, `quantite`) VA
 (18, 5, NULL, 4),
 (19, 5, NULL, 4),
 (20, 5, '10000.00', 4),
+(24, 5, '8.00', 50),
 (13, 6, NULL, 5),
 (20, 6, '100000.00', 5),
 (13, 7, NULL, 6),
 (20, 7, NULL, 7),
 (13, 8, NULL, 7),
 (20, 8, NULL, 6),
-(11, 10, '9.00', 3);
+(11, 10, '9.00', 3),
+(23, 18, '20.00', 3),
+(23, 19, '30.00', 2);
 
 -- --------------------------------------------------------
 
@@ -157,13 +166,13 @@ CREATE TABLE `lignestock` (
 --
 
 INSERT INTO `lignestock` (`idStock`, `idArticle`, `quantiteReelle`, `quantiteVirtuelle`) VALUES
-(1, 1, 117, 107),
-(1, 2, 107, 92),
-(1, 4, 117, 117),
-(1, 5, 130, 130),
-(1, 6, 140, 140),
-(1, 7, 150, 150),
-(1, 8, 160, 160),
+(1, 1, 127, 102),
+(1, 2, 109, 2),
+(1, 4, 120, 107),
+(1, 5, 134, 80),
+(1, 6, 145, 140),
+(1, 7, 157, 150),
+(1, 8, 166, 160),
 (1, 9, 170, 170),
 (1, 10, 180, 180),
 (1, 11, 190, 190),
@@ -172,7 +181,13 @@ INSERT INTO `lignestock` (`idStock`, `idArticle`, `quantiteReelle`, `quantiteVir
 (1, 14, 220, 220),
 (1, 15, 230, 230),
 (1, 16, 240, 240),
-(1, 17, 2, 2);
+(1, 17, 2, 2),
+(2, 18, 2, 2),
+(2, 19, 8, 8),
+(2, 20, 15, 15),
+(2, 21, 20, 20),
+(2, 22, 30, 30),
+(2, 23, 40, 40);
 
 -- --------------------------------------------------------
 
@@ -211,9 +226,11 @@ INSERT INTO `sortie` (`idSortie`, `idStock`, `nom`, `coutTotal`, `nbreArticles`,
 (17, 1, 'aazaze', '22991.00', 0, 'VIRTUELLE', 'O'),
 (18, 1, 'dqsdsqdsqds', '22991.00', 4, 'REELLE', 'N'),
 (19, 1, 'dqsdsqdsqds', '22991.00', 4, 'VIRTUELLE', 'O'),
-(20, 1, 'sss', '543300.00', 7, 'REELLE', 'N'),
+(20, 1, 'sss', '543300.00', 7, 'VIRTUELLE', 'N'),
 (21, 1, 'Test SUPPR', '185.00', 2, 'VIRTUELLE', 'N'),
-(22, 1, 'test 99', '325.00', 2, 'VIRTUELLE', 'O');
+(22, 1, 'test 99', '325.00', 2, 'VIRTUELLE', 'O'),
+(23, 2, 'Test Sortie 1', '120.00', 2, 'REELLE', 'N'),
+(24, 1, 'tutu', '1310.00', 4, 'VIRTUELLE', 'N');
 
 -- --------------------------------------------------------
 
@@ -265,25 +282,29 @@ INSERT INTO `utilisateur` (`idUtilisateur`, `login`, `password`, `nom`, `prenom`
 -- Index pour la table `article`
 --
 ALTER TABLE `article`
-  ADD PRIMARY KEY (`idArticle`);
+  ADD PRIMARY KEY (`idArticle`),
+  ADD KEY `idStock` (`idStock`);
 
 --
 -- Index pour la table `lignesortie`
 --
 ALTER TABLE `lignesortie`
-  ADD PRIMARY KEY (`idArticle`,`idSortie`);
+  ADD PRIMARY KEY (`idArticle`,`idSortie`),
+  ADD KEY `idSortie` (`idSortie`);
 
 --
 -- Index pour la table `lignestock`
 --
 ALTER TABLE `lignestock`
-  ADD PRIMARY KEY (`idStock`,`idArticle`);
+  ADD PRIMARY KEY (`idStock`,`idArticle`),
+  ADD KEY `idArticle` (`idArticle`);
 
 --
 -- Index pour la table `sortie`
 --
 ALTER TABLE `sortie`
-  ADD PRIMARY KEY (`idSortie`);
+  ADD PRIMARY KEY (`idSortie`),
+  ADD KEY `idStock` (`idStock`);
 
 --
 -- Index pour la table `stock`
@@ -305,13 +326,13 @@ ALTER TABLE `utilisateur`
 -- AUTO_INCREMENT pour la table `article`
 --
 ALTER TABLE `article`
-  MODIFY `idArticle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `idArticle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT pour la table `sortie`
 --
 ALTER TABLE `sortie`
-  MODIFY `idSortie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `idSortie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT pour la table `stock`
@@ -324,6 +345,36 @@ ALTER TABLE `stock`
 --
 ALTER TABLE `utilisateur`
   MODIFY `idUtilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `article`
+--
+ALTER TABLE `article`
+  ADD CONSTRAINT `article_ibfk_1` FOREIGN KEY (`idStock`) REFERENCES `stock` (`idStock`);
+
+--
+-- Contraintes pour la table `lignesortie`
+--
+ALTER TABLE `lignesortie`
+  ADD CONSTRAINT `lignesortie_ibfk_1` FOREIGN KEY (`idSortie`) REFERENCES `sortie` (`idSortie`),
+  ADD CONSTRAINT `lignesortie_ibfk_2` FOREIGN KEY (`idArticle`) REFERENCES `article` (`idArticle`);
+
+--
+-- Contraintes pour la table `lignestock`
+--
+ALTER TABLE `lignestock`
+  ADD CONSTRAINT `lignestock_ibfk_1` FOREIGN KEY (`idStock`) REFERENCES `stock` (`idStock`),
+  ADD CONSTRAINT `lignestock_ibfk_2` FOREIGN KEY (`idArticle`) REFERENCES `article` (`idArticle`);
+
+--
+-- Contraintes pour la table `sortie`
+--
+ALTER TABLE `sortie`
+  ADD CONSTRAINT `sortie_ibfk_1` FOREIGN KEY (`idStock`) REFERENCES `stock` (`idStock`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
