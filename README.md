@@ -15,9 +15,4 @@ PHP/MySQL
   * gestion des commandes, des achats
 	
 # Installation
-- Installer PHP / MySQL
-- Créer un répetoire GSS dans www ou htdocs, selon le serveur web
-- Copier dans ce répertoire toute l'arborescence de GSS
-- Créer la base de donnée 'GSS' avec "GSS\sql\Creation_base_GSS.sql"
-- Modifier configuration.ini si nécessaire
-- Lancer avec http://host:port/GSS/
+Voir le fichier documentation/installation.txt

@@ -1,0 +1,10 @@
+﻿# Installation
+- Installer PHP / MySQL
+- Créer un répetoire GSS dans www ou htdocs, selon le serveur web
+- Copier dans ce répertoire toute l'arborescence de GSS
+- Créer la base de donnée avec "GSS\sql\Creation_base_GSS.sql" (-> crée une base de données nommée "gss")
+- Sur cette base de donnée, créer un utilisateur "gss", mot de passe "sql_gss" ayant les droits SELECT, INSERT, UPDATE, DELETE sur la base nommée "gss".
+- Modifier le fichier "configuration.ini" :
+	- Utilisation du LDAP ou non
+	- Host de la BDD
+- Lancer avec http://host:port/GSS/
