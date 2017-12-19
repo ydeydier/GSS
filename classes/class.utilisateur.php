@@ -1,12 +1,13 @@
 <?php
-require_once "classes/class.ldap.php";
+require_once "../classes/class.ldap.php";
 class utilisateur {
 	var $idUtilisateur;
 	var $login;
 	var $password;
 	var $nom;
 	var $prenom;
-	var $tStocks;	// Tableau des idStock auquel l'utilisateur est autorisé d'accéder
+	var $administrateur;	// 'O' ou 'N'
+	var $tStocks;			// Tableau des idStock auquel l'utilisateur est autorisé d'accéder
 	var $idStockDefaut;
 	
 	static function verifierLoginPassword($loginSaisi, $passwordSaisi, $bAuthLDAP, $tConnexionLDAP) {
@@ -14,6 +15,11 @@ class utilisateur {
 		if ($utilisateur!=FALSE) {
 			if ($bAuthLDAP) {
 				$bAuth=$utilisateur->verifierLoginPasswordLDAP($passwordSaisi, $tConnexionLDAP);
+				if (!$bAuth) {
+					if ($utilisateur->estAdministrateur()) {
+						$bAuth=$utilisateur->verifierLoginPasswordBase($passwordSaisi);	// TODO: tester
+					}
+				}
 			} else {
 				$bAuth=$utilisateur->verifierLoginPasswordBase($passwordSaisi);
 			}
@@ -33,6 +39,7 @@ class utilisateur {
 			$utilisateur->password=$row['password'];
 			$utilisateur->nom=$row['nom'];
 			$utilisateur->prenom=$row['prenom'];
+			$utilisateur->administrateur=$row['administrateur'];
 			return $utilisateur;
 		} else {
 			$utilisateur=false;
@@ -48,7 +55,7 @@ class utilisateur {
 	}
 
 	function chargerStocksAutorise() {
-		$result = executeSqlSelect("SELECT * FROM stock_autorise where idUtilisateur=$this->idUtilisateur");
+		$result = executeSqlSelect("SELECT idStock, defaut FROM stock_autorise where idUtilisateur=$this->idUtilisateur");
 		$this->tStocks=array();
 		while($row = mysqli_fetch_array($result)) {
 			$idStock=$row['idStock'];
@@ -57,6 +64,10 @@ class utilisateur {
 				$this->idStockDefaut=$idStock;
 			}
 		}
+	}
+
+	function estAdministrateur() {
+		return ($this->administrateur=="O");
 	}
 }
 ?>

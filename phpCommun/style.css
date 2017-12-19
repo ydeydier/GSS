@@ -52,7 +52,7 @@ BODY {
 	color:#EEEEEE;
 }
 
-.spanNomStock {
+.spanNomStock, .spanTitreAdministration {
 	color:#EEEEEE;
 	FONT-SIZE: 20px;
 }

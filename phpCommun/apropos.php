@@ -6,7 +6,7 @@
 <table class="tableLoginGSS">
 <tr height="200px">
 <td>
-<img src="img/GSS.png">
+<img src="../img/GSS.png">
 </td>
 </tr>
 <tr height="200px" style="BACKGROUND:#FFFFFF;">

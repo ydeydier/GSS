@@ -1,7 +1,7 @@
 <?php
 	// Lecture du fichier de configuration
 	if (!isset($_SESSION["fichierConfiguration"])) {
-		$_SESSION["fichierConfiguration"]=parse_ini_file("configuration.ini", true);
+		$_SESSION["fichierConfiguration"]=parse_ini_file("../configuration.ini", true);
 	}
 	$tConfiguration = $_SESSION["fichierConfiguration"];
 	$tConnexion = $tConfiguration["connexionBDD"];

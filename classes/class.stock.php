@@ -22,6 +22,19 @@ class stock {
 		return $stock;
 	}
 	
+	static function chargerToutSansLigne() {
+		$stocks = array();
+		// Charger les données principales
+		$result = executeSqlSelect("SELECT * FROM stock");
+		while($row = mysqli_fetch_array($result)) {
+			$stock = new stock();
+			$stock->idStock=$row['idStock'];
+			$stock->nom=$row['nom'];
+			$stocks[]=$stock;
+		}
+		return $stocks;
+	}
+
 	function retirerArticle($article, $quantite) {
 		$ligneStock=$this->getLigneArticle($article);
 		if ($ligneStock!=null) {
@@ -74,6 +87,11 @@ class stock {
 		$result = executeSqlSelect("SELECT nom FROM stock where idStock=".$idStock);
 		$row = mysqli_fetch_array($result);
 		return $row['nom'];
+	}
+
+	function update() {
+		$sql="update stock set nom='$this->nom' where idStock=$this->idStock";
+		executeSql($sql);
 	}
 }
 ?>
