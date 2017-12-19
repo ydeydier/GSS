@@ -4,7 +4,7 @@
 		//echo $sql."<br><br>"; die();  // décommenter pour débugguer
 		if (!mysqli_query($link, $sql)) {
 			mysqli_rollback($link);
-			die('Erreur SQL !'.$sql.'<br>'.mysqli_error());
+			die('Erreur SQL !'.$sql.'<br>'.mysqli_error($link));
 		}
 	}
 
@@ -21,7 +21,11 @@
 	
 	function executeSqlSelect($sql) {
 		global $link;
-		return mysqli_query($link, $sql);
+		$result=mysqli_query($link, $sql);
+		if (!$result) {
+			die('Erreur SQL !'.$sql.'<br>'.mysqli_error($link));
+		}
+		return $result;
 	}
 
 	function nullSiVide($val) {
