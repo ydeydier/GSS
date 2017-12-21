@@ -13,10 +13,11 @@
 <table class="tableCommune">
 <tr><th>Nom</th><th>Sélection</th></tr>
 <?php
-	foreach ($utilisateur->tStocks as $idStockFor) {
-		$nomStock=stock::chargerNom($idStockFor);
-		if ($idStockFor==$idStock) $checked='checked="checked"'; else $checked='';
-		echo "<tr><td>$nomStock</td><td><input $checked type=\"radio\" value=\"$idStockFor\" name=\"rdoStock\"></td></tr>";
+	$tTousStocks = stock::chargerToutSansLigne();
+	foreach ($utilisateur->tStocks as $idStockForm) {
+		$nomStock=$tTousStocks[$idStockForm]->nom;
+		if ($idStockForm==$idStock) $checked='checked="checked"'; else $checked='';
+		echo "<tr><td>$nomStock</td><td><input $checked type=\"radio\" value=\"$idStockForm\" name=\"rdoStock\"></td></tr>";
 	}
 ?>
 </table>

@@ -30,7 +30,7 @@ class stock {
 			$stock = new stock();
 			$stock->idStock=$row['idStock'];
 			$stock->nom=$row['nom'];
-			$stocks[]=$stock;
+			$stocks[$stock->idStock]=$stock;
 		}
 		return $stocks;
 	}
@@ -82,15 +82,14 @@ class stock {
 			$ligneStock->update();
 		}
 	}
-	static function chargerNom($idStock) {
-		// Charger les données principales
-		$result = executeSqlSelect("SELECT nom FROM stock where idStock=".$idStock);
-		$row = mysqli_fetch_array($result);
-		return $row['nom'];
-	}
 
 	function update() {
 		$sql="update stock set nom='$this->nom' where idStock=$this->idStock";
+		executeSql($sql);
+	}
+
+	function insert() {
+		$sql="insert into stock (nom) value ('$this->nom')";
 		executeSql($sql);
 	}
 }
