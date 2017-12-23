@@ -16,7 +16,7 @@
 	foreach ($stock->tLigneStock as $ligneStock) {
 		$article=$ligneStock->article;
 		$idArticle=$article->idArticle;
-		echo "<tr><td>$idArticle</td><td>$article->nom</td><td class=\"tdPrix\">$article->prixCourant</td><td class=\"tdQuantite\">$ligneStock->quantiteReelle</td><td class=\"tdQuantite\">$ligneStock->quantiteVirtuelle</td></tr>";
+		echo "<tr><td>$idArticle</td><td>$article->nom</td><td class=\"tdPrix\">$article->prixCourant</td><td class=\"tdQuantite\">$ligneStock->quantiteReelle</td><td class=\"tdQuantiteVirtuelle\">$ligneStock->quantiteVirtuelle</td></tr>";
 	}
 ?>
 </table>

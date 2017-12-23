@@ -5,22 +5,28 @@
 	// Modifications sur la sortie
 	$sortie->nom=$_POST["txtNomSortie"];
 	
-	// Modifications sur les ligneSortie
+	// Modifications ou suppression de ligneSortie
 	foreach ($sortie->tLigneSortie as $ligneSortie) {
 		$idArticle=$ligneSortie->article->idArticle;
-		$quantite=$_POST["QUANTITE_$idArticle"];
-		if (!is_numeric($quantite)) {
-			$quantite=0;
+		$bDelete=isset($_POST["chkDel_$idArticle"]);
+		if ($bDelete) {
+			$ligneSortie->delete();
 		} else {
-			$quantite=intval($quantite);
+			$quantite=$_POST["QUANTITE_$idArticle"];
+			if (!is_numeric($quantite)) {
+				$quantite=0;
+			} else {
+				$quantite=intval($quantite);
+			}
+			$prixSortie=$_POST["PRIX_$idArticle"];
+			$prixSortie=str_replace(",", ".", $prixSortie);
+			if (!is_numeric($prixSortie)) {
+				$prixSortie=null;
+			}
+			$ligneSortie->prixSortie=$prixSortie;
+			$ligneSortie->quantite=$quantite;
+			$ligneSortie->update();
 		}
-		$prixSortie=$_POST["PRIX_$idArticle"];
-		if (!is_numeric($prixSortie)) {
-			$prixSortie=null;
-		}
-		$ligneSortie->prixSortie=$prixSortie;
-		$ligneSortie->quantite=$quantite;
-		$ligneSortie->update();
 	}
 	
 	// Ajout de ligneSortie, depuis le stock

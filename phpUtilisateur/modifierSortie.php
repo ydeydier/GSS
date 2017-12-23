@@ -26,7 +26,7 @@ function montrerTableAjouterArticle() {
 Nom de la sortie <input type="text" name="txtNomSortie" value="<?php echo $sortie->nom;?>" name="txtNomSortie">
 <br><br><br><br>
 <table class="tableCommune">
-<tr><th>Nom</th><th>Quantité</th><th>Prix unitaire</th></tr>
+<tr><th>Nom</th><th>Quantité</th><th>Prix unitaire</th><th>Supprimer</th></tr>
 <?php
 	foreach ($sortie->tLigneSortie as $ligneSortie) {
 		$article=$ligneSortie->article;
@@ -34,7 +34,7 @@ Nom de la sortie <input type="text" name="txtNomSortie" value="<?php echo $sorti
 		$quantite=$ligneSortie->quantite;
 		$prixSortie=$ligneSortie->prixSortie;
 		$idArticle = $article->idArticle;
-		echo "<tr><td>$nom</td><td><input type='text' size='5' name='QUANTITE_$idArticle' value='$quantite'></td><td><input type='text' size='7'  name='PRIX_$idArticle' value='$prixSortie'></td></tr>";
+		echo "<tr><td>$nom</td><td><input type='text' size='5' name='QUANTITE_$idArticle' value='$quantite'></td><td><input type='text' size='7'  name='PRIX_$idArticle' value='$prixSortie'></td><td align=\"center\"><input type='checkbox' name='chkDel_$idArticle'></td></tr>";
 	}
 ?>
 </table>

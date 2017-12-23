@@ -21,6 +21,17 @@
 	}
 ?>
 </table>
+<br><br>
+
+<?php
+	if (sizeof($utilisateur->tStocks)>1) {
+?>
+<input name="chkStockDefaut" id="idChkStockDefaut" type="checkbox" value="idChkStockDefaut">
+<label for="idChkStockDefaut" title="=Sélectionné au moment de la connexion">Faire de ce stock mon stock par défaut</label>
+<br><br>
+<?php
+	}
+?>
 
 <br><br>
 <button type="submit" class="boutonValider">Valider</button>

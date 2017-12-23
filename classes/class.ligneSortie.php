@@ -25,6 +25,14 @@ class ligneSortie {
 		$sql="update ligneSortie set prixSortie=$prixSortie, quantite=$quantite where idArticle=$idArticle and idSortie=$idSortie";
 		executeSql($sql);
 	}
+	
+	function delete() {
+		$idArticle=$this->article->idArticle;
+		$idSortie=$this->sortie->idSortie;
+		$sql="delete from ligneSortie where idArticle=$idArticle and idSortie=$idSortie";
+		executeSql($sql);
+	}
+
 	function insert() {
 		$idArticle=$this->article->idArticle;
 		$idSortie=$this->sortie->idSortie;

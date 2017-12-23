@@ -18,10 +18,10 @@
 		$article=$ligneStock->article;
 		$idArticle=$article->idArticle;
 		$nom=htmlspecialchars($article->nom, ENT_QUOTES);
-		echo "<tr><td>$idArticle</td><td><input type='text' name='NOM_$idArticle' value='$nom'></td><td><input type='text' size='7' name='PRIX_$idArticle' value='$article->prixCourant'></td><td><input type='text' size='5' name='QUANTITEREELLE_$idArticle' value='$ligneStock->quantiteReelle'></td></tr>";
+		echo "<tr><td>$idArticle</td><td><input size=\"40\" maxlength=\"255\" type='text' name='NOM_$idArticle' value='$nom'></td><td><input type='text' size='7' name='PRIX_$idArticle' value='$article->prixCourant'></td><td><input type='text' size='5' name='QUANTITEREELLE_$idArticle' value='$ligneStock->quantiteReelle'></td></tr>";
 	}
 	for ($i=1;$i<=5;$i++) {
-		echo "<tr><td></td><td><input type='text' name='INSERT_NOM_$i' value=''></td><td><input type='text' size='7' name='INSERT_PRIX_$i' value=''></td><td><input type='text' size='5' name='INSERT_QUANTITEREELLE_$i' value=''></td></tr>";
+		echo "<tr><td></td><td><input size=\"40\" maxlength=\"255\" type='text' name='INSERT_NOM_$i' value=''></td><td><input type='text' size='7' name='INSERT_PRIX_$i' value=''></td><td><input type='text' size='5' name='INSERT_QUANTITEREELLE_$i' value=''></td></tr>";
 	}
 ?>
 </table>

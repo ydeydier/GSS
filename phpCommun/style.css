@@ -160,6 +160,12 @@ button {
 	text-align:center;
 }
 
+.tdQuantiteVirtuelle {
+	text-align:center;
+	color:#006573;
+}
+
+
 .tableStockADroite tr td {
 	padding:4px;
 	BACKGROUND:#f4e4d0;

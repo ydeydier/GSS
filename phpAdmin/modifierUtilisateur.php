@@ -26,18 +26,21 @@ function validerForm() {
 	echo "<tr><th>Nom</th><td><input autofocus name=\"txtNom\" type=\"text\" value=\"$utilModif->nom\"></td></tr>";
 	echo "<tr><th>Prénom</th><td><input name=\"txtPrenom\" type=\"text\" value=\"$utilModif->prenom\"></td></tr>";
 	echo "<tr><th>Mot de passe</th><td><input name=\"txtPassword\" type=\"password\" value=\"$utilModif->password\"></td></tr>";
-	echo "<tr><th>Gère le(s) stock(s)</th><td>";
-	$tTousStocks = stock::chargerToutSansLigne();
-	foreach ($tTousStocks as $stockForm) {
-		$idStockForm=$stockForm->idStock;
-		if ($utilModif->autorisePourStock($idStockForm)) {
-			$checked=" checked";
-		} else {
-			$checked="";
+	echo "<tr>";
+	echo "<th>Gère le(s) stock(s)</th>";
+	echo "<td>";
+		$tTousStocks = stock::chargerToutSansLigne();
+		foreach ($tTousStocks as $stockForm) {
+			$idStockForm=$stockForm->idStock;
+			if ($utilModif->autorisePourStock($idStockForm)) {
+				$checked=" checked";
+			} else {
+				$checked="";
+			}
+		echo "<input $checked name=\"chkStock[]\" id=\"id$idStockForm\" type=\"checkbox\" value=\"$idStockForm\"><label for=\"id$idStockForm\">$stockForm->nom</label><br>";
 		}
-	echo "<input $checked name=\"chkStock[]\" id=\"id$idStockForm\" type=\"checkbox\" value=\"$idStockForm\"><label for=\"id$idStockForm\">$stockForm->nom</label><br>";
-	}
-	echo "</td></tr>";
+	echo "</td>";
+	echo "</tr>";
 ?>
 </table>
 <br><br><br>

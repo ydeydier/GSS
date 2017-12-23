@@ -33,6 +33,16 @@ function validerForm() {
 	echo "<tr><th>Prénom</th><td><input name=\"txtPrenom\" type=\"text\" value=\"\"></td></tr>";
 	echo "<tr><th>Login</th><td><input name=\"txtLogin\" type=\"text\" value=\"\"></td></tr>";
 	echo "<tr><th>Mot de passe</th><td><input name=\"txtPassword\" type=\"password\" value=\"\"></td></tr>";
+	echo "<tr>";
+	echo "<th>Gère le(s) stock(s)</th>";
+	echo "<td>";
+		$tTousStocks = stock::chargerToutSansLigne();
+		foreach ($tTousStocks as $stockForm) {
+			$idStockForm=$stockForm->idStock;
+		echo "<input name=\"chkStock[]\" id=\"id$idStockForm\" type=\"checkbox\" value=\"$idStockForm\"><label for=\"id$idStockForm\">$stockForm->nom</label><br>";
+		}
+	echo "</td>";
+	echo "</tr>";
 ?>
 </table>
 <br><br><br>

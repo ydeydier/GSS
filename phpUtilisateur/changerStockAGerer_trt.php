@@ -1,7 +1,14 @@
 <?php
 	require "inc_commun.php";
-	$rdoStock=$_POST["rdoStock"];
-	$_SESSION["idStock"]=$rdoStock;
+	$idStockDefaut=$_POST["rdoStock"];
+	
+	$bStockDefaut=isset($_POST["chkStockDefaut"]);
+	if($bStockDefaut) {
+		$utilisateur->idStockDefaut=$idStockDefaut;
+		$utilisateur->update();
+	}
+	
+	$_SESSION["idStock"]=$idStockDefaut;
 	unset($_SESSION['stock']);
 	header('Location: pagePrincipale.php');
 ?>

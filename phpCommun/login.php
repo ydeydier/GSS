@@ -7,13 +7,13 @@
 	$password="";
 	if (isset($_COOKIE['login'])) $login=$_COOKIE['login'];
 	if (isset($_COOKIE['password'])) $password=$_COOKIE['password'];
-	
 	$messageLoginIncorrect="";
-	if (isset($_GET['loginIncorrect'])) {
-		$messageLoginIncorrect='<span style="color:red;font-weight:bold;">Login ou mot de passe incorrect !</span>';
+	if (isset($_GET['erreur'])) {
+		$erreur=$_GET['erreur'];
+		if ($erreur=="passwordIncorrect")  $messageLoginIncorrect='<span style="color:red;font-weight:bold;">Mot de passe incorrect !</span>';
+		if ($erreur=="loginIncorrect")     $messageLoginIncorrect='<span style="color:red;font-weight:bold;">Login incorrect !</span>';
+		if ($erreur=="aucunStockAutorise") $messageLoginIncorrect='<span style="color:red;font-weight:bold;">Vous n\'avez à aucun stock !<br>Veuillez contacter l\'administrateur de l\'application.</span>';
 	}
-	// TODO: Changer le stock à gérer
-	// TODO: Administration des utilisateurs et des stocks
 ?>
 <table class="tableLoginGSS">
 <tr height="200px">

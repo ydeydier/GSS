@@ -10,28 +10,19 @@ class utilisateur {
 	var $tStocks;			// Tableau des idStock auquel l'utilisateur est autorisé d'accéder
 	var $idStockDefaut;
 	
-	// TODO: modifier utilisateur -> stock par défaut
-	// TODO: ajouter utilisateur -> stocks autorisés
-	// TODO: si pas de mot de passe -> LDAP
 	// TODO: menu sur le côté
 	// TODO: colonne "bénéficiaire"
+	// TODO: supprimer article dans stock
 
-	static function verifierLoginPassword($loginSaisi, $passwordSaisi, $bAuthLDAP, $tConnexionLDAP) {
-		$utilisateur=self::charger($loginSaisi);
-		if ($utilisateur!=FALSE) {
-			if ($bAuthLDAP) {
-				$bAuth=$utilisateur->verifierLoginPasswordLDAP($passwordSaisi, $tConnexionLDAP);
-				if (!$bAuth) {
-					if ($utilisateur->estAdministrateur()) {
-						$bAuth=$utilisateur->verifierLoginPasswordBase($passwordSaisi);	// TODO: tester
-					}
-				}
-			} else {
-				$bAuth=$utilisateur->verifierLoginPasswordBase($passwordSaisi);
-			}
-			if (!$bAuth) $utilisateur=FALSE;
+	function verifierPassword($passwordSaisi, $tConnexionLDAP) {
+		if (trim($this->password)) {
+			// Si un mot de passe existe en base, vérifier si celui saisi est identique
+			$bAuth=$this->verifierLoginPasswordBase($passwordSaisi);
+		} else {
+			// Sinon demander au LDAP
+			$bAuth=$this->verifierLoginPasswordLDAP($passwordSaisi, $tConnexionLDAP);
 		}
-		return $utilisateur;
+		return $bAuth;
 	}
 
 	static function charger($login) {
@@ -74,10 +65,18 @@ class utilisateur {
 	}
 
 	function verifierLoginPasswordLDAP($passwordSaisi, $tConnexionLDAP) {
-		return ldap::verifierLoginPassword($this->login, $passwordSaisi, $tConnexionLDAP);
+		$sLdap = $tConnexionLDAP["utiliserLDAP"];
+		$bAuthLDAP = (trim(strtolower($sLdap))=="oui");
+		if ($bAuthLDAP) {
+			$bRet=ldap::verifierLoginPassword($this->login, $passwordSaisi, $tConnexionLDAP);
+		} else {
+			$bRet=false;
+		}
+		return $bRet;
 	}
 
 	function chargerStocksAutorise() {
+		$this->idStockDefaut=null;
 		$result = executeSqlSelect("SELECT idStock, defaut FROM stock_autorise where idUtilisateur=$this->idUtilisateur");
 		$this->tStocks=array();
 		while($row = mysqli_fetch_array($result)) {
@@ -86,6 +85,10 @@ class utilisateur {
 			if ($row['defaut']=="O") {
 				$this->idStockDefaut=$idStock;
 			}
+		}
+		if ($this->idStockDefaut==null && sizeof($this->tStocks)>0) {
+			// Si aucun stock par défaut n'a été trouvé, le premier est considéré comme celui par défaut
+			$this->idStockDefaut=$this->tStocks[0];
 		}
 	}
 	
@@ -103,17 +106,30 @@ class utilisateur {
 	function update() {
 		$sql="update utilisateur set nom='$this->nom', prenom='$this->prenom', password='$this->password' where idUtilisateur=$this->idUtilisateur";
 		executeSql($sql);
-		$sql="delete from stock_autorise where idUtilisateur=$this->idUtilisateur";
-		executeSql($sql);
-		foreach ($this->tStocks as $idStock) {
-			$sql="insert into stock_autorise (idStock, idUtilisateur, defaut) value ($idStock, $this->idUtilisateur, 'N')";
-			executeSql($sql);
-		}
+		// Update des stocks autorisés
+		$this->insertUpdateStockAutorise();
 	}
-	// TODO : mysqlEscape partout...
+	// TODO: mysqlEscape partout...
 	function insert() {
 		$sql="insert into utilisateur (nom, prenom, login, password) value ('".mysqlEscape($this->nom)."', '$this->prenom', '$this->login', '$this->password')";
 		executeSql($sql);
+		$this->idUtilisateur=dernierIdAttribue();
+		// Insert des stocks autorisés
+		$this->insertUpdateStockAutorise();
+	}
+	
+	function insertUpdateStockAutorise() {
+		$sql="delete from stock_autorise where idUtilisateur=$this->idUtilisateur";
+		executeSql($sql);
+		foreach ($this->tStocks as $idStock) {
+			if ($idStock==$this->idStockDefaut) {
+				$estStockDefaut="O";
+			} else {
+				$estStockDefaut="N";
+			}
+			$sql="insert into stock_autorise (idStock, idUtilisateur, defaut) value ($idStock, $this->idUtilisateur, '$estStockDefaut')";
+			executeSql($sql);
+		}
 	}
 }
 ?>
