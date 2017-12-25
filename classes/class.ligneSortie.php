@@ -4,6 +4,7 @@ class ligneSortie {
 	var $article;
 	var $prixSortie;
 	var $quantite;
+	var $beneficiaire;
 	
 	static function instanceDepuisSqlRow($row, $sortie, $stock) {
 		// Chargement de l'article
@@ -14,6 +15,7 @@ class ligneSortie {
 		$ligneSortie->article=$article;
 		$ligneSortie->prixSortie=$row['prixSortie'];
 		$ligneSortie->quantite=$row['quantite'];
+		$ligneSortie->beneficiaire=$row['beneficiaire'];
 		return $ligneSortie;
 	}
 
@@ -22,7 +24,8 @@ class ligneSortie {
 		$idSortie=$this->sortie->idSortie;
 		$prixSortie=nullSiVide($this->prixSortie);
 		$quantite=$this->quantite;
-		$sql="update ligneSortie set prixSortie=$prixSortie, quantite=$quantite where idArticle=$idArticle and idSortie=$idSortie";
+		$beneficiaire=nullSiVideStr(mysqlEscape($this->beneficiaire));
+		$sql="update ligneSortie set prixSortie=$prixSortie, quantite=$quantite, beneficiaire=$beneficiaire where idArticle=$idArticle and idSortie=$idSortie";
 		executeSql($sql);
 	}
 	
@@ -38,7 +41,8 @@ class ligneSortie {
 		$idSortie=$this->sortie->idSortie;
 		$prixSortie=nullSiVide($this->prixSortie);
 		$quantite=$this->quantite;
-		$sql="insert into ligneSortie (idArticle, idSortie, prixSortie, quantite) values ($idArticle, $idSortie, $prixSortie, $quantite)";
+		$beneficiaire=nullSiVideStr(mysqlEscape($this->beneficiaire));
+		$sql="insert into ligneSortie (idArticle, idSortie, prixSortie, quantite, beneficiaire) values ($idArticle, $idSortie, $prixSortie, $quantite, $beneficiaire)";
 		executeSql($sql);
 	}
 }

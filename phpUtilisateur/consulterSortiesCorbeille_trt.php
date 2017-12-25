@@ -7,9 +7,13 @@
 	if ($action=="Restaurer") {
 		$sortie->restaurer();
 	}
+	if ($action=="Supprimer") {
+		$sortie->delete();
+	}
 	// Recalcule des quantités virtuelles dans le stock
-	chargerStock();		// Le stock a changé, il est nécessaire de le recharger
 	$stock->calculerQuantitesVirtuelles();
+	// Force le rechargement du stock
+	unset($_SESSION['stock']);
 	// Redirection
 	header('Location: consulterSortiesCorbeille.php');
 ?>

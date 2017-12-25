@@ -56,6 +56,8 @@
 	}
 	// Recalcule des quantités virtuelles dans le stock
 	$stock->calculerQuantitesVirtuelles();
+	// Force le rechargement du stock
+	unset($_SESSION['stock']);
 	// Redirection
 	header('Location: visualiserStock.php');
 ?>

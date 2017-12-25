@@ -3,6 +3,7 @@
 	require "header_et_menu.php";
 	$idSortie=$_GET["id"];
 	$sortie = sortie::charger($idSortie, $stock);
+	$bUtiliseBeneficiaire=($stock->utiliseBeneficiaire=="O");
 ?>
 <script type="text/javascript">
 function rendreVirtuelle(idSortie) {
@@ -30,10 +31,10 @@ function modifier(idSortie, etat) {
 <br>
 <h1>Sortie : <?php echo $sortie->nom;?></h1>
 <br>
-Etat : <b><?php echo $sortie->libeleEtat();?></b>
+Etat : <b><?php echo $sortie->libelleEtat();?></b>
 <br><br><br>
 <table class="tableCommune">
-<tr><th>Nom</th><th>Quantité</th><th>Prix<br>unitaire</th><th>Prix<br>total</th></tr>
+<tr><th>Nom</th><?php if ($bUtiliseBeneficiaire) echo "<th>Bénéficiaire</th>";?><th>Prix<br>unitaire</th><th>Quantité</th><th>Prix<br>total</th></tr>
 <?php
 	foreach ($sortie->tLigneSortie as $ligneSortie) {
 		$nom=$ligneSortie->article->nom;
@@ -41,9 +42,13 @@ Etat : <b><?php echo $sortie->libeleEtat();?></b>
 		$quantite=$ligneSortie->quantite;
 		$prixTotal=$prixSortie * $quantite;
 		$prixTotal=number_format($prixTotal, 2, '.', ' ');
-		echo "<tr><td>$nom</td><td class=\"tdQuantite\">$quantite</td><td class=\"tdPrix\">$prixSortie</td><td class=\"tdPrix\">$prixTotal</td></tr>";
+		echo "<tr>";
+		echo "<td>$nom</td>";
+		if ($bUtiliseBeneficiaire) echo "<td>$ligneSortie->beneficiaire</td>";
+		echo "<td class=\"tdPrix\">$prixSortie</td><td class=\"tdQuantite\">$quantite</td><td class=\"tdPrix\">$prixTotal</td></tr>";
 	}
-	echo "<tr><td>Total</td><td></td><td></td><td class=\"tdPrix\">$sortie->coutTotal</td></tr>";
+	$colSpan=($bUtiliseBeneficiaire?4:3);
+	echo "<tr><td colspan='$colSpan'>Total</td><td class=\"tdPrix\">$sortie->coutTotal</td></tr>";
 ?>
 </table>
 <br><br>

@@ -1,16 +1,18 @@
 <?php
 	require "inc_commun.php";
 	$sortie=$_SESSION["sortie"];
+	$bUtiliseBeneficiaire=($stock->utiliseBeneficiaire=="O");
 	
 	// Modifications sur la sortie
 	$sortie->nom=$_POST["txtNomSortie"];
 	
 	// Modifications ou suppression de ligneSortie
-	foreach ($sortie->tLigneSortie as $ligneSortie) {
+	foreach ($sortie->tLigneSortie as $key => $ligneSortie) {
 		$idArticle=$ligneSortie->article->idArticle;
 		$bDelete=isset($_POST["chkDel_$idArticle"]);
 		if ($bDelete) {
 			$ligneSortie->delete();
+			unset($sortie->tLigneSortie[$key]);
 		} else {
 			$quantite=$_POST["QUANTITE_$idArticle"];
 			if (!is_numeric($quantite)) {
@@ -23,8 +25,14 @@
 			if (!is_numeric($prixSortie)) {
 				$prixSortie=null;
 			}
+			if ($bUtiliseBeneficiaire) {
+				$beneficiaire=$_POST["BENEF_$idArticle"];
+			} else {
+				$beneficiaire=null;
+			}
 			$ligneSortie->prixSortie=$prixSortie;
 			$ligneSortie->quantite=$quantite;
+			$ligneSortie->beneficiaire=$beneficiaire;
 			$ligneSortie->update();
 		}
 	}
@@ -41,11 +49,17 @@
 				} else {
 					$quantite=intval($quantite);
 				}
+				if ($bUtiliseBeneficiaire) {
+					$beneficiaire=$_POST["BENEF_AJOUT_$idArticle"];
+				} else {
+					$beneficiaire=null;
+				}
 				$ligneSortie = new ligneSortie();
 				$ligneSortie->sortie=$sortie;
 				$ligneSortie->article=$article;
 				$ligneSortie->prixSortie=$article->prixCourant;		// Le prix est copié depuis le stock, car il peut varier dans le stock. Il doit être associé à la sortie.
 				$ligneSortie->quantite=$quantite;
+				$ligneSortie->beneficiaire=$beneficiaire;
 				$sortie->tLigneSortie[]=$ligneSortie;
 				$ligneSortie->insert();
 			}

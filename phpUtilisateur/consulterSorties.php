@@ -48,7 +48,7 @@ function supprimer(idSortie) {
 			$changerEtat="Rendre VIRTUELLE";
 			$fctChangeEtat="rendreVirtuelle($sortie->idSortie)";	// Fonction javascript à appeler
 		}
-		$libelleEtat=$sortie->libeleEtat();
+		$libelleEtat=$sortie->libelleEtat();
 		echo "<tr><td>$sortie->idSortie</td><td>$sortie->nom</td><td>$libelleEtat</td><td class=\"tdPrix\">$sortie->coutTotal</td><td class=\"tdQuantite\">$sortie->nbreArticles</td>";
 		echo "<td><a href=\"consulterSortie.php?id=$sortie->idSortie\">Consulter</a></td><td><a href=\"javascript:modifier($sortie->idSortie, '$sortie->etat');\">Modifier</a></td><td><a href=\"javascript:supprimer($sortie->idSortie);\">Supprimer</a></td><td><a href=\"javascript:$fctChangeEtat;\">$changerEtat</a></td></tr>";
 	}
@@ -57,7 +57,7 @@ function supprimer(idSortie) {
 <br><br>
 <a class="menu" href="ajouterSortie.php">Ajouter une sortie</a><br>
 <a class="menu" href="consulterSortiesCorbeille.php">Voir la corbeille</a><br>
-<a class="menu" href="pagePrincipale.php">Retour Page Accueil</a>
+<a class="menu" href="pagePrincipale.php">*** Retour Page Accueil ***</a>
 
 </CENTER>
 <br><br><br><br>

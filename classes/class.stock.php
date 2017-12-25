@@ -3,7 +3,8 @@
 class stock {
 	var $idStock;
 	var $nom;
-	var $tLigneStock;	// tableau de ligneStock
+	var $utiliseBeneficiaire;	// 'O' si la colonne "bénéficiaire" doit être utilisée sur les sorties. 'N' sinon.
+	var $tLigneStock;			// tableau de ligneStock
 	
 	static function charger($idStock) {
 		// Charger les données principales
@@ -12,6 +13,7 @@ class stock {
 		$stock = new stock();
 		$stock->idStock=$idStock;
 		$stock->nom=$row['nom'];
+		$stock->utiliseBeneficiaire=$row['utiliseBeneficiaire'];
 		// Charger les lignes
 		$result = executeSqlSelect("SELECT * FROM ligneStock, article where ligneStock.idArticle=article.idArticle AND ligneStock.idStock=".$idStock);
 		$stock->tLigneStock = array();
@@ -30,6 +32,7 @@ class stock {
 			$stock = new stock();
 			$stock->idStock=$row['idStock'];
 			$stock->nom=$row['nom'];
+			$stock->utiliseBeneficiaire=$row['utiliseBeneficiaire'];
 			$stocks[$stock->idStock]=$stock;
 		}
 		return $stocks;
@@ -41,7 +44,8 @@ class stock {
 			$ligneStock->quantiteReelle=$ligneStock->quantiteReelle-$quantite;
 			$ligneStock->update();
 		} else {
-			// TODO : gérer !
+			rollback();
+			die("Erreur dans class.stock.retirerArticle()");
 		}
 	}
 	
@@ -51,7 +55,8 @@ class stock {
 			$ligneStock->quantiteReelle=$ligneStock->quantiteReelle+$quantite;
 			$ligneStock->update();
 		} else {
-			// TODO : gérer !
+			rollback();
+			die("Erreur dans class.stock.ajouterArticle()");
 		}
 	}
 
@@ -84,12 +89,14 @@ class stock {
 	}
 
 	function update() {
-		$sql="update stock set nom='$this->nom' where idStock=$this->idStock";
+		$nom=mysqlEscape($this->nom);
+		$sql="update stock set nom='$nom', utiliseBeneficiaire='$this->utiliseBeneficiaire' where idStock=$this->idStock";
 		executeSql($sql);
 	}
 
 	function insert() {
-		$sql="insert into stock (nom) value ('$this->nom')";
+		$nom=mysqlEscape($this->nom);
+		$sql="insert into stock (nom, utiliseBeneficiaire) value ('$nom', '$this->utiliseBeneficiaire')";
 		executeSql($sql);
 	}
 }

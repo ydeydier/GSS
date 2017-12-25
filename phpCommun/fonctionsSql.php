@@ -4,7 +4,7 @@
 		//echo $sql."<br><br>"; die();  // décommenter pour débugguer
 		if (!mysqli_query($link, $sql)) {
 			mysqli_rollback($link);
-			die('Erreur SQL !'.$sql.'<br>'.mysqli_error($link));
+			die('Erreur SQL ! '.$sql.'<br>'.mysqli_error($link));
 		}
 	}
 
@@ -19,11 +19,16 @@
 		mysqli_autocommit($link, TRUE);
 	}
 	
+	function rollback() {
+		global $link;
+		mysqli_rollback($link);
+	}
+
 	function executeSqlSelect($sql) {
 		global $link;
 		$result=mysqli_query($link, $sql);
 		if (!$result) {
-			die('Erreur SQL !'.$sql.'<br>'.mysqli_error($link));
+			die('Erreur SQL ! '.$sql.'<br>'.mysqli_error($link));
 		}
 		return $result;
 	}
@@ -37,6 +42,15 @@
 		return $ret;
 	}
 	
+	function nullSiVideStr($val) {
+		if (trim($val)=="") {
+			$ret="null";
+		} else {
+			$ret="'$val'";
+		}
+		return $ret;
+	}
+
 	function dernierIdAttribue() {
 		global $link;
 		return mysqli_insert_id($link);

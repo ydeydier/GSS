@@ -10,9 +10,9 @@ class utilisateur {
 	var $tStocks;			// Tableau des idStock auquel l'utilisateur est autorisé d'accéder
 	var $idStockDefaut;
 	
-	// TODO: menu sur le côté
-	// TODO: colonne "bénéficiaire"
+	// TODO: colonne "bénéficiaire" : administration
 	// TODO: supprimer article dans stock
+	// TODO: recette globale
 
 	function verifierPassword($passwordSaisi, $tConnexionLDAP) {
 		if (trim($this->password)) {
@@ -104,14 +104,14 @@ class utilisateur {
 	}
 
 	function update() {
-		$sql="update utilisateur set nom='$this->nom', prenom='$this->prenom', password='$this->password' where idUtilisateur=$this->idUtilisateur";
+		$sql="update utilisateur set nom='".mysqlEscape($this->nom)."', prenom='".mysqlEscape($this->prenom)."', password='".mysqlEscape($this->password)."' where idUtilisateur=$this->idUtilisateur";
 		executeSql($sql);
 		// Update des stocks autorisés
 		$this->insertUpdateStockAutorise();
 	}
-	// TODO: mysqlEscape partout...
+
 	function insert() {
-		$sql="insert into utilisateur (nom, prenom, login, password) value ('".mysqlEscape($this->nom)."', '$this->prenom', '$this->login', '$this->password')";
+		$sql="insert into utilisateur (nom, prenom, login, password) value ('".mysqlEscape($this->nom)."', '".mysqlEscape($this->prenom)."', '".mysqlEscape($this->login)."', '".mysqlEscape($this->password)."')";
 		executeSql($sql);
 		$this->idUtilisateur=dernierIdAttribue();
 		// Insert des stocks autorisés

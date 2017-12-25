@@ -92,7 +92,15 @@ class sortie {
 	function update() {
 		$this->calculeCoutTotal();
 		$this->calculeNbreArticles();
-		$sql="update sortie set nom='$this->nom', coutTotal=$this->coutTotal, nbreArticles=$this->nbreArticles, etat='$this->etat' where idSortie=$this->idSortie";
+		$nom=mysqlEscape($this->nom);
+		$sql="update sortie set nom='$nom', coutTotal=$this->coutTotal, nbreArticles=$this->nbreArticles, etat='$this->etat' where idSortie=$this->idSortie";
+		executeSql($sql);
+	}
+	
+	function delete() {
+		$sql="delete from lignesortie where idSortie=$this->idSortie";
+		executeSql($sql);
+		$sql="delete from sortie where idSortie=$this->idSortie";
 		executeSql($sql);
 	}
 	
@@ -100,7 +108,8 @@ class sortie {
 		$idStock=$this->stock->idStock;
 		$this->calculeCoutTotal();
 		$this->calculeNbreArticles();
-		$sql="insert into sortie (idStock, nom, coutTotal, nbreArticles, corbeille, etat) values ($idStock, '$this->nom', $this->coutTotal, $this->nbreArticles, 'N', '$this->etat')";
+		$nom=mysqlEscape($this->nom);
+		$sql="insert into sortie (idStock, nom, coutTotal, nbreArticles, corbeille, etat) values ($idStock, '$nom', $this->coutTotal, $this->nbreArticles, 'N', '$this->etat')";
 		executeSql($sql);
 		$this->idSortie=dernierIdAttribue();
 		// Insertion des ligneSortie
@@ -131,7 +140,7 @@ class sortie {
 	}
 
 	function rendreReelle($stock) {
-		beginTransaction();		// TODO : tester le commit / rollback
+		beginTransaction();
 		$this->etat=$this::$REELLE;
 		$this->update();
 		foreach ($this->tLigneSortie as $ligneSortie) {
@@ -144,7 +153,7 @@ class sortie {
 	}
 	
 	function rendreVirtuelle($stock) {
-		beginTransaction();		// TODO : tester le commit / rollback
+		beginTransaction();
 		$this->etat=$this::$VIRTUELLE;
 		$this->update();
 		foreach ($this->tLigneSortie as $ligneSortie) {
@@ -156,7 +165,7 @@ class sortie {
 		commit();
 	}
 	
-	function libeleEtat() {
+	function libelleEtat() {
 		if ($this->etat==$this::$REELLE) {
 			$libelle="Réelle";
 		} else {
@@ -164,6 +173,5 @@ class sortie {
 		}
 		return $libelle;
 	}
-	// TODO : vérifier les fonctions "rendre virtuelle" et "rendre réelle"
 }
 ?>

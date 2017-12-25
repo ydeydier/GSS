@@ -1,5 +1,4 @@
 <?php
-	// TODO : factoriser avec consulterSorties_trt.php (avec le 's' à Sorties)
 	require "inc_commun.php";
 	$action=$_GET["action"];
 	$idSortie=$_GET["idSortie"];
@@ -8,15 +7,17 @@
 
 	if ($action=="RendreReelle") {
 		$sortie->rendreReelle($stock);
-		chargerStock();		// Le stock a changé, il est nécessaire de le recharger
 	}
 	if ($action=="RendreVirtuelle") {
 		$sortie->rendreVirtuelle($stock);
-		chargerStock();		// Le stock a changé, il est nécessaire de le recharger
 	}
 	if ($action=="Supprimer") {
 		$sortie->supprimer();
 	}
+	// Recalcule des quantités virtuelles dans le stock
+	$stock->calculerQuantitesVirtuelles();
+	// Force le rechargement du stock
+	unset($_SESSION['stock']);
 	// Redirection
 	header("Location: consulterSortie.php?id=$idSortie");
 ?>

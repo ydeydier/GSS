@@ -16,14 +16,17 @@
 	foreach ($stock->tLigneStock as $ligneStock) {
 		$article=$ligneStock->article;
 		$idArticle=$article->idArticle;
-		echo "<tr><td>$idArticle</td><td>$article->nom</td><td class=\"tdPrix\">$article->prixCourant</td><td class=\"tdQuantite\">$ligneStock->quantiteReelle</td><td class=\"tdQuantiteVirtuelle\">$ligneStock->quantiteVirtuelle</td></tr>";
+		$quantiteReelle=$ligneStock->quantiteReelle;
+		$quantiteVirtuelle=$ligneStock->quantiteVirtuelle;
+		if ($quantiteReelle==$quantiteVirtuelle) $quantiteVirtuelle="";
+		echo "<tr><td>$idArticle</td><td>$article->nom</td><td class=\"tdPrix\">$article->prixCourant</td><td class=\"tdQuantite\">$quantiteReelle</td><td class=\"tdQuantiteVirtuelle\">$quantiteVirtuelle</td></tr>";
 	}
 ?>
 </table>
 <br><br>
 
 <a class="menu" href="editerStock.php">Modifier</a><br>
-<a class="menu" href="pagePrincipale.php">Retour au menu</a>
+<a class="menu" href="pagePrincipale.php">*** Retour Page Accueil ***</a>
 
 </CENTER>
 <br><br><br><br>
