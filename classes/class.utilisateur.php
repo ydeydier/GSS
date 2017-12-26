@@ -14,6 +14,7 @@ class utilisateur {
 	// TODO: blueplace : 3D sur login ?!
 	// TODO: LDAP
 	// TODO: supprimer article dans stock
+	// TODO: supprimer stock
 	// TODO: recette globale
 
 	function verifierPassword($passwordSaisi, $tConnexionLDAP) {

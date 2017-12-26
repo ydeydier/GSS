@@ -98,7 +98,7 @@ class sortie {
 	}
 	
 	function delete() {
-		$sql="delete from lignesortie where idSortie=$this->idSortie";
+		$sql="delete from ligne_sortie where idSortie=$this->idSortie";
 		executeSql($sql);
 		$sql="delete from sortie where idSortie=$this->idSortie";
 		executeSql($sql);
