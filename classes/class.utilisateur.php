@@ -11,6 +11,8 @@ class utilisateur {
 	var $idStockDefaut;
 	
 	// TODO: colonne "bénéficiaire" : administration
+	// TODO: blueplace : 3D sur login ?!
+	// TODO: LDAP
 	// TODO: supprimer article dans stock
 	// TODO: recette globale
 

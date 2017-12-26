@@ -57,7 +57,7 @@ class sortie {
 		$row = mysqli_fetch_array($result);
 		$sortie = self::instanceDepuisSqlRow($row, $stock);
 		// Chargement des lignes
-		$result = executeSqlSelect("SELECT * FROM ligneSortie, article where ligneSortie.idArticle=article.idArticle and idSortie=$idSortie");
+		$result = executeSqlSelect("SELECT * FROM ligne_sortie, article where ligne_sortie.idArticle=article.idArticle and idSortie=$idSortie");
 		$sortie->tLigneSortie = array();
 		while($row = mysqli_fetch_array($result)) {
 			$ligneSortie = ligneSortie::instanceDepuisSqlRow($row, $sortie, $stock);

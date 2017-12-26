@@ -25,14 +25,14 @@ class ligneSortie {
 		$prixSortie=nullSiVide($this->prixSortie);
 		$quantite=$this->quantite;
 		$beneficiaire=nullSiVideStr(mysqlEscape($this->beneficiaire));
-		$sql="update ligneSortie set prixSortie=$prixSortie, quantite=$quantite, beneficiaire=$beneficiaire where idArticle=$idArticle and idSortie=$idSortie";
+		$sql="update ligne_sortie set prixSortie=$prixSortie, quantite=$quantite, beneficiaire=$beneficiaire where idArticle=$idArticle and idSortie=$idSortie";
 		executeSql($sql);
 	}
 	
 	function delete() {
 		$idArticle=$this->article->idArticle;
 		$idSortie=$this->sortie->idSortie;
-		$sql="delete from ligneSortie where idArticle=$idArticle and idSortie=$idSortie";
+		$sql="delete from ligne_sortie where idArticle=$idArticle and idSortie=$idSortie";
 		executeSql($sql);
 	}
 
@@ -42,7 +42,7 @@ class ligneSortie {
 		$prixSortie=nullSiVide($this->prixSortie);
 		$quantite=$this->quantite;
 		$beneficiaire=nullSiVideStr(mysqlEscape($this->beneficiaire));
-		$sql="insert into ligneSortie (idArticle, idSortie, prixSortie, quantite, beneficiaire) values ($idArticle, $idSortie, $prixSortie, $quantite, $beneficiaire)";
+		$sql="insert into ligne_sortie (idArticle, idSortie, prixSortie, quantite, beneficiaire) values ($idArticle, $idSortie, $prixSortie, $quantite, $beneficiaire)";
 		executeSql($sql);
 	}
 }

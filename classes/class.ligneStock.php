@@ -19,14 +19,14 @@ class ligneStock {
 		$quantiteVirtuelle=nullSiVide($this->quantiteVirtuelle);
 		$stock=$this->stock;
 		$article=$this->article;
-		$sql="update ligneStock set quantiteReelle=$quantiteReelle, quantiteVirtuelle=$quantiteVirtuelle where idStock=$stock->idStock and idArticle=$article->idArticle";
+		$sql="update ligne_stock set quantiteReelle=$quantiteReelle, quantiteVirtuelle=$quantiteVirtuelle where idStock=$stock->idStock and idArticle=$article->idArticle";
 		executeSql($sql);
 	}
 	function insert() {
 		$idStock=$this->stock->idStock;
 		$idArticle=$this->article->idArticle;
 		$quantiteVirtuelle="null";
-		$sql="insert into ligneStock (idStock, idArticle, quantiteReelle, quantiteVirtuelle) values ($idStock, $idArticle, $this->quantiteReelle, $quantiteVirtuelle)";
+		$sql="insert into ligne_stock (idStock, idArticle, quantiteReelle, quantiteVirtuelle) values ($idStock, $idArticle, $this->quantiteReelle, $quantiteVirtuelle)";
 		executeSql($sql);
 	}
 }

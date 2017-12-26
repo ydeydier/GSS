@@ -81,11 +81,11 @@ INSERT INTO `article` (`idArticle`, `idStock`, `nom`, `prixCourant`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `lignesortie`
+-- Structure de la table `ligne_sortie`
 --
 
-DROP TABLE IF EXISTS `lignesortie`;
-CREATE TABLE `lignesortie` (
+DROP TABLE IF EXISTS `ligne_sortie`;
+CREATE TABLE `ligne_sortie` (
   `idSortie` int(11) NOT NULL,
   `idArticle` int(11) NOT NULL,
   `prixSortie` decimal(10,3) DEFAULT NULL,
@@ -94,10 +94,10 @@ CREATE TABLE `lignesortie` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `lignesortie`
+-- Déchargement des données de la table `ligne_sortie`
 --
 
-INSERT INTO `lignesortie` (`idSortie`, `idArticle`, `prixSortie`, `quantite`, `beneficiaire`) VALUES
+INSERT INTO `ligne_sortie` (`idSortie`, `idArticle`, `prixSortie`, `quantite`, `beneficiaire`) VALUES
 (27, 1, '5.568', 5, NULL),
 (28, 1, '5.568', 50, NULL),
 (29, 1, '5.568', 50, 'jean6'),
@@ -110,11 +110,11 @@ INSERT INTO `lignesortie` (`idSortie`, `idArticle`, `prixSortie`, `quantite`, `b
 -- --------------------------------------------------------
 
 --
--- Structure de la table `lignestock`
+-- Structure de la table `ligne_stock`
 --
 
-DROP TABLE IF EXISTS `lignestock`;
-CREATE TABLE `lignestock` (
+DROP TABLE IF EXISTS `ligne_stock`;
+CREATE TABLE `ligne_stock` (
   `idStock` int(11) NOT NULL,
   `idArticle` int(11) NOT NULL,
   `quantiteReelle` int(11) DEFAULT NULL,
@@ -122,10 +122,10 @@ CREATE TABLE `lignestock` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `lignestock`
+-- Déchargement des données de la table `ligne_stock`
 --
 
-INSERT INTO `lignestock` (`idStock`, `idArticle`, `quantiteReelle`, `quantiteVirtuelle`) VALUES
+INSERT INTO `ligne_stock` (`idStock`, `idArticle`, `quantiteReelle`, `quantiteVirtuelle`) VALUES
 (1, 1, 122, -33),
 (1, 2, 198, 168),
 (1, 4, 213, 113),
@@ -297,16 +297,16 @@ ALTER TABLE `article`
   ADD KEY `idStock` (`idStock`);
 
 --
--- Index pour la table `lignesortie`
+-- Index pour la table `ligne_sortie`
 --
-ALTER TABLE `lignesortie`
+ALTER TABLE `ligne_sortie`
   ADD PRIMARY KEY (`idArticle`,`idSortie`),
   ADD KEY `idSortie` (`idSortie`);
 
 --
--- Index pour la table `lignestock`
+-- Index pour la table `ligne_stock`
 --
-ALTER TABLE `lignestock`
+ALTER TABLE `ligne_stock`
   ADD PRIMARY KEY (`idStock`,`idArticle`),
   ADD KEY `idArticle` (`idArticle`);
 
@@ -375,18 +375,18 @@ ALTER TABLE `article`
   ADD CONSTRAINT `article_ibfk_1` FOREIGN KEY (`idStock`) REFERENCES `stock` (`idStock`);
 
 --
--- Contraintes pour la table `lignesortie`
+-- Contraintes pour la table `ligne_sortie`
 --
-ALTER TABLE `lignesortie`
-  ADD CONSTRAINT `lignesortie_ibfk_1` FOREIGN KEY (`idSortie`) REFERENCES `sortie` (`idSortie`),
-  ADD CONSTRAINT `lignesortie_ibfk_2` FOREIGN KEY (`idArticle`) REFERENCES `article` (`idArticle`);
+ALTER TABLE `ligne_sortie`
+  ADD CONSTRAINT `ligne_sortie_ibfk_1` FOREIGN KEY (`idSortie`) REFERENCES `sortie` (`idSortie`),
+  ADD CONSTRAINT `ligne_sortie_ibfk_2` FOREIGN KEY (`idArticle`) REFERENCES `article` (`idArticle`);
 
 --
--- Contraintes pour la table `lignestock`
+-- Contraintes pour la table `ligne_stock`
 --
-ALTER TABLE `lignestock`
-  ADD CONSTRAINT `lignestock_ibfk_1` FOREIGN KEY (`idStock`) REFERENCES `stock` (`idStock`),
-  ADD CONSTRAINT `lignestock_ibfk_2` FOREIGN KEY (`idArticle`) REFERENCES `article` (`idArticle`);
+ALTER TABLE `ligne_stock`
+  ADD CONSTRAINT `ligne_stock_ibfk_1` FOREIGN KEY (`idStock`) REFERENCES `stock` (`idStock`),
+  ADD CONSTRAINT `ligne_stock_ibfk_2` FOREIGN KEY (`idArticle`) REFERENCES `article` (`idArticle`);
 
 --
 -- Contraintes pour la table `sortie`

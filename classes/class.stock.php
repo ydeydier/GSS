@@ -15,7 +15,7 @@ class stock {
 		$stock->nom=$row['nom'];
 		$stock->utiliseBeneficiaire=$row['utiliseBeneficiaire'];
 		// Charger les lignes
-		$result = executeSqlSelect("SELECT * FROM ligneStock, article where ligneStock.idArticle=article.idArticle AND ligneStock.idStock=".$idStock);
+		$result = executeSqlSelect("SELECT * FROM ligne_stock, article where ligne_stock.idArticle=article.idArticle AND ligne_stock.idStock=".$idStock);
 		$stock->tLigneStock = array();
 		while($row = mysqli_fetch_array($result)) {
 			$ligneStock = ligneStock::instanceDepuisSqlRow($row, $stock);
