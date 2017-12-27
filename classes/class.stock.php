@@ -99,5 +99,22 @@ class stock {
 		$sql="insert into stock (nom, utiliseBeneficiaire) value ('$nom', '$this->utiliseBeneficiaire')";
 		executeSql($sql);
 	}
+	
+	static function delete($idStock) {
+		beginTransaction();
+		$sql="delete from ligne_sortie where idSortie in (select idSortie from sortie where idStock=$idStock)";
+		executeSql($sql);
+		$sql="delete from sortie where idStock=$idStock";
+		executeSql($sql);
+		$sql="delete from ligne_stock where idStock=$idStock";
+		executeSql($sql);
+		$sql="delete from article where idStock=$idStock";
+		executeSql($sql);
+		$sql="delete from stock_autorise where idStock=$idStock";
+		executeSql($sql);
+		$sql="delete from stock where idStock=$idStock";
+		executeSql($sql);
+		commit();
+	}
 }
 ?>

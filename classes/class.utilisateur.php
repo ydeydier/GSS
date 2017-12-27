@@ -10,24 +10,8 @@ class utilisateur {
 	var $tStocks;			// Tableau des idStock auquel l'utilisateur est autorisé d'accéder
 	var $idStockDefaut;
 	
-	// TODO: colonne "bénéficiaire" : administration
-	// TODO: blueplace : 3D sur login ?!
-	// TODO: LDAP
-	// TODO: supprimer article dans stock
-	// TODO: supprimer stock
 	// TODO: recette globale
-
-	function verifierPassword($passwordSaisi, $tConnexionLDAP) {
-		if (trim($this->password)) {
-			// Si un mot de passe existe en base, vérifier si celui saisi est identique
-			$bAuth=$this->verifierLoginPasswordBase($passwordSaisi);
-		} else {
-			// Sinon demander au LDAP
-			$bAuth=$this->verifierLoginPasswordLDAP($passwordSaisi, $tConnexionLDAP);
-		}
-		return $bAuth;
-	}
-
+	// TODO: LDAP, vérifier
 	static function charger($login) {
 		$login=strtolower(trim($login));
 		$result = executeSqlSelect("SELECT * FROM utilisateur where lower(trim(login))='$login'");
@@ -121,6 +105,13 @@ class utilisateur {
 		$this->insertUpdateStockAutorise();
 	}
 	
+	static function delete($idUtilisateur) {
+		$sql="delete from stock_autorise where idUtilisateur=$idUtilisateur";
+		executeSql($sql);
+		$sql="delete from utilisateur where idUtilisateur=$idUtilisateur";
+		executeSql($sql);
+	}
+
 	function insertUpdateStockAutorise() {
 		$sql="delete from stock_autorise where idUtilisateur=$this->idUtilisateur";
 		executeSql($sql);

@@ -1,25 +1,31 @@
 <?php
 	require "inc_commun.php";
 	
-	// Update
-	foreach ($stock->tLigneStock as $ligneStock) {
+	// Modifications ou suppression de ligneStock
+	foreach ($stock->tLigneStock as $key => $ligneStock) {
 		$article=$ligneStock->article;
 		$idArticle=$article->idArticle;
-		$quantiteReelle=$_POST["QUANTITEREELLE_$idArticle"];
-		$prixCourant=$_POST["PRIX_$idArticle"];
-		if (!is_numeric($quantiteReelle)) {
-			$quantiteReelle=0;
+		$bDelete=isset($_POST["CHKDEL_$idArticle"]);
+		if ($bDelete) {
+			$ligneStock->delete();
+			unset($stock->tLigneStock[$key]);
 		} else {
-			$quantiteReelle=intval($quantiteReelle);
+			$quantiteReelle=$_POST["QUANTITEREELLE_$idArticle"];
+			$prixCourant=$_POST["PRIX_$idArticle"];
+			if (!is_numeric($quantiteReelle)) {
+				$quantiteReelle=0;
+			} else {
+				$quantiteReelle=intval($quantiteReelle);
+			}
+			if (!is_numeric($prixCourant)) {
+				$prixCourant=null;
+			}
+			$ligneStock->quantiteReelle=$quantiteReelle;
+			$ligneStock->update();
+			$article->nom=$_POST["NOM_$idArticle"];
+			$article->prixCourant=$prixCourant;
+			$article->update();
 		}
-		if (!is_numeric($prixCourant)) {
-			$prixCourant=null;
-		}
-		$ligneStock->quantiteReelle=$quantiteReelle;
-		$ligneStock->update();
-		$article->nom=$_POST["NOM_$idArticle"];
-		$article->prixCourant=$prixCourant;
-		$article->update();
 	}
 		
 	// Insert

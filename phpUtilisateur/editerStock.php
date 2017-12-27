@@ -11,14 +11,20 @@
 
 <form method="POST" name="leForm" action="editerStock_trt.php">
 <table class="tableCommune">
-<tr><th>ID</th><th>Nom</th><th>Prix</th><th>Quantite<br>réelle</th></tr>
+<tr><th>ID</th><th>Nom</th><th>Prix</th><th>Quantite<br>réelle</th><th>Supprimer</th></tr>
 <?php
 	chargerStock();		// Force le rechargement du stock (stocké en session) pour s'assurer de travailler sur les dernières valeurs en BDD
 	foreach ($stock->tLigneStock as $ligneStock) {
 		$article=$ligneStock->article;
 		$idArticle=$article->idArticle;
 		$nom=htmlspecialchars($article->nom, ENT_QUOTES);
-		echo "<tr><td>$idArticle</td><td><input size=\"40\" maxlength=\"255\" type='text' name='NOM_$idArticle' value='$nom'></td><td><input type='text' size='7' name='PRIX_$idArticle' value='$article->prixCourant'></td><td><input type='text' size='5' name='QUANTITEREELLE_$idArticle' value='$ligneStock->quantiteReelle'></td></tr>";
+		echo "<tr>";
+		echo "<td>$idArticle</td>";
+		echo "<td><input size=\"40\" maxlength=\"255\" type='text' name='NOM_$idArticle' value='$nom'></td>";
+		echo "<td><input type='text' size='7' name='PRIX_$idArticle' value='$article->prixCourant'></td>";
+		echo "<td><input type='text' size='5' name='QUANTITEREELLE_$idArticle' value='$ligneStock->quantiteReelle'></td>";
+		echo "<td align=\"center\"><input type='checkbox' name='CHKDEL_$idArticle'></td>";
+		echo "</tr>";
 	}
 	for ($i=1;$i<=5;$i++) {
 		echo "<tr><td></td><td><input size=\"40\" maxlength=\"255\" type='text' name='INSERT_NOM_$i' value=''></td><td><input type='text' size='7' name='INSERT_PRIX_$i' value=''></td><td><input type='text' size='5' name='INSERT_QUANTITEREELLE_$i' value=''></td></tr>";

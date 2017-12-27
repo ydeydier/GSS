@@ -17,3 +17,6 @@ PHP/MySQL
 	
 # Installation
 Voir le fichier documentation/installation.txt
+
+# Documentation LDAP
+* LDAP : si un mot de passe est défini pour un utilisateur (table utilisateur), alors le LDAP n'est pas interrogé. Sinon, et si utiliserLDAP=oui dans configuration.ini, alors le LDAP est interrogé.

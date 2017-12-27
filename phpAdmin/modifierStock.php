@@ -13,9 +13,22 @@
 	$idStock=$_GET["idStock"];
 	$stock = stock::charger($idStock);
 	$_SESSION["stock"]=$stock;
-	echo "Nom : <input autofocus name=\"txtNomStock\" type=\"text\" value=\"$stock->nom\">";
+	if ($stock->utiliseBeneficiaire=="O") {
+		$selectedOui="selected ";
+		$selectedNon="";
+	} else {
+		$selectedOui="";
+		$selectedNon="selected ";
+	}
 ?>
-<br><br><br>
+	<br>
+	<b>Nom</b><br>
+	<br><input autofocus name="txtNomStock" type="text" value="<?php echo $stock->nom;?>">
+	<br><br><br><br>
+	<b>Paramétrage</b><br>
+	<br>
+	Colonne "Destinataire" sur les sortie : <select name="selDestinataire"><option <?php echo $selectedOui;?> value="O">OUI</option><option <?php echo $selectedNon;?> value="N">NON</option></select>
+<br><br><br><br><br>
 <button type="submit" class="boutonValider">Valider</button>
 &nbsp;&nbsp;&nbsp
 <button type="button" class="boutonAnnuler" onclick="javascript:window.location='gererStocks.php'">Annuler</button>

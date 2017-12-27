@@ -6,11 +6,18 @@
 	require_once "../phpCommun/connexion.php";
 	
 	$login=$_POST["txtLogin"];
-	$password=$_POST["txtPassword"];
+	$passwordSaisi=$_POST["txtPassword"];
 	$tConnexionLDAP = $tConfiguration["connexionLDAP"];
 	$utilisateur=utilisateur::charger($login);
+	$passwordRenseigne=(trim($utilisateur->password)!="");
 	if ($utilisateur!=FALSE) {
-		$bPassword=$utilisateur->verifierPassword($password, $tConnexionLDAP);
+		if ($passwordRenseigne) {
+			// Si un mot de passe existe en base, vérifier si celui saisi est identique
+			$bPassword=$utilisateur->verifierLoginPasswordBase($passwordSaisi);
+		} else {
+			// Sinon demander au LDAP
+			$bPassword=$utilisateur->verifierLoginPasswordLDAP($passwordSaisi, $tConnexionLDAP);
+		}
 		if ($bPassword!=FALSE) {
 			if ($utilisateur->estAdministrateur()) {
 				$redirigeVers="../phpAdmin/pagePrincipaleAdmin.php";
@@ -28,9 +35,14 @@
 				}
 			}
 			setcookie('login', $login, time() + 5*365*24*3600, null, null, false, true);
-			setcookie('password', $password, time() + 5*365*24*3600, null, null, false, true);
+			setcookie('password', $passwordSaisi, time() + 5*365*24*3600, null, null, false, true);
 		} else {
-			$redirigeVers="../phpCommun/login.php?erreur=passwordIncorrect";
+			if ($passwordRenseigne) {
+				$erreur="passwordIncorrectBase"; // TODO: tester tout cela !
+			} else {
+				$erreur="passwordIncorrectLDAP";
+			}
+			$redirigeVers="../phpCommun/login.php?erreur=".$erreur;
 		}
 	} else {
 		$redirigeVers="../phpCommun/login.php?erreur=loginIncorrect";

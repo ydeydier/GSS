@@ -34,6 +34,8 @@ class ligneSortie {
 		$idSortie=$this->sortie->idSortie;
 		$sql="delete from ligne_sortie where idArticle=$idArticle and idSortie=$idSortie";
 		executeSql($sql);
+		// Suppression de l'article correspondant, s'il n'est pas utilisé dans une sortie
+		article::purge();
 	}
 
 	function insert() {

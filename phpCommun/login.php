@@ -10,9 +10,10 @@
 	$messageLoginIncorrect="";
 	if (isset($_GET['erreur'])) {
 		$erreur=$_GET['erreur'];
-		if ($erreur=="passwordIncorrect")  $messageLoginIncorrect='<span style="color:red;font-weight:bold;">Mot de passe incorrect !</span>';
-		if ($erreur=="loginIncorrect")     $messageLoginIncorrect='<span style="color:red;font-weight:bold;">Login incorrect !</span>';
-		if ($erreur=="aucunStockAutorise") $messageLoginIncorrect='<span style="color:red;font-weight:bold;">Vous n\'avez à aucun stock !<br>Veuillez contacter l\'administrateur de l\'application.</span>';
+		if ($erreur=="passwordIncorrectBase") $messageLoginIncorrect='<span style="color:red;font-weight:bold;">Mot de passe local incorrect !</span>';
+		if ($erreur=="passwordIncorrectLDAP") $messageLoginIncorrect='<span style="color:red;font-weight:bold;">Mot de passe Windows incorrect !</span>';
+		if ($erreur=="loginIncorrect")        $messageLoginIncorrect='<span style="color:red;font-weight:bold;">Login incorrect !</span>';
+		if ($erreur=="aucunStockAutorise")    $messageLoginIncorrect='<span style="color:red;font-weight:bold;">Vous n\'avez à aucun stock !<br>Veuillez contacter l\'administrateur de l\'application.</span>';
 	}
 ?>
 <table class="tableLoginGSS">
@@ -39,7 +40,7 @@
 
 <tr>
 <td style="color:#EEEEEE;" valign="bottom">
-GSS Version 0.9 - <a class="lienFondVert" href="apropos.php">A propos de GSS</a></div>
+GSS Version 1.0 - <a class="lienFondVert" href="apropos.php">A propos de GSS</a></div>
 </td>
 </tr>
 

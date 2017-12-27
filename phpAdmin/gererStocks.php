@@ -2,6 +2,13 @@
 	require "inc_commun.php";
 	require "header_et_menu.php";
 ?>
+<script type="text/javascript">
+function supprimer(idStock) {
+	if (confirm('Etes vous sur(e) de vouloir SUPPRIMER ce stock ?')) {
+		window.location="gererStocks_trt.php?action=Supprimer&idStock=" + idStock;
+	}
+}
+</script>
 <CENTER>
 
 <br>
@@ -13,7 +20,7 @@
 <?php
 	$stocks = stock::chargerToutSansLigne();
 	foreach ($stocks as $stock) {
-		echo "<tr><td>$stock->idStock</td><td>$stock->nom</td><td><a href=\"modifierStock.php?idStock=$stock->idStock\">Modifier</a></td><td><a href=\"javascript:alert('Fonction non implémentée');\">Supprimer</a></td></tr>";
+		echo "<tr><td>$stock->idStock</td><td>$stock->nom</td><td><a href=\"modifierStock.php?idStock=$stock->idStock\">Modifier</a></td><td><a href=\"javascript:supprimer($stock->idStock);\">Supprimer</a></td></tr>";
 	}
 ?>
 </table>

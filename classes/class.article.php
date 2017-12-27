@@ -28,5 +28,9 @@ class article {
 		executeSql($sql);
 		$this->idArticle=dernierIdAttribue();
 	}
+	static function purge() {
+		$sql="delete from article where not exists (select 1 from ligne_sortie where ligne_sortie.idArticle=article.idArticle) and not exists (select 1 from ligne_stock where ligne_stock.idArticle=article.idArticle)";
+		executeSql($sql);
+	}
 }
 ?>

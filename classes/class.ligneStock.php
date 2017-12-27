@@ -22,6 +22,14 @@ class ligneStock {
 		$sql="update ligne_stock set quantiteReelle=$quantiteReelle, quantiteVirtuelle=$quantiteVirtuelle where idStock=$stock->idStock and idArticle=$article->idArticle";
 		executeSql($sql);
 	}
+	function delete() {
+		$stock=$this->stock;
+		$article=$this->article;
+		$sql="delete from ligne_stock where idStock=$stock->idStock and idArticle=$article->idArticle";
+		executeSql($sql);
+		// Suppression de l'article correspondant, s'il n'est pas utilisé dans une sortie
+		article::purge();
+	}
 	function insert() {
 		$idStock=$this->stock->idStock;
 		$idArticle=$this->article->idArticle;
