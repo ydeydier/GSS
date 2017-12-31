@@ -1,5 +1,5 @@
 # Présentation
-Gestion de stock TRES simple, EN COURS DE DEVELOPPEMENT (26/12/2017)
+Gestion de stock très simple, avec stock réel et virtuel.
 
 # Technologies
 PHP/MySQL
@@ -10,7 +10,7 @@ http://www.blueplace.fr/GSS/
 * Connexion "administrateur" : admin / admin
 
 # Fonctionnalités
-* Prévues :
+* Implémentées :
   * stock réel et stock virtuel
   * 1 utilisateur peut gérer 1 ou plusieurs stocks
   * 1 utilisateur admin pour gérer les utilisateurs et les stocks
