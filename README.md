@@ -23,12 +23,12 @@ Voir le fichier documentation/installation.txt
 
 # Utilisateurs et stocks existants dans la base par défaut
 A titre d'exemple, 2 utilisateurs et 2 stocks sont créés lorsque la base de données est créée:
-	- Utilisateurs
-		- admin/admin (l'administrateur)
-		- sdurant/sdurant (un utilisateur)
-	- Stocks
-		- Stock MVA
-		- Stock Epicerie
+* Utilisateurs
+  * admin/admin (l'administrateur)
+  * sdurant/sdurant (un utilisateur)
+* Stocks
+  * Stock MVA
+  * Stock Epicerie
 
 # Administrateur
 L'utilisateur administrateur par défaut est admin/admin.
