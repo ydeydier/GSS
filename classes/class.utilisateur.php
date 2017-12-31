@@ -10,7 +10,6 @@ class utilisateur {
 	var $tStocks;			// Tableau des idStock auquel l'utilisateur est autorisé d'accéder
 	var $idStockDefaut;
 	
-	// TODO: recette globale
 	// TODO: LDAP, vérifier
 	static function charger($login) {
 		$login=strtolower(trim($login));
