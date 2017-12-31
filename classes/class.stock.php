@@ -56,7 +56,7 @@ class stock {
 			$ligneStock->update();
 		} else {
 			rollback();
-			die("Erreur dans class.stock.ajouterArticle()");
+			die("Erreur dans class.stock.ajouterArticle() : impossible de ré-insérer '$article->nom' dans le stock, car cet article a été supprimé du stock. Cette sortie ne peut plus être rendue virtuelle.");
 		}
 	}
 

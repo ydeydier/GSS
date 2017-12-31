@@ -10,10 +10,10 @@
 	$messageLoginIncorrect="";
 	if (isset($_GET['erreur'])) {
 		$erreur=$_GET['erreur'];
-		if ($erreur=="passwordIncorrectBase") $messageLoginIncorrect='<span style="color:red;font-weight:bold;">Mot de passe local incorrect !</span>';
-		if ($erreur=="passwordIncorrectLDAP") $messageLoginIncorrect='<span style="color:red;font-weight:bold;">Mot de passe Windows incorrect !</span>';
-		if ($erreur=="loginIncorrect")        $messageLoginIncorrect='<span style="color:red;font-weight:bold;">Login incorrect !</span>';
-		if ($erreur=="aucunStockAutorise")    $messageLoginIncorrect='<span style="color:red;font-weight:bold;">Vous n\'avez à aucun stock !<br>Veuillez contacter l\'administrateur de l\'application.</span>';
+		if ($erreur=="passwordIncorrectBase") $messageLoginIncorrect='<span class="erreur">Mot de passe local incorrect !</span>';
+		if ($erreur=="passwordIncorrectLDAP") $messageLoginIncorrect='<span class="erreur">Mot de passe Windows incorrect !</span>';
+		if ($erreur=="loginIncorrect")        $messageLoginIncorrect='<span class="erreur">Login incorrect !</span>';
+		if ($erreur=="aucunStockAutorise")    $messageLoginIncorrect='<span class="erreur">Vous n\'avez à aucun stock !<br>Veuillez contacter l\'administrateur de l\'application.</span>';
 	}
 ?>
 <table class="tableLoginGSS">

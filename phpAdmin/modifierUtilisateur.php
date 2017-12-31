@@ -23,24 +23,27 @@ function validerForm() {
 	$login=$_GET["login"];
 	$utilModif = utilisateur::charger($login);
 	$_SESSION["utilModif"]=$utilModif;
+	echo "<tr><th>Login</th><td>$utilModif->login</td></tr>";
 	echo "<tr><th>Nom</th><td><input autofocus name=\"txtNom\" type=\"text\" value=\"$utilModif->nom\"></td></tr>";
 	echo "<tr><th>Prénom</th><td><input name=\"txtPrenom\" type=\"text\" value=\"$utilModif->prenom\"></td></tr>";
 	echo "<tr><th>Mot de passe</th><td><input name=\"txtPassword\" type=\"password\" value=\"$utilModif->password\"></td></tr>";
-	echo "<tr>";
-	echo "<th>Gère le(s) stock(s)</th>";
-	echo "<td>";
-		$tTousStocks = stock::chargerToutSansLigne();
-		foreach ($tTousStocks as $stockForm) {
-			$idStockForm=$stockForm->idStock;
-			if ($utilModif->autorisePourStock($idStockForm)) {
-				$checked=" checked";
-			} else {
-				$checked="";
+	if (! $utilModif->estAdministrateur()) {
+		echo "<tr>";
+		echo "<th>Gère le(s) stock(s)</th>";
+		echo "<td>";
+			$tTousStocks = stock::chargerToutSansLigne();
+			foreach ($tTousStocks as $stockForm) {
+				$idStockForm=$stockForm->idStock;
+				if ($utilModif->autorisePourStock($idStockForm)) {
+					$checked=" checked";
+				} else {
+					$checked="";
+				}
+			echo "<input $checked name=\"chkStock[]\" id=\"id$idStockForm\" type=\"checkbox\" value=\"$idStockForm\"><label for=\"id$idStockForm\">$stockForm->nom</label><br>";
 			}
-		echo "<input $checked name=\"chkStock[]\" id=\"id$idStockForm\" type=\"checkbox\" value=\"$idStockForm\"><label for=\"id$idStockForm\">$stockForm->nom</label><br>";
-		}
-	echo "</td>";
-	echo "</tr>";
+		echo "</td>";
+		echo "</tr>";
+	}
 ?>
 </table>
 <br><br><br>

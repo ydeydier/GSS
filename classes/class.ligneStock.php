@@ -30,6 +30,7 @@ class ligneStock {
 		// Suppression de l'article correspondant, s'il n'est pas utilisé dans une sortie
 		article::purge();
 	}
+	
 	function insert() {
 		$idStock=$this->stock->idStock;
 		$idArticle=$this->article->idArticle;

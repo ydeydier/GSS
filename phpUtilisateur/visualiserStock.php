@@ -8,7 +8,6 @@
 <br>
 <h1>Contenu du stock</h1>
 <br>
-
 <table class="tableCommune">
 <tr><th>ID</th><th>Nom</th><th>Prix</th><th>Quantite<br>réelle</th><th>Quantite<br>Virtuelle</th></tr>
 <?php

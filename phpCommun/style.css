@@ -191,3 +191,8 @@ h1 {
 	FONT-SIZE: 15px;
 	text-shadow : 2px 2px 5px #aaa;
 }
+
+.erreur {
+	color:red;
+	font-weight:bold;
+}

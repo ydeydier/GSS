@@ -17,13 +17,20 @@
 	foreach ($stock->tLigneStock as $ligneStock) {
 		$article=$ligneStock->article;
 		$idArticle=$article->idArticle;
+		$quantiteReelle=$ligneStock->quantiteReelle;
+		$quantiteVirtuelle=$ligneStock->quantiteVirtuelle;
+		if ($quantiteReelle!=$quantiteVirtuelle) {
+			$htmlSupprimable='disabled title="Cet article fait partie d\'une sortie virtuelle (éventuellement en corbeille), il ne peut pas être supprimé."';
+		} else {
+			$htmlSupprimable="";
+		}
 		$nom=htmlspecialchars($article->nom, ENT_QUOTES);
 		echo "<tr>";
 		echo "<td>$idArticle</td>";
 		echo "<td><input size=\"40\" maxlength=\"255\" type='text' name='NOM_$idArticle' value='$nom'></td>";
 		echo "<td><input type='text' size='7' name='PRIX_$idArticle' value='$article->prixCourant'></td>";
 		echo "<td><input type='text' size='5' name='QUANTITEREELLE_$idArticle' value='$ligneStock->quantiteReelle'></td>";
-		echo "<td align=\"center\"><input type='checkbox' name='CHKDEL_$idArticle'></td>";
+		echo "<td align=\"center\"><input $htmlSupprimable type='checkbox' name='CHKDEL_$idArticle'></td>";
 		echo "</tr>";
 	}
 	for ($i=1;$i<=5;$i++) {

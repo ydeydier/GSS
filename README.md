@@ -20,3 +20,16 @@ Voir le fichier documentation/installation.txt
 
 # Documentation LDAP
 * LDAP : si un mot de passe est défini pour un utilisateur (table utilisateur), alors le LDAP n'est pas interrogé. Sinon, et si utiliserLDAP=oui dans configuration.ini, alors le LDAP est interrogé.
+
+# Utilisateurs et stocks existants dans la base par défaut
+A titre d'exemple, 2 utilisateurs et 2 stocks sont créés lorsque la base de données est créée:
+	- Utilisateurs
+		- admin/admin (l'administrateur)
+		- sdurant/sdurant (un utilisateur)
+	- Stocks
+		- Stock MVA
+		- Stock Epicerie
+
+# Administrateur
+L'utilisateur administrateur par défaut est admin/admin.
+D'autres administrateurs peuvent être définis en modifiant la table "utilisateur" (c'est le seul paramètre nécessitant une MAJ directement en base de données)

@@ -16,7 +16,7 @@ function supprimer(idUtilisateur) {
 <br>
 
 <table class="tableCommune">
-<tr><th>Nom</th><th>Prénom</th><th>Login</th><th>Gère le(s) stock(s)</th><th>Modifier</th><th>Supprimer</th></tr>
+<tr><th>Nom</th><th>Prénom</th><th>Login</th><th>Gère le(s) stock(s)</th><th>Admin</th><th>Modifier</th><th>Supprimer</th></tr>
 <?php
 	$tUtilisateurs = utilisateur::chargerTout();
 	$tTousStocks = stock::chargerToutSansLigne();
@@ -25,7 +25,7 @@ function supprimer(idUtilisateur) {
 		foreach ($util->tStocks as $idStockForm) {
 			$nomsStock.="<li>".$tTousStocks[$idStockForm]->nom."</li>";
 		}
-		echo "<tr><td>$util->nom</td><td>$util->prenom</td><td>$util->login</td><td>$nomsStock</td><td><a href=\"modifierUtilisateur.php?login=$util->login\">Modifier</a></td><td><a href=\"javascript:supprimer('$util->idUtilisateur');\">Supprimer</a></td></tr>";
+		echo "<tr><td>$util->nom</td><td>$util->prenom</td><td>$util->login</td><td>$nomsStock</td><td>$util->administrateur</td><td><a href=\"modifierUtilisateur.php?login=$util->login\">Modifier</a></td><td><a href=\"javascript:supprimer('$util->idUtilisateur');\">Supprimer</a></td></tr>";
 	}
 ?>
 </table>

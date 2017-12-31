@@ -102,6 +102,8 @@ class sortie {
 		executeSql($sql);
 		$sql="delete from sortie where idSortie=$this->idSortie";
 		executeSql($sql);
+		// Suppression des articles qui ne sont plus référencés
+		article::purge();
 	}
 	
 	function insert() {
