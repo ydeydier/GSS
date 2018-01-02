@@ -12,6 +12,7 @@
 		} else {
 			$quantiteReelle=$_POST["QUANTITEREELLE_$idArticle"];
 			$prixCourant=$_POST["PRIX_$idArticle"];
+			$prixCourant=str_replace(",", ".", $prixCourant);
 			if (!is_numeric($quantiteReelle)) {
 				$quantiteReelle=0;
 			} else {
@@ -34,6 +35,7 @@
 			$idLigne=substr($index, 11);					// Ex: 3
 			$nom=$_POST["INSERT_NOM_$idLigne"];
 			$prixCourant=$_POST["INSERT_PRIX_$idLigne"];
+			$prixCourant=str_replace(",", ".", $prixCourant);
 			$quantiteReelle=$_POST["INSERT_QUANTITEREELLE_$idLigne"];
 			if (trim($nom)!="") {
 				if (!is_numeric($quantiteReelle)) {
