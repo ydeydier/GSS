@@ -73,6 +73,10 @@ a:hover {
 	COLOR: #1C6FBD;
 }
 
+.tableCommune {
+	border-collapse:separate;
+}
+
 .tableCommune tr th {
 	padding:4px;
 	FONT-SIZE: 10px;
@@ -150,6 +154,10 @@ button {
 	font-weight:bold;
 }
 
+.tableStockADroite {
+	border-collapse:separate;
+}
+
 .tableStockADroite tr th {
 	padding:4px;
 	FONT-SIZE:9px;
@@ -160,12 +168,10 @@ button {
 	font-weight:normal;
 }
 
-.tdPrix {
-	text-align:right;
-}
-
-.tdQuantite {
-	text-align:center;
+.tableStockADroite tr td {
+	padding:4px;
+	BACKGROUND:#f4e4d0;
+	FONT-SIZE: 9px;
 }
 
 .tdQuantiteVirtuelle {
@@ -173,11 +179,12 @@ button {
 	color:#006573;
 }
 
+.tdPrix {
+	text-align:right;
+}
 
-.tableStockADroite tr td {
-	padding:4px;
-	BACKGROUND:#f4e4d0;
-	FONT-SIZE: 9px;
+.tdQuantite {
+	text-align:center;
 }
 
 .attention {

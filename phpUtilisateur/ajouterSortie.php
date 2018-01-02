@@ -12,6 +12,16 @@ function validerForm() {
 	}
 	return valid;
 }
+function agrandirCommentaire() {
+	var text = document.getElementById("idCommentaire");
+	if (text.style.width=="35em") {
+		text.style.width="";
+		text.style.height="";
+	} else {
+		text.style.width="35em";
+		text.style.height="10em";
+	}
+}
 </script>
 
 <CENTER>
@@ -21,11 +31,18 @@ function validerForm() {
 <br>
 
 <form method="POST" name="formulaire" onsubmit="return validerForm();" action="ajouterSortie_trt.php">
-Nom de la sortie <input autofocus type="text" value="" name="txtNomSortie">
-<br><br><br><br>
+
+<table class="tableCommune">
+<tr><th align="left">Nom&nbsp;&nbsp;&nbsp;</th><td><input autofocus size="35" type="text" value="" name="txtNomSortie"></td></tr>
+<tr><th align="left">Date (jj/mm/aaaa)&nbsp;&nbsp;&nbsp;</th><td><input size="11" maxlength="10" type="text" value="" name="txtDate"></td></tr>
+<tr><th align="left">Commentaire&nbsp;&nbsp;&nbsp;</th><td><textarea id="idCommentaire" rows="2" cols="35" name="txtCommentaire"></textarea><br><a style="font-size:9px;" href="javascript:agrandirCommentaire()">Agrandir</a></td></tr>
+</table>
+
+<br><br>
 <table class="tableCommune">
 <tr><th>Nom</th><?php if ($bUtiliseBeneficiaire) echo "<th>Bénéficiaire</th>";?><th>Prix</th><th>Stock<br>réel</th><th>Stock<br>virtuel</th><th>Quantité</th></tr>
 <?php
+	// TODO: vérifier la date en javascript
 	chargerStock(); // impose de rechargement du stock
 	foreach ($stock->tLigneStock as $ligneStock) {
 		$article=$ligneStock->article;
@@ -33,6 +50,8 @@ Nom de la sortie <input autofocus type="text" value="" name="txtNomSortie">
 		$quantiteReelle=$ligneStock->quantiteReelle;
 		$quantiteVirtuelle=$ligneStock->quantiteVirtuelle;
 		if ($quantiteReelle==$quantiteVirtuelle) $quantiteVirtuelle="";
+		$quantiteReelle=afficherEntierSansDec($quantiteReelle);
+		$quantiteVirtuelle=afficherEntierSansDec($quantiteVirtuelle);
 		echo "<tr>";
 		echo "<td>$article->nom</td>";
 		if ($bUtiliseBeneficiaire) echo "<td><input type='text' size='25' name='BENEF_$idArticle' value=''></td>";

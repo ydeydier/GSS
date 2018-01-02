@@ -32,7 +32,12 @@ function modifier(idSortie, etat) {
 <h1>Sortie : <?php echo $sortie->nom;?></h1>
 <br>
 Etat : <b><?php echo $sortie->libelleEtat();?></b>
-<br><br><br>
+<br><br>
+<table class="tableCommune">
+<tr><th align="left">Date (jj/mm/aaaa)&nbsp;&nbsp;&nbsp;</th><td><?php echo $sortie->date;?></td></tr>
+<tr><th align="left">Commentaire&nbsp;&nbsp;&nbsp;</th><td><?php echo str_replace("\n", "<br>", $sortie->commentaire);?></td></tr>
+</table>
+<br><br>
 <table class="tableCommune">
 <tr><th>Nom</th><?php if ($bUtiliseBeneficiaire) echo "<th>Bénéficiaire</th>";?><th>Prix<br>unitaire</th><th>Quantité</th><th>Prix<br>total</th></tr>
 <?php

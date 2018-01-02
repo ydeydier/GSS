@@ -2,6 +2,8 @@
 	require "inc_commun.php";
 	$sortie = new sortie();
 	$sortie->nom=$_POST["txtNomSortie"];
+	$sortie->date=$_POST["txtDate"];
+	$sortie->commentaire=$_POST["txtCommentaire"];
 	$sortie->stock=$stock;
 	$sortie->etat=sortie::$VIRTUELLE;
 	$bUtiliseBeneficiaire=($stock->utiliseBeneficiaire=="O");

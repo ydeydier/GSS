@@ -5,6 +5,8 @@
 	
 	// Modifications sur la sortie
 	$sortie->nom=$_POST["txtNomSortie"];
+	$sortie->date=$_POST["txtDate"];
+	$sortie->commentaire=$_POST["txtCommentaire"];
 	
 	// Modifications ou suppression de ligneSortie
 	foreach ($sortie->tLigneSortie as $key => $ligneSortie) {

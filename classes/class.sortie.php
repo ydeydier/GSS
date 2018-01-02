@@ -3,6 +3,8 @@ class sortie {
 	var $idSortie;
 	var $stock;
 	var $nom;
+	var $date;
+	var $commentaire;
 	var $coutTotal;
 	var $nbreArticles;
 	var $etat;					// "VIRTUELLE" ou "REELLE"
@@ -32,6 +34,8 @@ class sortie {
 		$sortie->idSortie=$row['idSortie'];
 		$sortie->stock=$stock;
 		$sortie->nom=$row['nom'];
+		$sortie->date=date_fr($row['date']);
+		$sortie->commentaire=$row['commentaire'];
 		$sortie->coutTotal=$row['coutTotal'];
 		$sortie->nbreArticles=$row['nbreArticles'];
 		$sortie->corbeille=$row['corbeille'];
@@ -93,8 +97,26 @@ class sortie {
 		$this->calculeCoutTotal();
 		$this->calculeNbreArticles();
 		$nom=mysqlEscape($this->nom);
-		$sql="update sortie set nom='$nom', coutTotal=$this->coutTotal, nbreArticles=$this->nbreArticles, etat='$this->etat' where idSortie=$this->idSortie";
+		$commentaire=mysqlEscape($this->commentaire);
+		$date=dateMySql($this->date);
+		$sql="update sortie set nom='$nom', commentaire='$commentaire', date=$date, coutTotal=$this->coutTotal, nbreArticles=$this->nbreArticles, etat='$this->etat' where idSortie=$this->idSortie";
 		executeSql($sql);
+	}
+	
+	function insert() {
+		$idStock=$this->stock->idStock;
+		$this->calculeCoutTotal();
+		$this->calculeNbreArticles();
+		$nom=mysqlEscape($this->nom);
+		$commentaire=mysqlEscape($this->commentaire);
+		$date=dateMySql($this->date);
+		$sql="insert into sortie (idStock, nom, commentaire, date, coutTotal, nbreArticles, corbeille, etat) values ($idStock, '$nom', '$commentaire', $date, $this->coutTotal, $this->nbreArticles, 'N', '$this->etat')";
+		executeSql($sql);
+		$this->idSortie=dernierIdAttribue();
+		// Insertion des ligneSortie
+		foreach ($this->tLigneSortie as $ligneSortie) {
+			$ligneSortie->insert();
+		}
 	}
 	
 	function delete() {
@@ -104,20 +126,6 @@ class sortie {
 		executeSql($sql);
 		// Suppression des articles qui ne sont plus référencés
 		article::purge();
-	}
-	
-	function insert() {
-		$idStock=$this->stock->idStock;
-		$this->calculeCoutTotal();
-		$this->calculeNbreArticles();
-		$nom=mysqlEscape($this->nom);
-		$sql="insert into sortie (idStock, nom, coutTotal, nbreArticles, corbeille, etat) values ($idStock, '$nom', $this->coutTotal, $this->nbreArticles, 'N', '$this->etat')";
-		executeSql($sql);
-		$this->idSortie=dernierIdAttribue();
-		// Insertion des ligneSortie
-		foreach ($this->tLigneSortie as $ligneSortie) {
-			$ligneSortie->insert();
-		}
 	}
 	
 	function calculeCoutTotal() {

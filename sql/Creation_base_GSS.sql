@@ -3,6 +3,11 @@ SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
 CREATE DATABASE IF NOT EXISTS `gss` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `gss`;
 
@@ -27,7 +32,7 @@ CREATE TABLE `ligne_sortie` (
   `idSortie` int(11) NOT NULL,
   `idArticle` int(11) NOT NULL,
   `prixSortie` decimal(10,3) DEFAULT NULL,
-  `quantite` int(11) DEFAULT NULL,
+  `quantite` decimal(9,2) DEFAULT NULL,
   `beneficiaire` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -35,23 +40,25 @@ DROP TABLE IF EXISTS `ligne_stock`;
 CREATE TABLE `ligne_stock` (
   `idStock` int(11) NOT NULL,
   `idArticle` int(11) NOT NULL,
-  `quantiteReelle` int(11) DEFAULT NULL,
-  `quantiteVirtuelle` int(11) DEFAULT NULL
+  `quantiteReelle` decimal(9,2) DEFAULT NULL,
+  `quantiteVirtuelle` decimal(9,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `ligne_stock` (`idStock`, `idArticle`, `quantiteReelle`, `quantiteVirtuelle`) VALUES
-(1, 1, 92, 92),
-(1, 2, 163, 163),
-(1, 4, 203, 203),
-(1, 5, 10, 10),
-(1, 6, 11, 11),
-(1, 7, 8, 8);
+(1, 1, '92.00', '92.00'),
+(1, 2, '163.00', '163.00'),
+(1, 4, '203.00', '203.00'),
+(1, 5, '10.00', '10.00'),
+(1, 6, '11.00', '11.00'),
+(1, 7, '8.00', '8.00');
 
 DROP TABLE IF EXISTS `sortie`;
 CREATE TABLE `sortie` (
   `idSortie` int(11) NOT NULL,
   `idStock` int(11) NOT NULL,
   `nom` varchar(255) NOT NULL,
+  `date` date DEFAULT NULL,
+  `commentaire` varchar(500) DEFAULT NULL,
   `coutTotal` decimal(10,2) NOT NULL,
   `nbreArticles` int(11) NOT NULL,
   `etat` enum('VIRTUELLE','REELLE') NOT NULL,
@@ -153,3 +160,7 @@ ALTER TABLE `stock_autorise`
   ADD CONSTRAINT `stock_autorise_ibfk_1` FOREIGN KEY (`idStock`) REFERENCES `stock` (`idStock`),
   ADD CONSTRAINT `stock_autorise_ibfk_2` FOREIGN KEY (`idUtilisateur`) REFERENCES `utilisateur` (`idUtilisateur`);
 COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

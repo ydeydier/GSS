@@ -10,9 +10,20 @@
 function montrerTableAjouterArticle() {
 	var table = document.getElementById("tableAjouterArticle");
 	if (table.style.display=="none") {
-		table.style="display:inline;";
+		table.style.display="";
 	} else {
-		table.style="display:none;";
+		table.style.display="none";
+	}
+}
+
+function agrandirCommentaire() {
+	var text = document.getElementById("idCommentaire");
+	if (text.style.width=="35em") {
+		text.style.width="";
+		text.style.height="";
+	} else {
+		text.style.width="35em";
+		text.style.height="10em";
 	}
 }
 </script>
@@ -24,8 +35,14 @@ function montrerTableAjouterArticle() {
 <br>
 
 <form method="POST" action="modifierSortie_trt.php">
-Nom de la sortie <input type="text" size="30" name="txtNomSortie" value="<?php echo $sortie->nom;?>" name="txtNomSortie">
-<br><br><br><br>
+
+<table class="tableCommune">
+<tr><th align="left">Nom&nbsp;&nbsp;&nbsp;</th><td><input autofocus size="35" type="text" value="<?php echo $sortie->nom;?>" name="txtNomSortie"></td></tr>
+<tr><th align="left">Date (jj/mm/aaaa)&nbsp;&nbsp;&nbsp;</th><td><input size="11" maxlength="10" type="text" value="<?php echo $sortie->date;?>" name="txtDate"></td></tr>
+<tr><th align="left">Commentaire&nbsp;&nbsp;&nbsp;</th><td><textarea id="idCommentaire" rows="2" cols="35" name="txtCommentaire"><?php echo $sortie->commentaire;?></textarea><br><a style="font-size:9px;" href="javascript:agrandirCommentaire()">Agrandir</a></td></tr>
+</table>
+
+<br><br><br>
 <table class="tableCommune">
 <tr><th>Nom</th><?php if ($bUtiliseBeneficiaire) echo "<th>Bénéficiaire</th>";?><th>Prix unitaire</th><th>Quantité</th><th>Supprimer</th></tr>
 <?php
@@ -50,7 +67,7 @@ Nom de la sortie <input type="text" size="30" name="txtNomSortie" value="<?php e
 <br>
 <a href="javascript:montrerTableAjouterArticle()">Ajouter des articles</a><br>
 <br>
-<table id="tableAjouterArticle" class="tableCommune" style="display:none;">
+<table id="tableAjouterArticle" class="tableCommune" style="display:none">
 <tr><th>Nom</th><?php if ($bUtiliseBeneficiaire) echo "<th>Bénéficiaire</th>";?><th>Prix</th><th>Stock<br>réel</th><th>Stock<br>virtuel</th><th>Quantité</th></tr>
 <?php
 	chargerStock(); // impose de rechargement du stock
@@ -72,7 +89,7 @@ Nom de la sortie <input type="text" size="30" name="txtNomSortie" value="<?php e
 </table>
 <br><br>
 <button type="submit" class="boutonValider">Valider</button>
-&nbsp;&nbsp;&nbsp
+&nbsp;&nbsp;&nbsp;
 <button type="button" class="boutonAnnuler" onclick="javascript:window.location='consulterSortie.php?id=<?php echo $idSortie;?>'">Annuler</button>
 </form>
 
