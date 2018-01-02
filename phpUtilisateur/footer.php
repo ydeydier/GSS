@@ -2,7 +2,7 @@
 <td class="tdDroiteStock" align="center" valign="top">
 	<br>
 	Etat du stock<br><br>
-	<table class="tableStockADroite">
+	<table width="300px" class="tableStockADroite">
 	<tr><th>Nom</th><th>Prix</th><th>Quantite<br>réelle</th><th>Quantite<br>Virtuelle</th></tr>
 	<?php
 		foreach ($stock->tLigneStock as $ligneStock) {

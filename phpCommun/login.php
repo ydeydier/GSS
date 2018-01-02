@@ -17,12 +17,12 @@
 	}
 ?>
 <table class="tableLoginGSS">
-<tr height="200px">
+<tr height="30%">
 <td>
 <img src="../img/GSS.png">
 </td>
 </tr>
-<tr height="200px" style="BACKGROUND:#FFFFFF;">
+<tr height="30%" style="BACKGROUND:#FFFFFF;">
 <td>
 	<?php echo $messageLoginIncorrect;?>
 	<br><br>
@@ -38,12 +38,11 @@
 </td>
 </tr>
 
-<tr>
+<tr height="40%">
 <td style="color:#EEEEEE;" valign="bottom">
 GSS Version 1.0 - <a class="lienFondVert" href="apropos.php">A propos de GSS</a></div>
 </td>
 </tr>
-
 </table>
 </body>
 </html>

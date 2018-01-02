@@ -2,7 +2,7 @@
 	require "../phpCommun/header1.php";
 ?>
 <table style="height:100%;width:100%;border-collapse:collapse;">
-<tr height="5%">
+<tr>
 <td colspan="2" style="padding-top:0px;padding-left:0px;padding-right:0px;padding-bottom:0px;">
 	<table class="tableBandeauHaut">
 	<tr>
@@ -19,5 +19,5 @@
 	</table>
 </td>
 </tr>
-<tr>
+<tr height="100%">
 <td width="90%" valign="top">
