@@ -22,10 +22,15 @@
 				$quantite=0;
 			}
 			$quantite=round($quantite, 2);
+			$prixSortie=$_POST["PRIX_$idArticle"];
+			$prixSortie=str_replace(",", ".", $prixSortie);
+			if (!is_numeric($prixSortie)) {
+				$prixSortie=null;
+			}
 			$ligneSortie = new ligneSortie();
 			$ligneSortie->sortie=$sortie;
 			$ligneSortie->article=$article;
-			$ligneSortie->prixSortie=$article->prixCourant;		// Le prix est copié depuis le stock, car il peut varier dans le stock. Il doit être associé à la sortie.
+			$ligneSortie->prixSortie=$prixSortie;
 			$ligneSortie->quantite=$quantite;
 			$ligneSortie->beneficiaire=$beneficiaire;
 			$sortie->tLigneSortie[]=$ligneSortie;

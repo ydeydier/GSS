@@ -1,0 +1,54 @@
+<?php
+	require "inc_commun.php";
+	$idSortie=$_GET["id"];
+	$sortie = sortie::charger($idSortie, $stock);
+	$bUtiliseBeneficiaire=($stock->utiliseBeneficiaire=="O");
+?>
+<!DOCTYPE html>
+<html>
+<HEAD>
+<TITLE>GSS</TITLE>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="imagetoolbar" content="no">
+<META name="keywords" content="gestion,stock">
+<LINK media="screen" href="../phpCommun/style.css" type="text/css" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="../img/GSS.ico" />
+</HEAD>
+<BODY>
+<CENTER>
+<br>
+<h1>Sortie : <?php echo $sortie->nom;?></h1>
+<br>
+Etat : <b><?php echo $sortie->libelleEtat();?></b>
+<br><br>
+<table class="tableCommune">
+<tr><th nowrap align="left">Date (jj/mm/aaaa)&nbsp;&nbsp;&nbsp;</th><td width="100px"><?php echo $sortie->date;?></td></tr>
+<tr><th nowrap align="left">Commentaire&nbsp;&nbsp;&nbsp;</th><td><?php echo str_replace("\n", "<br>", $sortie->commentaire);?></td></tr>
+</table>
+<br><br>
+<table class="tableCommune">
+<tr><th>Nom</th><?php if ($bUtiliseBeneficiaire) echo "<th>Bénéficiaire</th>";?><th>Prix unit.<br>(TTC)</th><th>Quantité</th><th>Prix total<br>(TTC)</th></tr>
+<?php
+	foreach ($sortie->tLigneSortie as $ligneSortie) {
+		$nom=$ligneSortie->article->nom;
+		$prixSortie=$ligneSortie->prixSortie;
+		$quantite=afficherEntierSansDec($ligneSortie->quantite);
+		$prixTotal=$prixSortie * $quantite;
+		$prixTotal=number_format($prixTotal, 2, '.', ' ');
+		echo "<tr>";
+		echo "<td>$nom</td>";
+		if ($bUtiliseBeneficiaire) echo "<td>$ligneSortie->beneficiaire</td>";
+		echo "<td class=\"tdPrix\">$prixSortie</td><td class=\"tdQuantite\">$quantite</td><td class=\"tdPrix\">$prixTotal</td></tr>";
+	}
+	$colSpan=($bUtiliseBeneficiaire?4:3);
+	echo "<tr><td colspan='$colSpan'>Total</td><td class=\"tdPrix\">$sortie->coutTotal</td></tr>";
+?>
+</table>
+<br><br>
+
+<a class="menu" href="javascript:window.print()">Imprimer</a><br>
+<a class="menu" href="javascript:window.close()">Fermer</a><br>
+</CENTER>
+<br><br><br><br>
+</body>
+</html>

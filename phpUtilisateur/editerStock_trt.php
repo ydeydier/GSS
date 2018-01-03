@@ -11,11 +11,12 @@
 			unset($stock->tLigneStock[$key]);
 		} else {
 			$quantiteReelle=$_POST["QUANTITEREELLE_$idArticle"];
-			$prixCourant=$_POST["PRIX_$idArticle"];
-			$prixCourant=str_replace(",", ".", $prixCourant);
+			$quantiteReelle=str_replace(",", ".", $quantiteReelle);
 			if (!is_numeric($quantiteReelle)) {
 				$quantiteReelle=0;
 			}
+			$prixCourant=$_POST["PRIX_$idArticle"];
+			$prixCourant=str_replace(",", ".", $prixCourant);
 			if (!is_numeric($prixCourant)) {
 				$prixCourant=null;
 			}
@@ -32,13 +33,14 @@
 		if (substr($index, 0, 11)=="INSERT_NOM_") {			// Ex: INSERT_NOM_3
 			$idLigne=substr($index, 11);					// Ex: 3
 			$nom=$_POST["INSERT_NOM_$idLigne"];
-			$prixCourant=$_POST["INSERT_PRIX_$idLigne"];
-			$prixCourant=str_replace(",", ".", $prixCourant);
-			$quantiteReelle=$_POST["INSERT_QUANTITEREELLE_$idLigne"];
 			if (trim($nom)!="") {
+				$quantiteReelle=$_POST["INSERT_QUANTITEREELLE_$idLigne"];
+				$quantiteReelle=str_replace(",", ".", $quantiteReelle);
 				if (!is_numeric($quantiteReelle)) {
 					$quantiteReelle=0;
 				}
+				$prixCourant=$_POST["INSERT_PRIX_$idLigne"];
+				$prixCourant=str_replace(",", ".", $prixCourant);
 				if (!is_numeric($prixCourant)) {
 					$prixCourant=null;
 				}

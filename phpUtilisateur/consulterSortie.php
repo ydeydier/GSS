@@ -68,7 +68,8 @@ Etat : <b><?php echo $sortie->libelleEtat();?></b>
 ?>
 
 
-<a class="menu" href="javascript:javascript:modifier(<?php echo $sortie->idSortie;?>, '<?php echo $sortie->etat;?>')">Modifier</a><br>
+<a class="menu" href="javascript:modifier(<?php echo $sortie->idSortie;?>, '<?php echo $sortie->etat;?>')">Modifier</a><br>
+<a class="menu" target="_blank" href="imprimerSortie.php?id=<?php echo $sortie->idSortie;?>">Imprimer</a><br>
 <a class="menu" href="javascript:<?php echo $fctChangeEtat;?>"><?php echo $changerEtat;?></a><br>
 <a class="menu" href="consulterSorties.php">Retour à la liste des sorties</a><br>
 </CENTER>
