@@ -44,12 +44,12 @@ function agrandirCommentaire() {
 
 <br><br><br>
 <table class="tableCommune">
-<tr><th>Nom</th><?php if ($bUtiliseBeneficiaire) echo "<th>Bénéficiaire</th>";?><th>Prix unitaire</th><th>Quantité</th><th>Supprimer</th></tr>
+<tr><th>Nom</th><?php if ($bUtiliseBeneficiaire) echo "<th>Bénéficiaire</th>";?><th>Prix unit.<br>(TTC)</th><th>Quantité</th><th>Supprimer</th></tr>
 <?php
 	foreach ($sortie->tLigneSortie as $ligneSortie) {
 		$article=$ligneSortie->article;
 		$nom=$article->nom;
-		$quantite=$ligneSortie->quantite;
+		$quantite=afficherEntierSansDec($ligneSortie->quantite);
 		$prixSortie=$ligneSortie->prixSortie;
 		$beneficiaire=$ligneSortie->beneficiaire;
 		$idArticle = $article->idArticle;
@@ -68,7 +68,7 @@ function agrandirCommentaire() {
 <a href="javascript:montrerTableAjouterArticle()">Ajouter des articles</a><br>
 <br>
 <table id="tableAjouterArticle" class="tableCommune" style="display:none">
-<tr><th>Nom</th><?php if ($bUtiliseBeneficiaire) echo "<th>Bénéficiaire</th>";?><th>Prix</th><th>Stock<br>réel</th><th>Stock<br>virtuel</th><th>Quantité</th></tr>
+<tr><th>Nom</th><?php if ($bUtiliseBeneficiaire) echo "<th>Bénéficiaire</th>";?><th>Prix<br>(TTC)</th><th>Stock<br>réel</th><th>Stock<br>virtuel</th><th>Quantité</th></tr>
 <?php
 	chargerStock(); // impose de rechargement du stock
 	foreach ($stock->tLigneStock as $ligneStock) {

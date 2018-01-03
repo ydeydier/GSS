@@ -24,7 +24,7 @@ function supprimer(idSortie) {
 
 
 <table class="tableCommune">
-<tr><th>ID</th><th>Nom</th><th>Etat</th><th>Coût total</th><th>Nbre articles</th><th>Restaurer</th><th>Supprimer<br>définitivement</th><th</tr>
+<tr><th>ID</th><th>Nom</th><th>Etat</th><th>Coût total<br>(TTC)</th><th>Nbre articles</th><th>Restaurer</th><th>Supprimer<br>définitivement</th><th</tr>
 <?php
 	$sorties = sortie::chargerPourStockSansLigne($stock, 'O');
 	foreach ($sorties as $sortie) {

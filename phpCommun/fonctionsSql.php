@@ -1,8 +1,6 @@
 <?php
-	// TODO: appeler ce fichier autrement
 	function executeSql($sql) {
 		global $link;
-		//echo $sql."<br><br>"; die();  // décommenter pour débugguer
 		if (!mysqli_query($link, $sql)) {
 			mysqli_rollback($link);
 			die('Erreur SQL ! '.$sql.'<br>'.mysqli_error($link));
@@ -83,26 +81,13 @@
 	function dateMySql($date) {
 		$dateSql="null";
 		if (!is_null($date) && $date!="") {
-			$j = substr($date, 0, 2);
-			$m = substr($date, 3, 2);
-			$a = substr($date, 6, 4);
+			$date=str_replace("-","/",$date);
+			$tDate = explode("/", $date);
+			$j = $tDate[0];
+			$m = $tDate[1];
+			$a = $tDate[2];
 			$dateSql="'$a-$m-$j'";
 		}
 		return $dateSql;
-	}
-
-	function isInteger($nombre) {
-		$val=strval($nombre);
-		return ((int) $val)==$val;
-	}
-	
-	// TODO: à implémenter partout
-	function afficherEntierSansDec($nombre) {
-		if (isInteger($nombre)) {
-			$ret=(int) strval($nombre);
-		} else {
-			$ret=$nombre;
-		}
-		return $ret;
 	}
 ?>

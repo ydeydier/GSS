@@ -131,7 +131,7 @@ class sortie {
 	function calculeCoutTotal() {
 		$this->coutTotal=0;
 		foreach ($this->tLigneSortie as $ligneSortie) {
-			$this->coutTotal = $this->coutTotal + $ligneSortie->prixSortie * $ligneSortie->quantite;
+			$this->coutTotal = $this->coutTotal + round($ligneSortie->prixSortie * $ligneSortie->quantite, 2);
 		}
 	}
 

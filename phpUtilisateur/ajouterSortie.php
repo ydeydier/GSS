@@ -40,7 +40,7 @@ function agrandirCommentaire() {
 
 <br><br>
 <table class="tableCommune">
-<tr><th>Nom</th><?php if ($bUtiliseBeneficiaire) echo "<th>Bénéficiaire</th>";?><th>Prix</th><th>Stock<br>réel</th><th>Stock<br>virtuel</th><th>Quantité</th></tr>
+<tr><th>Nom</th><?php if ($bUtiliseBeneficiaire) echo "<th>Bénéficiaire</th>";?><th>Prix<br>(TTC)</th><th>Stock<br>réel</th><th>Stock<br>virtuel</th><th>Quantité</th></tr>
 <?php
 	// TODO: vérifier la date en javascript
 	chargerStock(); // impose de rechargement du stock
@@ -56,7 +56,7 @@ function agrandirCommentaire() {
 		echo "<td>$article->nom</td>";
 		if ($bUtiliseBeneficiaire) echo "<td><input type='text' size='25' name='BENEF_$idArticle' value=''></td>";
 		echo "<td>$article->prixCourant</td>";
-		echo "<td class=\"tdQuantiteReelle\">$quantiteReelle</td>";
+		echo "<td class=\"tdQuantite\">$quantiteReelle</td>";
 		echo "<td class=\"tdQuantiteVirtuelle\">$quantiteVirtuelle</td>";
 		echo "<td><input size='5' name=\"QUANTITE_$idArticle\" type='text'></td>";
 		echo "</tr>";

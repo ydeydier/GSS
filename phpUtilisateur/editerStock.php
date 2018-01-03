@@ -11,7 +11,7 @@
 
 <form method="POST" name="leForm" action="editerStock_trt.php">
 <table class="tableCommune">
-<tr><th>ID</th><th>Nom</th><th>Prix</th><th>Quantite<br>réelle</th><th>Supprimer</th></tr>
+<tr><th>ID</th><th>Nom</th><th>Prix unit.<br>(TTC)</th><th>Quantite<br>réelle</th><th>Supprimer</th></tr>
 <?php
 	chargerStock();		// Force le rechargement du stock (stocké en session) pour s'assurer de travailler sur les dernières valeurs en BDD
 	foreach ($stock->tLigneStock as $ligneStock) {
@@ -24,12 +24,13 @@
 		} else {
 			$htmlSupprimable="";
 		}
+		$quantiteReelle=afficherEntierSansDec($quantiteReelle);
 		$nom=htmlspecialchars($article->nom, ENT_QUOTES);
 		echo "<tr>";
 		echo "<td>$idArticle</td>";
 		echo "<td><input size=\"40\" maxlength=\"255\" type='text' name='NOM_$idArticle' value='$nom'></td>";
 		echo "<td><input type='text' size='7' name='PRIX_$idArticle' value='$article->prixCourant'></td>";
-		echo "<td><input type='text' size='5' name='QUANTITEREELLE_$idArticle' value='$ligneStock->quantiteReelle'></td>";
+		echo "<td><input type='text' size='5' name='QUANTITEREELLE_$idArticle' value='$quantiteReelle'></td>";
 		echo "<td align=\"center\"><input $htmlSupprimable type='checkbox' name='CHKDEL_$idArticle'></td>";
 		echo "</tr>";
 	}

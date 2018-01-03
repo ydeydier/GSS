@@ -17,11 +17,11 @@
 			unset($sortie->tLigneSortie[$key]);
 		} else {
 			$quantite=$_POST["QUANTITE_$idArticle"];
+			$quantite=str_replace(",", ".", $quantite);
 			if (!is_numeric($quantite)) {
 				$quantite=0;
-			} else {
-				$quantite=intval($quantite);
 			}
+			$quantite=round($quantite, 2);
 			$prixSortie=$_POST["PRIX_$idArticle"];
 			$prixSortie=str_replace(",", ".", $prixSortie);
 			if (!is_numeric($prixSortie)) {
@@ -48,8 +48,6 @@
 			if (trim($quantite)!="") {
 				if (!is_numeric($quantite)) {
 					$quantite=0;
-				} else {
-					$quantite=intval($quantite);
 				}
 				if ($bUtiliseBeneficiaire) {
 					$beneficiaire=$_POST["BENEF_AJOUT_$idArticle"];

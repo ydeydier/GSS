@@ -11,18 +11,17 @@
 	foreach ($stock->tLigneStock as $ligneStock) {
 		$article=$ligneStock->article;
 		$idArticle=$article->idArticle;
-		$quantite=trim($_POST["QUANTITE_$idArticle"]);
 		if ($bUtiliseBeneficiaire) {
 			$beneficiaire=$_POST["BENEF_$idArticle"];
 		} else {
 			$beneficiaire=null;
 		}
+		$quantite=trim($_POST["QUANTITE_$idArticle"]);
 		if (trim($quantite)!="") {
 			if (!is_numeric($quantite)) {
 				$quantite=0;
-			} else {
-				$quantite=intval($quantite);
 			}
+			$quantite=round($quantite, 2);
 			$ligneSortie = new ligneSortie();
 			$ligneSortie->sortie=$sortie;
 			$ligneSortie->article=$article;

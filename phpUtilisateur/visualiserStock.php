@@ -18,6 +18,8 @@
 		$quantiteReelle=$ligneStock->quantiteReelle;
 		$quantiteVirtuelle=$ligneStock->quantiteVirtuelle;
 		if ($quantiteReelle==$quantiteVirtuelle) $quantiteVirtuelle="";
+		$quantiteReelle=afficherEntierSansDec($quantiteReelle);
+		$quantiteVirtuelle=afficherEntierSansDec($quantiteVirtuelle);
 		echo "<tr><td>$idArticle</td><td>$article->nom</td><td class=\"tdPrix\">$article->prixCourant</td><td class=\"tdQuantite\">$quantiteReelle</td><td class=\"tdQuantiteVirtuelle\">$quantiteVirtuelle</td></tr>";
 	}
 ?>

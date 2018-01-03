@@ -2,6 +2,7 @@
 	header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
 	//error_reporting(E_ALL ^ E_DEPRECATED);
 	require_once "../phpCommun/fonctionsSql.php";
+	require_once "../phpCommun/fonctionsUtiles.php";
 	require_once "../classes/class.stock.php";
 	require_once "../classes/class.article.php";
 	require_once "../classes/class.ligneStock.php";

@@ -34,17 +34,17 @@ function modifier(idSortie, etat) {
 Etat : <b><?php echo $sortie->libelleEtat();?></b>
 <br><br>
 <table class="tableCommune">
-<tr><th align="left">Date (jj/mm/aaaa)&nbsp;&nbsp;&nbsp;</th><td><?php echo $sortie->date;?></td></tr>
-<tr><th align="left">Commentaire&nbsp;&nbsp;&nbsp;</th><td><?php echo str_replace("\n", "<br>", $sortie->commentaire);?></td></tr>
+<tr><th nowrap align="left">Date (jj/mm/aaaa)&nbsp;&nbsp;&nbsp;</th><td width="100px"><?php echo $sortie->date;?></td></tr>
+<tr><th nowrap align="left">Commentaire&nbsp;&nbsp;&nbsp;</th><td><?php echo str_replace("\n", "<br>", $sortie->commentaire);?></td></tr>
 </table>
 <br><br>
 <table class="tableCommune">
-<tr><th>Nom</th><?php if ($bUtiliseBeneficiaire) echo "<th>Bénéficiaire</th>";?><th>Prix<br>unitaire</th><th>Quantité</th><th>Prix<br>total</th></tr>
+<tr><th>Nom</th><?php if ($bUtiliseBeneficiaire) echo "<th>Bénéficiaire</th>";?><th>Prix unit.<br>(TTC)</th><th>Quantité</th><th>Prix total<br>(TTC)</th></tr>
 <?php
 	foreach ($sortie->tLigneSortie as $ligneSortie) {
 		$nom=$ligneSortie->article->nom;
 		$prixSortie=$ligneSortie->prixSortie;
-		$quantite=$ligneSortie->quantite;
+		$quantite=afficherEntierSansDec($ligneSortie->quantite);
 		$prixTotal=$prixSortie * $quantite;
 		$prixTotal=number_format($prixTotal, 2, '.', ' ');
 		echo "<tr>";

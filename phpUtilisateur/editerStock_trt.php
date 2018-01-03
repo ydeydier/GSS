@@ -15,8 +15,6 @@
 			$prixCourant=str_replace(",", ".", $prixCourant);
 			if (!is_numeric($quantiteReelle)) {
 				$quantiteReelle=0;
-			} else {
-				$quantiteReelle=intval($quantiteReelle);
 			}
 			if (!is_numeric($prixCourant)) {
 				$prixCourant=null;
@@ -40,8 +38,6 @@
 			if (trim($nom)!="") {
 				if (!is_numeric($quantiteReelle)) {
 					$quantiteReelle=0;
-				} else {
-					$quantiteReelle=intval($quantiteReelle);
 				}
 				if (!is_numeric($prixCourant)) {
 					$prixCourant=null;
