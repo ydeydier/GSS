@@ -15,7 +15,10 @@ http://www.blueplace.fr/GSS/
   * 1 utilisateur peut gérer 1 ou plusieurs stocks
   * 1 utilisateur admin pour gérer les utilisateurs et les stocks
   * connexion par login/password local, ou relié à un LDAP
-	
+  * commentaire et date pour chaque sortie
+  * coût total d'une sortie
+  * impression du stock
+  * impression d'une sortie
 * Non prévues :
   * gestion des fournisseurs
   * gestion des commandes, des achats
