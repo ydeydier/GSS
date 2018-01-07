@@ -40,7 +40,7 @@
 
 <tr height="40%">
 <td style="color:#EEEEEE;" valign="bottom">
-GSS Version 1.0 - <a class="lienFondVert" href="apropos.php">A propos de GSS</a></div>
+GSS Version 1.1 - <a class="lienFondVert" href="apropos.php">A propos de GSS</a></div>
 </td>
 </tr>
 </table>

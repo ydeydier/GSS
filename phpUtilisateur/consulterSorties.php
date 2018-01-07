@@ -42,14 +42,16 @@ function supprimer(idSortie) {
 	$sorties = sortie::chargerPourStockSansLigne($stock, 'N');
 	foreach ($sorties as $sortie) {
 		if ($sortie->etat==sortie::$VIRTUELLE) {
-			$changerEtat="Rendre REELLE";
+			$changerEtat="Rendre réelle";
+			$couleurEtat="#006573";
 			$fctChangeEtat="rendreReelle($sortie->idSortie)";	// Fonction javascript à appeler
 		} else {
-			$changerEtat="Rendre VIRTUELLE";
+			$changerEtat="Rendre virtuelle";
 			$fctChangeEtat="rendreVirtuelle($sortie->idSortie)";	// Fonction javascript à appeler
+			$couleurEtat="#000000";
 		}
 		$libelleEtat=$sortie->libelleEtat();
-		echo "<tr><td>$sortie->nom</td><td>$sortie->date</td><td>$libelleEtat</td><td class=\"tdPrix\">$sortie->coutTotal</td><td class=\"tdQuantite\">$sortie->nbreArticles</td>";
+		echo "<tr><td>$sortie->nom</td><td>$sortie->date</td><td style=\"color:$couleurEtat;\">$libelleEtat</td><td class=\"tdPrix\">$sortie->coutTotal</td><td class=\"tdQuantite\">$sortie->nbreArticles</td>";
 		echo "<td><a href=\"consulterSortie.php?id=$sortie->idSortie\">Consulter</a></td><td><a href=\"javascript:modifier($sortie->idSortie, '$sortie->etat');\">Modifier</a></td><td><a href=\"javascript:supprimer($sortie->idSortie);\">Supprimer</a></td><td><a href=\"javascript:$fctChangeEtat;\">$changerEtat</a></td></tr>";
 	}
 ?>

@@ -4,6 +4,16 @@
 	$idSortie=$_GET["id"];
 	$sortie = sortie::charger($idSortie, $stock);
 	$bUtiliseBeneficiaire=($stock->utiliseBeneficiaire=="O");
+
+	if ($sortie->etat==sortie::$VIRTUELLE) {
+		$changerEtat="Rendre réelle";
+		$couleurEtat="#006573";
+		$fctChangeEtat="rendreReelle($sortie->idSortie)";	// Fonction javascript à appeler
+	} else {
+		$changerEtat="Rendre virtuelle";
+		$couleurEtat="#000000";
+		$fctChangeEtat="rendreVirtuelle($sortie->idSortie)";	// Fonction javascript à appeler
+	}
 ?>
 <script type="text/javascript">
 function rendreVirtuelle(idSortie) {
@@ -31,7 +41,7 @@ function modifier(idSortie, etat) {
 <br>
 <h1>Sortie : <?php echo $sortie->nom;?></h1>
 <br>
-Etat : <b><?php echo $sortie->libelleEtat();?></b>
+Etat : <b style="color:<?php echo $couleurEtat;?>;"><?php echo $sortie->libelleEtat();?></b>
 <br><br>
 <table class="tableCommune">
 <tr><th nowrap align="left">Date (jj/mm/aaaa)&nbsp;&nbsp;&nbsp;</th><td width="100px"><?php echo $sortie->date;?></td></tr>
@@ -53,21 +63,10 @@ Etat : <b><?php echo $sortie->libelleEtat();?></b>
 		echo "<td class=\"tdPrix\">$prixSortie</td><td class=\"tdQuantite\">$quantite</td><td class=\"tdPrix\">$prixTotal</td></tr>";
 	}
 	$colSpan=($bUtiliseBeneficiaire?4:3);
-	echo "<tr><td colspan='$colSpan'>Total</td><td class=\"tdPrix\">$sortie->coutTotal</td></tr>";
+	echo "<tr><td colspan='$colSpan'><b>Total</b></td><td class=\"tdPrix\"><b>$sortie->coutTotal</b></td></tr>";
 ?>
 </table>
 <br><br>
-<?php
-	if ($sortie->etat==sortie::$VIRTUELLE) {
-		$changerEtat="Rendre REELLE";
-		$fctChangeEtat="rendreReelle($sortie->idSortie)";	// Fonction javascript à appeler
-	} else {
-		$changerEtat="Rendre VIRTUELLE";
-		$fctChangeEtat="rendreVirtuelle($sortie->idSortie)";	// Fonction javascript à appeler
-	}
-?>
-
-
 <a class="menu" href="javascript:modifier(<?php echo $sortie->idSortie;?>, '<?php echo $sortie->etat;?>')">Modifier</a><br>
 <a class="menu" target="_blank" href="imprimerSortie.php?id=<?php echo $sortie->idSortie;?>">Imprimer</a><br>
 <a class="menu" href="javascript:<?php echo $fctChangeEtat;?>"><?php echo $changerEtat;?></a><br>

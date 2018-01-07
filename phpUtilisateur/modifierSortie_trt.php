@@ -45,9 +45,16 @@
 		$idArticle=$article->idArticle;
 		if (!$sortie->contientArticle($article)) {
 			$quantite=trim($_POST["QTE_AJOUT_$idArticle"]);
+			$quantite=str_replace(",", ".", $quantite);
 			if (trim($quantite)!="") {
 				if (!is_numeric($quantite)) {
 					$quantite=0;
+				}
+				$quantite=round($quantite, 2);
+				$prixSortie=$_POST["PRIX_AJOUT_$idArticle"];
+				$prixSortie=str_replace(",", ".", $prixSortie);
+				if (!is_numeric($prixSortie)) {
+					$prixSortie=null;
 				}
 				if ($bUtiliseBeneficiaire) {
 					$beneficiaire=$_POST["BENEF_AJOUT_$idArticle"];
@@ -57,7 +64,7 @@
 				$ligneSortie = new ligneSortie();
 				$ligneSortie->sortie=$sortie;
 				$ligneSortie->article=$article;
-				$ligneSortie->prixSortie=$article->prixCourant;		// Le prix est copié depuis le stock, car il peut varier dans le stock. Il doit être associé à la sortie.
+				$ligneSortie->prixSortie=$prixSortie;
 				$ligneSortie->quantite=$quantite;
 				$ligneSortie->beneficiaire=$beneficiaire;
 				$sortie->tLigneSortie[]=$ligneSortie;

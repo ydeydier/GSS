@@ -40,12 +40,12 @@ CREATE TABLE `ligne_stock` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `ligne_stock` (`idStock`, `idArticle`, `quantiteReelle`, `quantiteVirtuelle`) VALUES
-(1, 1, '92.00', '92.00'),
-(1, 2, '163.00', '163.00'),
-(1, 4, '203.00', '203.00'),
-(1, 5, '10.00', '10.00'),
-(1, 6, '11.00', '11.00'),
-(1, 7, '8.00', '8.00');
+(1, 1, '86.00', '86.00'),
+(1, 2, '-10.00', '-10.00'),
+(1, 4, '10.00', '10.00'),
+(1, 5, '-5.00', '-5.00'),
+(1, 6, '4.00', '4.00'),
+(1, 7, '-1.00', '-1.00');
 
 DROP TABLE IF EXISTS `sortie`;
 CREATE TABLE `sortie` (

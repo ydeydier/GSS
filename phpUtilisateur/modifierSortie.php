@@ -78,7 +78,7 @@ function agrandirCommentaire() {
 			echo "<tr>";
 			echo "<td>$article->nom</td>";
 			if ($bUtiliseBeneficiaire) echo "<td><input type='text' size='25' name='BENEF_AJOUT_$idArticle' value=''></td>";
-			echo "<td>$article->prixCourant</td>";
+			echo "<td><input type='text' size='7' name='PRIX_AJOUT_$idArticle' value='$article->prixCourant'></td>";
 			echo "<td>$ligneStock->quantiteReelle</td>";
 			echo "<td>$ligneStock->quantiteVirtuelle</td>";
 			echo "<td><input size='5' name=\"QTE_AJOUT_$idArticle\" type='text'></td>";

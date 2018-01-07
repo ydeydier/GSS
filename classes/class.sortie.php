@@ -177,9 +177,9 @@ class sortie {
 	
 	function libelleEtat() {
 		if ($this->etat==$this::$REELLE) {
-			$libelle="Réelle";
+			$libelle="REELLE";
 		} else {
-			$libelle="Virtuelle";
+			$libelle="VIRTUELLE";
 		}
 		return $libelle;
 	}

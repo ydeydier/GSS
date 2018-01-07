@@ -1,11 +1,22 @@
 <?php
 	require "inc_commun.php";
-	require "header_et_menu.php";
 ?>
-
+<!DOCTYPE html>
+<html>
+<HEAD>
+<TITLE>GSS</TITLE>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="imagetoolbar" content="no">
+<META name="keywords" content="gestion,stock">
+<LINK media="screen" href="../phpCommun/style.css" type="text/css" rel="stylesheet">
+<LINK media="print" href="../phpCommun/stylePrint.css" type="text/css" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="../img/GSS.ico" />
+</HEAD>
+<BODY>
+<script type="text/javascript">
+	window.print();
+</script>
 <CENTER>
-
-<br>
 <h1>Contenu du stock</h1>
 <br>
 <table class="tableCommune">
@@ -35,13 +46,9 @@
 ?>
 </table>
 <br><br>
-
-<a class="menu" href="editerStock.php">Modifier</a><br>
-<a class="menu" target="_blank" href="imprimerStock.php">Imprimer</a><br>
-<a class="menu" href="pagePrincipale.php">*** Retour Page Accueil ***</a>
-
+<a class="menu" href="javascript:window.print()">Imprimer</a><br>
+<a class="menu" href="javascript:window.close()">Fermer</a><br>
 </CENTER>
 <br><br><br><br>
-<?php
-	require "footer.php";
-?>
+</body>
+</html>

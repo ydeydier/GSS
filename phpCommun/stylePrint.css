@@ -1,0 +1,52 @@
+* {
+	FONT-SIZE: 10px; FONT-FAMILY: Verdana, 'Lucida Grande', Arial, sans-serif; color: #000000;
+}
+
+.tableCommune {
+	border-collapse:collapse;
+	border: 1px solid black;
+}
+
+.tableCommune tr th {
+	padding:4px;
+	FONT-SIZE: 10px;
+	padding-left:10px;
+	padding-right:10px;
+	border: 1px solid black;
+}
+
+.tableCommune tr {
+	BACKGROUND:#f4d4ad;
+}
+
+.tableCommune tr td {
+	padding-top:4px;
+	padding-bottom:4px;
+	padding-left:10px;
+	padding-right:10px;
+	BACKGROUND:#f4e4d0;
+	border: 1px solid black;
+}
+
+.tdQuantiteVirtuelle {
+	text-align:center;
+	color:#006573;
+}
+
+.tdPrix {
+	text-align:right;
+}
+
+.tdQuantite {
+	text-align:center;
+}
+
+h1 {
+	color:#006573;
+	FONT-SIZE: 15px;
+	text-shadow : 2px 2px 5px #aaa;
+}
+
+.menu {
+	display: none;	
+}
