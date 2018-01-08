@@ -63,12 +63,13 @@ Etat : <b style="color:<?php echo $couleurEtat;?>;"><?php echo $sortie->libelleE
 		echo "<td class=\"tdPrix\">$prixSortie</td><td class=\"tdQuantite\">$quantite</td><td class=\"tdPrix\">$prixTotal</td></tr>";
 	}
 	$colSpan=($bUtiliseBeneficiaire?4:3);
-	echo "<tr><td colspan='$colSpan'><b>Total</b></td><td class=\"tdPrix\"><b>$sortie->coutTotal</b></td></tr>";
+	echo "<tr><td colspan=\"$colSpan\"><b>Total</b></td><td class=\"tdPrix\"><b>$sortie->coutTotal</b></td></tr>";
+	$colSpan++;
+	echo "<tr><td colspan=\"$colSpan\" style=\"background:#FFFFFF;\" align=\"right\"><a target=\"_blank\" href=\"imprimerSortie.php?id=$sortie->idSortie\"><img src=\"../img/printer.png\"></a></td></tr>";
 ?>
 </table>
 <br><br>
 <a class="menu" href="javascript:modifier(<?php echo $sortie->idSortie;?>, '<?php echo $sortie->etat;?>')">Modifier</a><br>
-<a class="menu" target="_blank" href="imprimerSortie.php?id=<?php echo $sortie->idSortie;?>">Imprimer</a><br>
 <a class="menu" href="javascript:<?php echo $fctChangeEtat;?>"><?php echo $changerEtat;?></a><br>
 <a class="menu" href="consulterSorties.php">Retour à la liste des sorties</a><br>
 </CENTER>
