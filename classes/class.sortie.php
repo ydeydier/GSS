@@ -5,6 +5,7 @@ class sortie {
 	var $nom;
 	var $date;
 	var $commentaire;
+	var $ressources;
 	var $coutTotal;
 	var $nbreArticles;
 	var $etat;					// "VIRTUELLE" ou "REELLE"
@@ -29,6 +30,17 @@ class sortie {
 		return $sorties;
 	}
 
+	static function chargerReellesPourStockAnneeSansLigne($stock, $annee) {
+		$idStock=$stock->idStock;
+		$result = executeSqlSelect("SELECT * FROM sortie where idStock=$idStock and etat='".self::$REELLE."' and corbeille='N' and YEAR(date)=$annee");
+		$sorties = array();
+		while($row = mysqli_fetch_array($result)) {
+			$sortie = self::instanceDepuisSqlRow($row, $stock);
+			$sorties[$sortie->idSortie]=$sortie;
+		}
+		return $sorties;
+	}
+
 	static function instanceDepuisSqlRow($row, $stock) {
 		$sortie = new sortie();
 		$sortie->idSortie=$row['idSortie'];
@@ -36,6 +48,7 @@ class sortie {
 		$sortie->nom=$row['nom'];
 		$sortie->date=date_fr($row['date']);
 		$sortie->commentaire=$row['commentaire'];
+		$sortie->ressources=$row['ressources'];
 		$sortie->coutTotal=$row['coutTotal'];
 		$sortie->nbreArticles=$row['nbreArticles'];
 		$sortie->corbeille=$row['corbeille'];
@@ -98,8 +111,9 @@ class sortie {
 		$this->calculeNbreArticles();
 		$nom=mysqlEscape($this->nom);
 		$commentaire=mysqlEscape($this->commentaire);
+		$ressources=mysqlEscape($this->ressources);
 		$date=dateMySql($this->date);
-		$sql="update sortie set nom='$nom', commentaire='$commentaire', date=$date, coutTotal=$this->coutTotal, nbreArticles=$this->nbreArticles, etat='$this->etat' where idSortie=$this->idSortie";
+		$sql="update sortie set nom='$nom', commentaire='$commentaire', ressources='$ressources', date=$date, coutTotal=$this->coutTotal, nbreArticles=$this->nbreArticles, etat='$this->etat' where idSortie=$this->idSortie";
 		executeSql($sql);
 	}
 	
@@ -109,8 +123,9 @@ class sortie {
 		$this->calculeNbreArticles();
 		$nom=mysqlEscape($this->nom);
 		$commentaire=mysqlEscape($this->commentaire);
+		$ressources=mysqlEscape($this->ressources);
 		$date=dateMySql($this->date);
-		$sql="insert into sortie (idStock, nom, commentaire, date, coutTotal, nbreArticles, corbeille, etat) values ($idStock, '$nom', '$commentaire', $date, $this->coutTotal, $this->nbreArticles, 'N', '$this->etat')";
+		$sql="insert into sortie (idStock, nom, commentaire, ressources, date, coutTotal, nbreArticles, corbeille, etat) values ($idStock, '$nom', '$commentaire', '$ressources', $date, $this->coutTotal, $this->nbreArticles, 'N', '$this->etat')";
 		executeSql($sql);
 		$this->idSortie=dernierIdAttribue();
 		// Insertion des ligneSortie
@@ -182,6 +197,16 @@ class sortie {
 			$libelle="VIRTUELLE";
 		}
 		return $libelle;
+	}
+
+	static function chargerListeAnneeReelle($stock) {
+		$idStock=$stock->idStock;
+		$result = executeSqlSelect("SELECT distinct YEAR(date) FROM sortie where idStock=$idStock and corbeille='N' and etat='".self::$REELLE."' order by 1 desc");
+		$listeAnnees = array();
+		while($row = mysqli_fetch_array($result)) {
+			$listeAnnees[]=$row[0];
+		}
+		return $listeAnnees;
 	}
 }
 ?>

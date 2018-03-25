@@ -4,6 +4,7 @@
 	$sortie->nom=$_POST["txtNomSortie"];
 	$sortie->date=$_POST["txtDate"];
 	$sortie->commentaire=$_POST["txtCommentaire"];
+	$sortie->ressources=$_POST["txtRessources"];
 	$sortie->stock=$stock;
 	$sortie->etat=sortie::$VIRTUELLE;
 	$bUtiliseBeneficiaire=($stock->utiliseBeneficiaire=="O");

@@ -78,6 +78,10 @@
 		return $datefr;
 	}
 
+	function getMois($dateFr) {
+		return substr($dateFr, 3, 2);
+	}
+
 	function dateMySql($date) {
 		$dateSql="null";
 		if (!is_null($date) && $date!="") {

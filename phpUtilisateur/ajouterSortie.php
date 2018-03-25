@@ -22,6 +22,16 @@ function agrandirCommentaire() {
 		text.style.height="10em";
 	}
 }
+function agrandirRessources() {
+	var text = document.getElementById("idRessources");
+	if (text.style.width=="35em") {
+		text.style.width="";
+		text.style.height="";
+	} else {
+		text.style.width="35em";
+		text.style.height="10em";
+	}
+}
 </script>
 
 <CENTER>
@@ -36,6 +46,7 @@ function agrandirCommentaire() {
 <tr><th align="left">Nom&nbsp;&nbsp;&nbsp;</th><td><input autofocus size="35" type="text" value="" name="txtNomSortie"></td></tr>
 <tr><th align="left">Date (jj/mm/aaaa)&nbsp;&nbsp;&nbsp;</th><td><input size="11" maxlength="10" type="text" value="" name="txtDate"></td></tr>
 <tr><th align="left">Commentaire&nbsp;&nbsp;&nbsp;</th><td><textarea id="idCommentaire" rows="2" cols="35" name="txtCommentaire"></textarea><br><a style="font-size:9px;" href="javascript:agrandirCommentaire()">Agrandir</a></td></tr>
+<tr><th align="left">Ressources&nbsp;&nbsp;&nbsp;</th><td><textarea id="idRessources" rows="2" cols="35" name="txtRessources"></textarea><br><a style="font-size:9px;" href="javascript:agrandirRessources()">Agrandir</a></td></tr>
 </table>
 
 <br><br>
