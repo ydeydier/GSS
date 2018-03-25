@@ -31,13 +31,13 @@
 		echo "</tr>";
 	}
 	$total=number_format($total, 2, '.', ' ');
-	echo "<tr><td><b>Total TTC (prix * Qté réelle)</b></td><td><b>$total</b></td></tr>";
 ?>
+<tr><td><b>Total TTC (prix * Qté réelle)</b></td><td><b><?php echo $total;?></b></td></tr>
+<tr><td colspan="4" style="background:#FFFFFF;" align="right"><a target="_blank" href="imprimerStock.php"><img src="../img/printer.png"></a></td></tr>
 </table>
 <br><br>
 
 <a class="menu" href="editerStock.php">Modifier</a><br>
-<a class="menu" target="_blank" href="imprimerStock.php">Imprimer</a><br>
 <a class="menu" href="pagePrincipale.php">*** Retour Page Accueil ***</a>
 
 </CENTER>
