@@ -22,9 +22,10 @@
 <CENTER>
 <h1><?php echo $sortie->nom;?></h1>
 <br>
-<table class="tableCommune">
+<table width="400px" class="tableCommune">
 <tr><th nowrap align="left">Date (jj/mm/aaaa)&nbsp;&nbsp;&nbsp;</th><td width="100px"><?php echo $sortie->date;?></td></tr>
 <tr><th nowrap align="left">Commentaire&nbsp;&nbsp;&nbsp;</th><td><?php echo str_replace("\n", "<br>", $sortie->commentaire);?></td></tr>
+<tr><th nowrap align="left">Ressources&nbsp;&nbsp;&nbsp;</th><td><?php echo str_replace("\n", "<br>", $sortie->ressources);?></td></tr>
 </table>
 <br><br>
 <table class="tableCommune">

@@ -43,7 +43,7 @@ function modifier(idSortie, etat) {
 <br>
 Etat : <b style="color:<?php echo $couleurEtat;?>;"><?php echo $sortie->libelleEtat();?></b>
 <br><br>
-<table class="tableCommune">
+<table width="40%" class="tableCommune">
 <tr><th nowrap align="left">Date (jj/mm/aaaa)&nbsp;&nbsp;&nbsp;</th><td width="100px"><?php echo $sortie->date;?></td></tr>
 <tr><th nowrap align="left">Commentaire&nbsp;&nbsp;&nbsp;</th><td><?php echo str_replace("\n", "<br>", $sortie->commentaire);?></td></tr>
 <tr><th nowrap align="left">Ressources&nbsp;&nbsp;&nbsp;</th><td><?php echo str_replace("\n", "<br>", $sortie->ressources);?></td></tr>
