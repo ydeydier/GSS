@@ -27,16 +27,16 @@
 	foreach ($stock->tLigneStock as $ligneStock) {
 		$article=$ligneStock->article;
 		$idArticle=$article->idArticle;
-		$prixCourant=$article->prixCourant;
+		$prixTTCCourant=$article->prixTTCCourant;
 		$quantiteReelle=$ligneStock->quantiteReelle;
 		$quantiteVirtuelle=$ligneStock->quantiteVirtuelle;
-		$total+=$quantiteReelle*$prixCourant;
+		$total+=$quantiteReelle*$prixTTCCourant;
 		if ($quantiteReelle==$quantiteVirtuelle) $quantiteVirtuelle="";
 		$quantiteReelle=afficherEntierSansDec($quantiteReelle);
 		$quantiteVirtuelle=afficherEntierSansDec($quantiteVirtuelle);
 		echo "<tr>";
 		echo "<td>$article->nom</td>";
-		echo "<td class=\"tdPrix\">$prixCourant</td>";
+		echo "<td class=\"tdPrix\">$prixTTCCourant</td>";
 		echo "<td class=\"tdQuantite\">$quantiteReelle</td>";
 		echo "<td class=\"tdQuantiteVirtuelle\">$quantiteVirtuelle</td>";
 		echo "</tr>";

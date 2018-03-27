@@ -23,7 +23,7 @@
 	foreach ($sorties as $sortie) {
 		$mois=intval(getMois($sortie->date));
 		if (!isset($tableStatCoutMois[$mois])) $tableStatCoutMois[$mois]=0;
-		$tableStatCoutMois[$mois]+=$sortie->coutTotal;
+		$tableStatCoutMois[$mois]+=$sortie->coutTTCTotal;
 	}
 
 	// Calcul des statistiques : coût par mois et par nom de sortie -> résultat dans $tableStatCoutNbreMoisNom
@@ -35,7 +35,7 @@
 			$tableStatCoutNbreMoisNom[$nom][$mois]["cout"]=0;
 			$tableStatCoutNbreMoisNom[$nom][$mois]["nombre"]=0;
 		}
-		$tableStatCoutNbreMoisNom[$nom][$mois]["cout"]+=$sortie->coutTotal;
+		$tableStatCoutNbreMoisNom[$nom][$mois]["cout"]+=$sortie->coutTTCTotal;
 		$tableStatCoutNbreMoisNom[$nom][$mois]["nombre"]+=1;
 	}
 ?>

@@ -6,7 +6,7 @@ class sortie {
 	var $date;
 	var $commentaire;
 	var $ressources;
-	var $coutTotal;
+	var $coutTTCTotal;
 	var $nbreArticles;
 	var $etat;					// "VIRTUELLE" ou "REELLE"
 	var $corbeille;				// 'O' ou 'N'
@@ -21,7 +21,36 @@ class sortie {
 
 	static function chargerPourStockSansLigne($stock, $corbeille) {
 		$idStock=$stock->idStock;
-		$result = executeSqlSelect("SELECT * FROM sortie where idStock=$idStock and corbeille='$corbeille'");
+		$result = executeSqlSelect("SELECT * FROM sortie where idStock=$idStock and corbeille='$corbeille' order by date desc");
+		$sorties = array();
+		while($row = mysqli_fetch_array($result)) {
+			$sortie = self::instanceDepuisSqlRow($row, $stock);
+			$sorties[$sortie->idSortie]=$sortie;
+		}
+		return $sorties;
+	}
+	//
+	// Renvoie les sorties (sans leurs lignes) du stock $stock, respectant le filtre $filtrePeriode
+	// $filtrePeriode peut contenir par exemple : "TToutes", "N30" (=les 30 premières ligne), "M2018-02" (février 2018)
+	//
+	static function chargerPourStockSansLigneAvecFiltre($stock, $corbeille, $filtrePeriode) {
+		$idStock=$stock->idStock;
+		$code=substr($filtrePeriode,0,1);	// Première lettre du filtre
+		$sqlFiltreAvant="";
+		$sqlFiltreApres="";
+		switch ($code) {
+			case "N":
+				$nbreLigne=substr($filtrePeriode,1);
+				$sqlFiltreApres.=" limit ".$nbreLigne;
+				break;
+			case "M":
+				$annee=substr($filtrePeriode,1,4);
+				$mois=substr($filtrePeriode,6);
+				$sqlFiltreAvant.=" and YEAR(date)=$annee and MONTH(date)=$mois ";
+				break;
+		}
+		$sql="SELECT * FROM sortie where idStock=$idStock and corbeille='$corbeille' $sqlFiltreAvant order by date desc $sqlFiltreApres";
+		$result = executeSqlSelect($sql);
 		$sorties = array();
 		while($row = mysqli_fetch_array($result)) {
 			$sortie = self::instanceDepuisSqlRow($row, $stock);
@@ -49,7 +78,7 @@ class sortie {
 		$sortie->date=date_fr($row['date']);
 		$sortie->commentaire=$row['commentaire'];
 		$sortie->ressources=$row['ressources'];
-		$sortie->coutTotal=$row['coutTotal'];
+		$sortie->coutTTCTotal=$row['coutTTCTotal'];
 		$sortie->nbreArticles=$row['nbreArticles'];
 		$sortie->corbeille=$row['corbeille'];
 		$sortie->etat=$row['etat'];
@@ -107,25 +136,25 @@ class sortie {
 	}
 
 	function update() {
-		$this->calculeCoutTotal();
+		$this->calculeCoutTTCTotal();
 		$this->calculeNbreArticles();
 		$nom=mysqlEscape($this->nom);
 		$commentaire=mysqlEscape($this->commentaire);
 		$ressources=mysqlEscape($this->ressources);
 		$date=dateMySql($this->date);
-		$sql="update sortie set nom='$nom', commentaire='$commentaire', ressources='$ressources', date=$date, coutTotal=$this->coutTotal, nbreArticles=$this->nbreArticles, etat='$this->etat' where idSortie=$this->idSortie";
+		$sql="update sortie set nom='$nom', commentaire='$commentaire', ressources='$ressources', date=$date, coutTTCTotal=$this->coutTTCTotal, nbreArticles=$this->nbreArticles, etat='$this->etat' where idSortie=$this->idSortie";
 		executeSql($sql);
 	}
 	
 	function insert() {
 		$idStock=$this->stock->idStock;
-		$this->calculeCoutTotal();
+		$this->calculeCoutTTCTotal();
 		$this->calculeNbreArticles();
 		$nom=mysqlEscape($this->nom);
 		$commentaire=mysqlEscape($this->commentaire);
 		$ressources=mysqlEscape($this->ressources);
 		$date=dateMySql($this->date);
-		$sql="insert into sortie (idStock, nom, commentaire, ressources, date, coutTotal, nbreArticles, corbeille, etat) values ($idStock, '$nom', '$commentaire', '$ressources', $date, $this->coutTotal, $this->nbreArticles, 'N', '$this->etat')";
+		$sql="insert into sortie (idStock, nom, commentaire, ressources, date, coutTTCTotal, nbreArticles, corbeille, etat) values ($idStock, '$nom', '$commentaire', '$ressources', $date, $this->coutTTCTotal, $this->nbreArticles, 'N', '$this->etat')";
 		executeSql($sql);
 		$this->idSortie=dernierIdAttribue();
 		// Insertion des ligneSortie
@@ -143,10 +172,10 @@ class sortie {
 		article::purge();
 	}
 	
-	function calculeCoutTotal() {
-		$this->coutTotal=0;
+	function calculeCoutTTCTotal() {
+		$this->coutTTCTotal=0;
 		foreach ($this->tLigneSortie as $ligneSortie) {
-			$this->coutTotal = $this->coutTotal + round($ligneSortie->prixSortie * $ligneSortie->quantite, 2);
+			$this->coutTTCTotal = $this->coutTTCTotal + round($ligneSortie->prixTTCSortie * $ligneSortie->quantite, 2);
 		}
 	}
 
@@ -207,6 +236,16 @@ class sortie {
 			$listeAnnees[]=$row[0];
 		}
 		return $listeAnnees;
+	}
+
+	static function chargerListeAnneeMois($stock) {
+		$idStock=$stock->idStock;
+		$result = executeSqlSelect("SELECT distinct YEAR(date), MONTH(date) FROM sortie where idStock=$idStock and corbeille='N' order by 1 desc, 2 desc");
+		$listeAnneesMois = array();
+		while($row = mysqli_fetch_array($result)) {
+			$listeAnneesMois[]=$row[0]."-".$row[1];
+		}
+		return $listeAnneesMois;
 	}
 }
 ?>

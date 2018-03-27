@@ -66,7 +66,7 @@ function agrandirRessources() {
 		echo "<tr>";
 		echo "<td>$article->nom</td>";
 		if ($bUtiliseBeneficiaire) echo "<td><input type='text' size='25' name='BENEF_$idArticle' value=''></td>";
-		echo "<td><input size='5' name=\"PRIX_$idArticle\" value=\"$article->prixCourant\" type='text'></td>";
+		echo "<td><input size='5' name=\"PRIX_$idArticle\" value=\"$article->prixTTCCourant\" type='text'></td>";
 		echo "<td><input size='5' name=\"QUANTITE_$idArticle\" type='text'></td>";
 		echo "<td class=\"tdQuantite\">$quantiteReelle</td>";
 		echo "<td class=\"tdQuantiteVirtuelle\">$quantiteVirtuelle</td>";

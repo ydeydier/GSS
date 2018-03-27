@@ -62,13 +62,13 @@ function agrandirRessources() {
 		$article=$ligneSortie->article;
 		$nom=$article->nom;
 		$quantite=afficherEntierSansDec($ligneSortie->quantite);
-		$prixSortie=$ligneSortie->prixSortie;
+		$prixTTCSortie=$ligneSortie->prixTTCSortie;
 		$beneficiaire=$ligneSortie->beneficiaire;
 		$idArticle = $article->idArticle;
 		echo "<tr>";
 		echo "<td>$nom</td>";
 		if ($bUtiliseBeneficiaire) echo "<td><input type='text' size='25' name='BENEF_$idArticle' value='$beneficiaire'></td>";
-		echo "<td><input type='text' size='7' name='PRIX_$idArticle' value='$prixSortie'></td>";
+		echo "<td><input type='text' size='7' name='PRIX_$idArticle' value='$prixTTCSortie'></td>";
 		echo "<td><input type='text' size='5' name='QUANTITE_$idArticle' value='$quantite'></td>";
 		echo "<td align=\"center\"><input type='checkbox' name='chkDel_$idArticle'></td>";
 		echo "</tr>";
@@ -90,7 +90,7 @@ function agrandirRessources() {
 			echo "<tr>";
 			echo "<td>$article->nom</td>";
 			if ($bUtiliseBeneficiaire) echo "<td><input type='text' size='25' name='BENEF_AJOUT_$idArticle' value=''></td>";
-			echo "<td><input type='text' size='7' name='PRIX_AJOUT_$idArticle' value='$article->prixCourant'></td>";
+			echo "<td><input type='text' size='7' name='PRIX_AJOUT_$idArticle' value='$article->prixTTCCourant'></td>";
 			echo "<td>$ligneStock->quantiteReelle</td>";
 			echo "<td>$ligneStock->quantiteVirtuelle</td>";
 			echo "<td><input size='5' name=\"QTE_AJOUT_$idArticle\" type='text'></td>";

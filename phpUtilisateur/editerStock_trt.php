@@ -15,15 +15,21 @@
 			if (!is_numeric($quantiteReelle)) {
 				$quantiteReelle=0;
 			}
-			$prixCourant=$_POST["PRIX_$idArticle"];
-			$prixCourant=str_replace(",", ".", $prixCourant);
-			if (!is_numeric($prixCourant)) {
-				$prixCourant=null;
+			$prixTTCCourant=$_POST["PRIX_$idArticle"];
+			$prixTTCCourant=str_replace(",", ".", $prixTTCCourant);
+			if (!is_numeric($prixTTCCourant)) {
+				$prixTTCCourant=null;
+			}
+			$tauxTVA=$_POST["TVA_$idArticle"];
+			$tauxTVA=str_replace(",", ".", $tauxTVA);
+			if (!is_numeric($tauxTVA)) {
+				$tauxTVA=null;
 			}
 			$ligneStock->quantiteReelle=$quantiteReelle;
 			$ligneStock->update();
 			$article->nom=$_POST["NOM_$idArticle"];
-			$article->prixCourant=$prixCourant;
+			$article->prixTTCCourant=$prixTTCCourant;
+			$article->tauxTVA=$tauxTVA;
 			$article->update();
 		}
 	}
@@ -39,16 +45,22 @@
 				if (!is_numeric($quantiteReelle)) {
 					$quantiteReelle=0;
 				}
-				$prixCourant=$_POST["INSERT_PRIX_$idLigne"];
-				$prixCourant=str_replace(",", ".", $prixCourant);
-				if (!is_numeric($prixCourant)) {
-					$prixCourant=null;
+				$prixTTCCourant=$_POST["INSERT_PRIX_$idLigne"];
+				$prixTTCCourant=str_replace(",", ".", $prixTTCCourant);
+				if (!is_numeric($prixTTCCourant)) {
+					$prixTTCCourant=null;
+				}
+				$tauxTVA=$_POST["INSERT_TVA_$idLigne"];
+				$tauxTVA=str_replace(",", ".", $tauxTVA);
+				if (!is_numeric($tauxTVA)) {
+					$tauxTVA=null;
 				}
 				// Insertion de l'article en base (qui a pour effet de lui attribuer un idArticle, utile pour l'insertion de la ligneStock)
 				$article = new article();
 				$article->stock=$stock;
 				$article->nom=$nom;
-				$article->prixCourant=$prixCourant;
+				$article->prixTTCCourant=$prixTTCCourant;
+				$article->tauxTVA=$tauxTVA;
 				$article->insert();
 				// Insertion de la ligneStock en base
 				$ligneStock = new ligneStock();

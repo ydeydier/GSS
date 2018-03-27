@@ -23,7 +23,7 @@
 <h1><?php echo $sortie->nom;?></h1>
 <br>
 <table width="400px" class="tableCommune">
-<tr><th nowrap align="left">Date (jj/mm/aaaa)&nbsp;&nbsp;&nbsp;</th><td width="100px"><?php echo $sortie->date;?></td></tr>
+<tr><th width="20%" nowrap align="left">Date (jj/mm/aaaa)&nbsp;&nbsp;&nbsp;</th><td width="80%"><?php echo $sortie->date;?></td></tr>
 <tr><th nowrap align="left">Commentaire&nbsp;&nbsp;&nbsp;</th><td><?php echo str_replace("\n", "<br>", $sortie->commentaire);?></td></tr>
 <tr><th nowrap align="left">Ressources&nbsp;&nbsp;&nbsp;</th><td><?php echo str_replace("\n", "<br>", $sortie->ressources);?></td></tr>
 </table>
@@ -33,17 +33,17 @@
 <?php
 	foreach ($sortie->tLigneSortie as $ligneSortie) {
 		$nom=$ligneSortie->article->nom;
-		$prixSortie=$ligneSortie->prixSortie;
+		$prixTTCSortie=$ligneSortie->prixTTCSortie;
 		$quantite=afficherEntierSansDec($ligneSortie->quantite);
-		$prixTotal=$prixSortie * $quantite;
+		$prixTotal=$prixTTCSortie * $quantite;
 		$prixTotal=number_format($prixTotal, 2, '.', ' ');
 		echo "<tr>";
 		echo "<td>$nom</td>";
 		if ($bUtiliseBeneficiaire) echo "<td>$ligneSortie->beneficiaire</td>";
-		echo "<td class=\"tdPrix\">$prixSortie</td><td class=\"tdQuantite\">$quantite</td><td class=\"tdPrix\">$prixTotal</td></tr>";
+		echo "<td class=\"tdPrix\">$prixTTCSortie</td><td class=\"tdQuantite\">$quantite</td><td class=\"tdPrix\">$prixTotal</td></tr>";
 	}
 	$colSpan=($bUtiliseBeneficiaire?4:3);
-	echo "<tr><td colspan='$colSpan'><b>Total</b></td><td class=\"tdPrix\"><b>$sortie->coutTotal</b></td></tr>";
+	echo "<tr><td colspan='$colSpan'><b>Total</b></td><td class=\"tdPrix\"><b>$sortie->coutTTCTotal</b></td></tr>";
 ?>
 </table>
 <br><br>

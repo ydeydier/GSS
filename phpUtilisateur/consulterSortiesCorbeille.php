@@ -29,7 +29,7 @@ function supprimer(idSortie) {
 	$sorties = sortie::chargerPourStockSansLigne($stock, 'O');
 	foreach ($sorties as $sortie) {
 		$libelleEtat=$sortie->libelleEtat();
-		echo "<tr><td>$sortie->idSortie</td><td>$sortie->nom</td><td>$libelleEtat</td><td>$sortie->coutTotal</td><td>$sortie->nbreArticles</td>";
+		echo "<tr><td>$sortie->idSortie</td><td>$sortie->nom</td><td>$libelleEtat</td><td>$sortie->coutTTCTotal</td><td>$sortie->nbreArticles</td>";
 		echo "<td><a href=\"javascript:restaurer($sortie->idSortie);\">Restaurer</a></td>";
 		echo "<td><a href=\"javascript:supprimer($sortie->idSortie);\">Supprimer</a></td>";
 		echo "</tr>";

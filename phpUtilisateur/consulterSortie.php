@@ -44,7 +44,7 @@ function modifier(idSortie, etat) {
 Etat : <b style="color:<?php echo $couleurEtat;?>;"><?php echo $sortie->libelleEtat();?></b>
 <br><br>
 <table width="40%" class="tableCommune">
-<tr><th nowrap align="left">Date (jj/mm/aaaa)&nbsp;&nbsp;&nbsp;</th><td width="100px"><?php echo $sortie->date;?></td></tr>
+<tr><th width="20%" nowrap align="left">Date (jj/mm/aaaa)&nbsp;&nbsp;&nbsp;</th><td width="80%"><?php echo $sortie->date;?></td></tr>
 <tr><th nowrap align="left">Commentaire&nbsp;&nbsp;&nbsp;</th><td><?php echo str_replace("\n", "<br>", $sortie->commentaire);?></td></tr>
 <tr><th nowrap align="left">Ressources&nbsp;&nbsp;&nbsp;</th><td><?php echo str_replace("\n", "<br>", $sortie->ressources);?></td></tr>
 </table>
@@ -54,17 +54,17 @@ Etat : <b style="color:<?php echo $couleurEtat;?>;"><?php echo $sortie->libelleE
 <?php
 	foreach ($sortie->tLigneSortie as $ligneSortie) {
 		$nom=$ligneSortie->article->nom;
-		$prixSortie=$ligneSortie->prixSortie;
+		$prixTTCSortie=$ligneSortie->prixTTCSortie;
 		$quantite=afficherEntierSansDec($ligneSortie->quantite);
-		$prixTotal=$prixSortie * $quantite;
+		$prixTotal=$prixTTCSortie * $quantite;
 		$prixTotal=number_format($prixTotal, 2, '.', ' ');
 		echo "<tr>";
 		echo "<td>$nom</td>";
 		if ($bUtiliseBeneficiaire) echo "<td>$ligneSortie->beneficiaire</td>";
-		echo "<td class=\"tdPrix\">$prixSortie</td><td class=\"tdQuantite\">$quantite</td><td class=\"tdPrix\">$prixTotal</td></tr>";
+		echo "<td class=\"tdPrix\">$prixTTCSortie</td><td class=\"tdQuantite\">$quantite</td><td class=\"tdPrix\">$prixTotal</td></tr>";
 	}
 	$colSpan=($bUtiliseBeneficiaire?4:3);
-	echo "<tr><td colspan=\"$colSpan\"><b>Total</b></td><td class=\"tdPrix\"><b>$sortie->coutTotal</b></td></tr>";
+	echo "<tr><td colspan=\"$colSpan\"><b>Total</b></td><td class=\"tdPrix\"><b>$sortie->coutTTCTotal</b></td></tr>";
 	$colSpan++;
 	echo "<tr><td colspan=\"$colSpan\" style=\"background:#FFFFFF;\" align=\"right\"><a target=\"_blank\" href=\"imprimerSortie.php?id=$sortie->idSortie\"><img src=\"../img/printer.png\"></a></td></tr>";
 ?>

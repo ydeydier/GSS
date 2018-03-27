@@ -2,7 +2,7 @@
 class ligneSortie {
 	var $sortie;
 	var $article;
-	var $prixSortie;
+	var $prixTTCSortie;
 	var $quantite;
 	var $beneficiaire;
 	
@@ -13,7 +13,7 @@ class ligneSortie {
 		$ligneSortie = new ligneSortie();
 		$ligneSortie->sortie=$sortie;
 		$ligneSortie->article=$article;
-		$ligneSortie->prixSortie=$row['prixSortie'];
+		$ligneSortie->prixTTCSortie=$row['prixTTCSortie'];
 		$ligneSortie->quantite=$row['quantite'];
 		$ligneSortie->beneficiaire=$row['beneficiaire'];
 		return $ligneSortie;
@@ -22,10 +22,10 @@ class ligneSortie {
 	function update() {
 		$idArticle=$this->article->idArticle;
 		$idSortie=$this->sortie->idSortie;
-		$prixSortie=nullSiVide($this->prixSortie);
+		$prixTTCSortie=nullSiVide($this->prixTTCSortie);
 		$quantite=$this->quantite;
 		$beneficiaire=nullSiVideStr(mysqlEscape($this->beneficiaire));
-		$sql="update ligne_sortie set prixSortie=$prixSortie, quantite=$quantite, beneficiaire=$beneficiaire where idArticle=$idArticle and idSortie=$idSortie";
+		$sql="update ligne_sortie set prixTTCSortie=$prixTTCSortie, quantite=$quantite, beneficiaire=$beneficiaire where idArticle=$idArticle and idSortie=$idSortie";
 		executeSql($sql);
 	}
 	
@@ -41,10 +41,10 @@ class ligneSortie {
 	function insert() {
 		$idArticle=$this->article->idArticle;
 		$idSortie=$this->sortie->idSortie;
-		$prixSortie=nullSiVide($this->prixSortie);
+		$prixTTCSortie=nullSiVide($this->prixTTCSortie);
 		$quantite=$this->quantite;
 		$beneficiaire=nullSiVideStr(mysqlEscape($this->beneficiaire));
-		$sql="insert into ligne_sortie (idArticle, idSortie, prixSortie, quantite, beneficiaire) values ($idArticle, $idSortie, $prixSortie, $quantite, $beneficiaire)";
+		$sql="insert into ligne_sortie (idArticle, idSortie, prixTTCSortie, quantite, beneficiaire) values ($idArticle, $idSortie, $prixTTCSortie, $quantite, $beneficiaire)";
 		executeSql($sql);
 	}
 }

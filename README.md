@@ -19,11 +19,12 @@ http://www.blueplace.fr/GSS/
   * coût total d'une sortie
   * impression du stock
   * impression d'une sortie
-  * statistiques, par année et par mois
+  * statistiques : coûts par année et par mois
+  * gestion de la TVA (dans le stock uniquement)
 * Non prévues :
   * gestion des fournisseurs
   * gestion des commandes, des achats
-	
+
 # Installation
 Voir le fichier documentation/installation.txt
 
@@ -44,5 +45,8 @@ L'utilisateur administrateur par défaut est admin/admin.
 D'autres administrateurs peuvent être définis en modifiant la table "utilisateur" (c'est le seul paramètre nécessitant une MAJ directement en base de données)
 
 # Versions
-* 1.2 : ajout des statistiques, par année et par mois
+* 1.2 : ajout des statistiques: coûts par année et par mois
 * 1.2 : ajout d'un champ "Ressources"
+* 1.2 : gestion de la TVA (dans le stock uniquement)
+* 1.2 : filtre sur l'écran "Consulter les sorties"
+* 1.2 : ajout d'icônes sur l'écran "Consulter les sorties"

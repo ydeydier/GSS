@@ -9,31 +9,39 @@
 <h1>Contenu du stock</h1>
 <br>
 <table class="tableCommune">
-<tr><th>Nom</th><th>Prix<br>(TTC)</th><th>Quantite<br>réelle</th><th>Quantite<br>Virtuelle</th></tr>
+<tr><th>Nom</th><th>TVA</th><th>Prix<br>TTC</th><th>Prix<br>HT</th><th>Quantite<br>réelle</th><th>Quantite<br>Virtuelle</th></tr>
 <?php
-	$total=0;
+	$totalTTC=0;
+	$totalHT=0;
 	chargerStock();		// Force le rechargement du stock (stocké en session) pour s'assurer de travailler sur les dernières valeurs en BDD
 	foreach ($stock->tLigneStock as $ligneStock) {
 		$article=$ligneStock->article;
 		$idArticle=$article->idArticle;
-		$prixCourant=$article->prixCourant;
+		$prixTTCCourant=$article->prixTTCCourant;
+		$tauxTVA=$article->tauxTVA;
+		$prixHTCourant=$prixTTCCourant / ($tauxTVA / 100 + 1);
+		$prixHTCourant=number_format($prixHTCourant, 3, '.', ' ');
 		$quantiteReelle=$ligneStock->quantiteReelle;
 		$quantiteVirtuelle=$ligneStock->quantiteVirtuelle;
-		$total+=$quantiteReelle*$prixCourant;
+		$totalTTC+=$quantiteReelle*$prixTTCCourant;
+		$totalHT +=$quantiteReelle*$prixHTCourant;
 		if ($quantiteReelle==$quantiteVirtuelle) $quantiteVirtuelle="";
 		$quantiteReelle=afficherEntierSansDec($quantiteReelle);
 		$quantiteVirtuelle=afficherEntierSansDec($quantiteVirtuelle);
 		echo "<tr>";
 		echo "<td>$article->nom</td>";
-		echo "<td class=\"tdPrix\">$prixCourant</td>";
+		echo "<td class=\"tdPrix\">$tauxTVA</td>";
+		echo "<td class=\"tdPrix\">$prixTTCCourant</td>";
+		echo "<td class=\"tdPrix\">$prixHTCourant</td>";
 		echo "<td class=\"tdQuantite\">$quantiteReelle</td>";
 		echo "<td class=\"tdQuantiteVirtuelle\">$quantiteVirtuelle</td>";
 		echo "</tr>";
 	}
-	$total=number_format($total, 2, '.', ' ');
+	$totalTTC=number_format($totalTTC, 2, '.', ' ');
+	$totalHT=number_format($totalHT, 2, '.', ' ');
 ?>
-<tr><td><b>Total TTC (prix * Qté réelle)</b></td><td><b><?php echo $total;?></b></td></tr>
-<tr><td colspan="4" style="background:#FFFFFF;" align="right"><a target="_blank" href="imprimerStock.php"><img src="../img/printer.png"></a></td></tr>
+<tr><td><b>Total (prix * Qté réelle)</b></td><td></td><td><b><?php echo $totalTTC;?></b></td><td><b><?php echo $totalHT;?></b></td><td></td><td></td></tr>
+<tr><td colspan="6" style="background:#FFFFFF;" align="right"><a target="_blank" href="imprimerStock.php"><img src="../img/printer.png"></a></td></tr>
 </table>
 <br><br>
 

@@ -23,17 +23,17 @@
 				$quantite=0;
 			}
 			$quantite=round($quantite, 2);
-			$prixSortie=$_POST["PRIX_$idArticle"];
-			$prixSortie=str_replace(",", ".", $prixSortie);
-			if (!is_numeric($prixSortie)) {
-				$prixSortie=null;
+			$prixTTCSortie=$_POST["PRIX_$idArticle"];
+			$prixTTCSortie=str_replace(",", ".", $prixTTCSortie);
+			if (!is_numeric($prixTTCSortie)) {
+				$prixTTCSortie=null;
 			}
 			if ($bUtiliseBeneficiaire) {
 				$beneficiaire=$_POST["BENEF_$idArticle"];
 			} else {
 				$beneficiaire=null;
 			}
-			$ligneSortie->prixSortie=$prixSortie;
+			$ligneSortie->prixTTCSortie=$prixTTCSortie;
 			$ligneSortie->quantite=$quantite;
 			$ligneSortie->beneficiaire=$beneficiaire;
 			$ligneSortie->update();
@@ -52,10 +52,10 @@
 					$quantite=0;
 				}
 				$quantite=round($quantite, 2);
-				$prixSortie=$_POST["PRIX_AJOUT_$idArticle"];
-				$prixSortie=str_replace(",", ".", $prixSortie);
-				if (!is_numeric($prixSortie)) {
-					$prixSortie=null;
+				$prixTTCSortie=$_POST["PRIX_AJOUT_$idArticle"];
+				$prixTTCSortie=str_replace(",", ".", $prixTTCSortie);
+				if (!is_numeric($prixTTCSortie)) {
+					$prixTTCSortie=null;
 				}
 				if ($bUtiliseBeneficiaire) {
 					$beneficiaire=$_POST["BENEF_AJOUT_$idArticle"];
@@ -65,7 +65,7 @@
 				$ligneSortie = new ligneSortie();
 				$ligneSortie->sortie=$sortie;
 				$ligneSortie->article=$article;
-				$ligneSortie->prixSortie=$prixSortie;
+				$ligneSortie->prixTTCSortie=$prixTTCSortie;
 				$ligneSortie->quantite=$quantite;
 				$ligneSortie->beneficiaire=$beneficiaire;
 				$sortie->tLigneSortie[]=$ligneSortie;
