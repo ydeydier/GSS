@@ -82,9 +82,14 @@ a:hover {
 	FONT-SIZE: 10px;
 	padding-left:10px;
 	padding-right:10px;
+	BACKGROUND:#f4d4ad;
 }
 
 .tableCommune tr {
+	BACKGROUND:#f4e4d0;
+}
+
+.tableCommune tr:hover {
 	BACKGROUND:#f4d4ad;
 }
 
@@ -93,7 +98,6 @@ a:hover {
 	padding-bottom:4px;
 	padding-left:10px;
 	padding-right:10px;
-	BACKGROUND:#f4e4d0;
 }
 
 button {

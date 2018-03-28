@@ -60,7 +60,7 @@ Filtre&nbsp;&nbsp;
 <br><br><br>
 
 <table class="tableCommune">
-<tr><th>Nom</th><th>Date</th><th>Etat</th><th>Coût total<br>(TTC)</th><th>Nbre<br>articles</th><th>Voir</th><th>Modif.</th><th>Sup.</th><th>Changer état</th></tr>
+<tr><th>Nom<br><span style="font-weight:normal;font-size:10px;font-style:italic;">Cliquer pour consulter</span></th><th>Date</th><th>Etat</th><th>Coût total<br>(TTC)</th><th>Nbre<br>articles</th><th>Modif.</th><th>Sup.</th><th>Changer état</th></tr>
 <?php
 	foreach ($sorties as $sortie) {
 		if ($sortie->etat==sortie::$VIRTUELLE) {
@@ -73,8 +73,8 @@ Filtre&nbsp;&nbsp;
 			$couleurEtat="#000000";
 		}
 		$libelleEtat=$sortie->libelleEtat();
-		echo "<tr><td>$sortie->nom</td><td>$sortie->date</td><td style=\"color:$couleurEtat;\">$libelleEtat</td><td class=\"tdPrix\">$sortie->coutTTCTotal</td><td class=\"tdQuantite\">$sortie->nbreArticles</td>";
-		echo "<td align=\"center\"><a href=\"consulterSortie.php?id=$sortie->idSortie\"><img onmouseover=\"this.src='../img/view_over.png'\" onmouseout=\"this.src='../img/view.png'\" src=\"../img/view.png\"></a></td><td align=\"center\"><a href=\"javascript:modifier($sortie->idSortie, '$sortie->etat');\"><img onmouseover=\"this.src='../img/edit_over.png'\" onmouseout=\"this.src='../img/edit.png'\" src=\"../img/edit.png\"></a></td><td align=\"center\"><a href=\"javascript:supprimer($sortie->idSortie);\"><img onmouseover=\"this.src='../img/delete_over.png'\" onmouseout=\"this.src='../img/delete.png'\" src=\"../img/delete.png\"></a></td><td><a href=\"javascript:$fctChangeEtat;\">$changerEtat</a></td></tr>";
+		echo "<tr><td style=\"cursor:pointer;\" onclick=\"window.location='consulterSortie.php?id=$sortie->idSortie'\"><b>$sortie->nom</b></td><td>$sortie->date</td><td style=\"color:$couleurEtat;\">$libelleEtat</td><td class=\"tdPrix\">$sortie->coutTTCTotal</td><td class=\"tdQuantite\">$sortie->nbreArticles</td>";
+		echo "<td align=\"center\"><a href=\"javascript:modifier($sortie->idSortie, '$sortie->etat');\"><img onmouseover=\"this.src='../img/edit_over.png'\" onmouseout=\"this.src='../img/edit.png'\" src=\"../img/edit.png\"></a></td><td align=\"center\"><a href=\"javascript:supprimer($sortie->idSortie);\"><img onmouseover=\"this.src='../img/delete_over.png'\" onmouseout=\"this.src='../img/delete.png'\" src=\"../img/delete.png\"></a></td><td><a href=\"javascript:$fctChangeEtat;\">$changerEtat</a></td></tr>";
 	}
 ?>
 </table>
