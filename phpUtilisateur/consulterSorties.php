@@ -73,7 +73,8 @@ Filtre&nbsp;&nbsp;
 			$couleurEtat="#000000";
 		}
 		$libelleEtat=$sortie->libelleEtat();
-		echo "<tr><td style=\"cursor:pointer;\" onclick=\"window.location='consulterSortie.php?id=$sortie->idSortie'\"><b>$sortie->nom</b></td><td>$sortie->date</td><td style=\"color:$couleurEtat;\">$libelleEtat</td><td class=\"tdPrix\">$sortie->coutTTCTotal</td><td class=\"tdQuantite\">$sortie->nbreArticles</td>";
+		$commentaire = htmlspecialchars($sortie->commentaire);
+		echo "<tr><td title=\"$commentaire\" style=\"cursor:pointer;\" onclick=\"window.location='consulterSortie.php?id=$sortie->idSortie'\"><b>$sortie->nom</b></td><td>$sortie->date</td><td style=\"color:$couleurEtat;\">$libelleEtat</td><td class=\"tdPrix\">$sortie->coutTTCTotal</td><td class=\"tdQuantite\">$sortie->nbreArticles</td>";
 		echo "<td align=\"center\"><a href=\"javascript:modifier($sortie->idSortie, '$sortie->etat');\"><img onmouseover=\"this.src='../img/edit_over.png'\" onmouseout=\"this.src='../img/edit.png'\" src=\"../img/edit.png\"></a></td><td align=\"center\"><a href=\"javascript:supprimer($sortie->idSortie);\"><img onmouseover=\"this.src='../img/delete_over.png'\" onmouseout=\"this.src='../img/delete.png'\" src=\"../img/delete.png\"></a></td><td><a href=\"javascript:$fctChangeEtat;\">$changerEtat</a></td></tr>";
 	}
 ?>
