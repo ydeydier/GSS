@@ -59,8 +59,8 @@ Filtre&nbsp;&nbsp;
 </select>
 <br><br><br>
 
-<table class="tableCommune">
-<tr><th>Nom<br><span style="font-weight:normal;font-size:10px;font-style:italic;">Cliquer pour consulter</span></th><th>Date</th><th>Etat</th><th>Coût total<br>(TTC)</th><th>Nbre<br>articles</th><th>Modif.</th><th>Sup.</th><th>Changer état</th></tr>
+<table width="80%" class="tableCommune">
+<tr><th width="20%">Nom<br><span style="font-weight:normal;font-size:10px;font-style:italic;">Cliquer pour consulter</span></th><th width="25%">Commentaire</th><th width="1%">Date</th><th width="1%">Etat</th><th width="1%">Coût total<br>(TTC)</th><th width="1%">Nbre<br>articles</th><th width="1%">Modif.</th><th width="1%">Sup.</th><th nowrap width="1%">Changer état</th></tr>
 <?php
 	foreach ($sorties as $sortie) {
 		if ($sortie->etat==sortie::$VIRTUELLE) {
@@ -74,8 +74,9 @@ Filtre&nbsp;&nbsp;
 		}
 		$libelleEtat=$sortie->libelleEtat();
 		$commentaire = htmlspecialchars($sortie->commentaire);
-		echo "<tr><td title=\"$commentaire\" style=\"cursor:pointer;\" onclick=\"window.location='consulterSortie.php?id=$sortie->idSortie'\"><b>$sortie->nom</b></td><td>$sortie->date</td><td style=\"color:$couleurEtat;\">$libelleEtat</td><td class=\"tdPrix\">$sortie->coutTTCTotal</td><td class=\"tdQuantite\">$sortie->nbreArticles</td>";
-		echo "<td align=\"center\"><a href=\"javascript:modifier($sortie->idSortie, '$sortie->etat');\"><img onmouseover=\"this.src='../img/edit_over.png'\" onmouseout=\"this.src='../img/edit.png'\" src=\"../img/edit.png\"></a></td><td align=\"center\"><a href=\"javascript:supprimer($sortie->idSortie);\"><img onmouseover=\"this.src='../img/delete_over.png'\" onmouseout=\"this.src='../img/delete.png'\" src=\"../img/delete.png\"></a></td><td><a href=\"javascript:$fctChangeEtat;\">$changerEtat</a></td></tr>";
+		$ressources = htmlspecialchars($sortie->ressources);
+		echo "<tr><td title=\"$ressources\" style=\"cursor:pointer;\" onclick=\"window.location='consulterSortie.php?id=$sortie->idSortie'\"><b>$sortie->nom</b></td><td style=\"cursor:pointer;\" onclick=\"window.location='consulterSortie.php?id=$sortie->idSortie'\">$commentaire</td><td>$sortie->date</td><td style=\"color:$couleurEtat;\">$libelleEtat</td><td class=\"tdPrix\">$sortie->coutTTCTotal</td><td class=\"tdQuantite\">$sortie->nbreArticles</td>";
+		echo "<td align=\"center\"><a href=\"javascript:modifier($sortie->idSortie, '$sortie->etat');\"><img onmouseover=\"this.src='../img/edit_over.png'\" onmouseout=\"this.src='../img/edit.png'\" src=\"../img/edit.png\"></a></td><td align=\"center\"><a href=\"javascript:supprimer($sortie->idSortie);\"><img onmouseover=\"this.src='../img/delete_over.png'\" onmouseout=\"this.src='../img/delete.png'\" src=\"../img/delete.png\"></a></td><td nowrap><a href=\"javascript:$fctChangeEtat;\">$changerEtat</a></td></tr>";
 	}
 ?>
 </table>
