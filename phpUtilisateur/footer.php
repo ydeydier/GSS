@@ -12,7 +12,17 @@
 			if ($quantiteReelle==$quantiteVirtuelle) $quantiteVirtuelle="";
 			$quantiteReelle=afficherEntierSansDec($quantiteReelle);
 			$quantiteVirtuelle=afficherEntierSansDec($quantiteVirtuelle);
-			echo "<tr><td>$article->nom</td><td class=\"tdPrix\">$article->prixTTCCourant</td><td class=\"tdQuantite\">$quantiteReelle</td><td class=\"tdQuantiteVirtuelle\">$quantiteVirtuelle</td></tr>";
+			if ($quantiteReelle>=0) {
+				$styleQuantiteReelle="tdQuantite";
+			} else {
+				$styleQuantiteReelle="tdQuantiteNegative";
+			}
+			if ($quantiteVirtuelle>=0) {
+				$styleVirtuelle="tdQuantiteVirtuelle";
+			} else {
+				$styleVirtuelle="tdQuantiteVirtuelleNegative";
+			}
+			echo "<tr><td>$article->nom</td><td class=\"tdPrix\">$article->prixTTCCourant</td><td class=\"$styleQuantiteReelle\">$quantiteReelle</td><td class=\"$styleVirtuelle\">$quantiteVirtuelle</td></tr>";
 		}
 	?>
 	</table>

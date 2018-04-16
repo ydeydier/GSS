@@ -178,17 +178,29 @@ button {
 	FONT-SIZE: 9px;
 }
 
+.tdQuantite {
+	text-align:center;
+}
+
+.tdQuantiteNegative {
+	text-align:center;
+	font-weight:bold;
+	color:#EE0000;
+}
+
 .tdQuantiteVirtuelle {
 	text-align:center;
 	color:#006573;
 }
 
-.tdPrix {
-	text-align:right;
+.tdQuantiteVirtuelleNegative {
+	text-align:center;
+	font-weight:bold;
+	color:#EE0000;
 }
 
-.tdQuantite {
-	text-align:center;
+.tdPrix {
+	text-align:right;
 }
 
 .attention {

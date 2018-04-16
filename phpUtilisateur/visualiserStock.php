@@ -27,14 +27,24 @@
 		$totalHT +=$quantiteReelle*$prixHTCourant;
 		if ($quantiteReelle==$quantiteVirtuelle) $quantiteVirtuelle="";
 		$quantiteReelle=afficherEntierSansDec($quantiteReelle);
+		if ($quantiteReelle>=0) {
+			$styleQuantiteReelle="tdQuantite";
+		} else {
+			$styleQuantiteReelle="tdQuantiteNegative";
+		}
 		$quantiteVirtuelle=afficherEntierSansDec($quantiteVirtuelle);
+		if ($quantiteVirtuelle>=0) {
+			$styleVirtuelle="tdQuantiteVirtuelle";
+		} else {
+			$styleVirtuelle="tdQuantiteVirtuelleNegative";
+		}
 		echo "<tr>";
 		echo "<td>$article->nom</td>";
 		echo "<td class=\"tdPrix\">$tauxTVA</td>";
 		echo "<td class=\"tdPrix\">$prixTTCCourant</td>";
 		echo "<td class=\"tdPrix\">$prixHTCourant</td>";
-		echo "<td class=\"tdQuantite\">$quantiteReelle</td>";
-		echo "<td class=\"tdQuantiteVirtuelle\">$quantiteVirtuelle</td>";
+		echo "<td class=\"$styleQuantiteReelle\">$quantiteReelle</td>";
+		echo "<td class=\"$styleVirtuelle\">$quantiteVirtuelle</td>";
 		echo "</tr>";
 	}
 	$totalTTC=number_format($totalTTC, 2, '.', ' ');
